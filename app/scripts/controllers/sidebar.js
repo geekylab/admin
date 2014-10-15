@@ -12,12 +12,12 @@ angular.module('clientApp')
         $scope.menus = [
             {
                 name: "Dashboard",
-                href: "/",
+                href: "admin.main",
                 icon: "icon-home"
             },
             {
                 name: "Order",
-                href: "/order",
+                href: "admin.order",
                 icon: "icon-basket",
                 children: [
                     {
@@ -29,7 +29,7 @@ angular.module('clientApp')
             },
             {
                 name: "Kitchen",
-                href: "/kitchen",
+                href: "kitchen",
                 icon: "icon-basket",
                 children: [
                     {

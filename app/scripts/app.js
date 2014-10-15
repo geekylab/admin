@@ -18,29 +18,49 @@ angular
         'ngTouch',
         'base64',
         'pascalprecht.translate',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'ui.router'
     ])
-    .config(function ($routeProvider, $translateProvider) {
-        $routeProvider
-            .when('/', {
-                templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
-            })
-            .when('/login', {
-                templateUrl: 'views/login.html',
-                controller: 'LoginCtrl'
-            })
-            .when('/order', {
-                templateUrl: 'views/order.html',
+    .config(function ($stateProvider, $urlRouterProvider, $translateProvider) {
+        $urlRouterProvider.otherwise("/");
+
+        $stateProvider
+            .state('admin', {
+                url: "/",
+                templateUrl: "views/admin.html"
+            }).state('admin.main', {
+                url: "/dashboard",
+                templateUrl: "views/main.html"
+            }).state('admin.order', {
+                url: "/admin/order",
+                templateUrl: "views/admin.order.html",
                 controller: 'OrderCtrl'
-            })
-            .when('/kitchen', {
-                templateUrl: 'views/kitchen.html',
+            }).state('kitchen', {
+                url: "/kitchen",
+                templateUrl: "views/kitchen.html",
                 controller: 'KitchenCtrl'
-            })
-            .otherwise({
-                redirectTo: '/'
             });
+
+        //$routeProvider
+        //    .when('/', {
+        //        templateUrl: 'views/main.html',
+        //        controller: 'MainCtrl'
+        //    })
+        //    .when('/login', {
+        //        templateUrl: 'views/login.html',
+        //        controller: 'LoginCtrl'
+        //    })
+        //    .when('/order', {
+        //        templateUrl: 'views/order.html',
+        //        controller: 'OrderCtrl'
+        //    })
+        //    .when('/kitchen', {
+        //        templateUrl: 'views/kitchen.html',
+        //        controller: 'KitchenCtrl'
+        //    })
+        //    .otherwise({
+        //        redirectTo: '/'
+        //    });
 
         $translateProvider.useStaticFilesLoader({
             prefix: 'i18n/locale-',
