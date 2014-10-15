@@ -23,25 +23,18 @@ angular.module('clientApp')
                     table_number: value.table_number,
                     order_time: value.order_time,
                     items: [{
-                        name: "Bigmac",
-                        annotations: [
-                            '- Cebola'
-                        ]
-                    }, {
-                        name: "Beer"
+                        name: "Cabonara"
                     }]
                 };
 
                 var start = moment.utc(value.order_time);
                 var now = moment.tz('UTC');
                 console.log("now : " + moment().tz('UTC').format('YYYY-MM-DD HH:mm:ss'));
+                console.log("db  : " + value.order_time);
                 console.log("db  : " + start.format('YYYY-MM-DD HH:mm:ss'));
                 console.log("now zone  : " + now.zone());
                 console.log("db  zone : " + start.zone());
-                var datet = now.diff(start, 'seconds');
-
-
-                order.order_time = datet;
+                var datet = 0;
 
                 order.timer = (function () {
                     var now = datet;

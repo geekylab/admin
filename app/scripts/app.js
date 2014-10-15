@@ -39,7 +39,12 @@ angular
                 url: "/kitchen",
                 templateUrl: "views/kitchen.html",
                 controller: 'KitchenCtrl'
-            });
+            }).state('handy', {
+                url: "/handy",
+                templateUrl: "views/handy.html",
+                controller: 'HandyCtrl'
+            })
+        ;
 
         //$routeProvider
         //    .when('/', {
