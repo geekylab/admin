@@ -1,0 +1,97 @@
+<div class="table-actions-wrapper">
+    <span>
+    </span>
+    <select class="table-group-action-input form-control input-inline input-small input-sm">
+        <option value="">Select...</option>
+        <option value="Cancel">Cancel</option>
+        <option value="Cancel">Hold</option>
+        <option value="Cancel">On Hold</option>
+        <option value="Close">Close</option>
+    </select>
+    <button class="btn btn-sm yellow table-group-action-submit"><i class="fa fa-check"></i> Submit</button>
+</div>
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr role="row" class="heading">
+        <th width="2%">
+            <input type="checkbox" class="group-checkable">
+        </th>
+        <th width="5%">
+            {{'Order #'|translate}}
+        </th>
+        <th width="10%">
+            {{'Order Date'|translate}}
+        </th>
+        <th width="5%">
+            {{'Table Number'|translate}}
+        </th>
+        <th width="5%">
+            {{'Base Price' | translate}}
+        </th>
+        <th width="30%">
+            {{'Items' | translate}}
+        </th>
+        <th width="10%">
+            {{'Status' | translate}}
+        </th>
+        <th width="10%">
+            {{'Actions' | translate}}
+        </th>
+    </tr>
+    <tr role="row" class="filter">
+        <td>
+        </td>
+        <td>
+            <input type="text" class="form-control form-filter input-sm" name="order_id" ng-model="filters.order_id">
+        </td>
+        <td>
+            <div class="input-group date date-picker margin-bottom-5" data-date-format="dd/mm/yyyy">
+                <input type="text" class="form-control form-filter input-sm" readonly
+                       name="order_date_from" placeholder="{{'From'|translate}}" ng-model="filters.order_date_from">
+                        <span class="input-group-btn">
+                        <button class="btn btn-sm default" type="button"><i
+                                class="fa fa-calendar"></i></button>
+                        </span>
+            </div>
+            <div class="input-group date date-picker" data-date-format="dd/mm/yyyy">
+                <input type="text" class="form-control form-filter input-sm" readonly
+                       name="order_date_to" placeholder="{{'To'|translate}}" ng-model="filters.order_date_to">
+												<span class="input-group-btn">
+												<button class="btn btn-sm default" type="button"><i
+                                                        class="fa fa-calendar"></i></button>
+												</span>
+            </div>
+        </td>
+        <td>
+            <input type="text" class="form-control form-filter input-sm" name="table_number"
+                   ng-model="filters.table_number">
+        </td>
+        <td>
+            <input type="text" class="form-control form-filter input-sm" name="price" ng-model="filters.price">
+        </td>
+        <td>
+            <input type="text" class="form-control form-filter input-sm" name="product_name"
+                   ng-model="filters.product_name">
+        </td>
+        <td>
+            <select name="order_status" class="form-control form-filter input-sm">
+                <option value="" translate>Select...</option>
+                <option value="pending" translate>Pending</option>
+                <option value="closed" translate>Closed</option>
+                <option value="hold" translate>On Hold</option>
+                <option value="fraud" translate>Fraud</option>
+            </select>
+        </td>
+        <td>
+            <div class="margin-bottom-5">
+                <button class="btn btn-sm yellow filter-submit margin-bottom" ng-click="doSearch()"><i
+                        class="fa fa-search"></i> Search
+                </button>
+            </div>
+            <button class="btn btn-sm red filter-cancel" ng-click="doReset()"><i class="fa fa-times"></i> Reset</button>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
