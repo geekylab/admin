@@ -33,5 +33,4 @@ angular.module('clientApp')
             },
             socket: socket
     };
-})
-;
+});
