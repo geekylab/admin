@@ -19,7 +19,8 @@ angular
         'base64',
         'pascalprecht.translate',
         'ui.bootstrap',
-        'ui.router'
+        'ui.router',
+        'ui.grid'
     ])
     .config(function ($routeProvider, $translateProvider) {
         $routeProvider

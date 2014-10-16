@@ -1,6 +1,100 @@
-<form ng-submit="save()">
-    <input ng-model="item.name">
-    <input ng-model="item.price">
-    <input ng-model="item.created" readonly>
-    <input type="submit">
-</form>
+<h3 class="page-title">
+    {{ 'Item View' | translate }}
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/" translate>Dashboard</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#/item" translate>Item List</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span translate>Item View</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown"
+                    data-hover="dropdown" data-delay="1000" data-close-others="true">
+                Actions <i class="fa fa-angle-down"></i>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li>
+                    <a href="#">Action</a>
+                </li>
+                <li>
+                    <a href="#">Another action</a>
+                </li>
+                <li>
+                    <a href="#">Something else here</a>
+                </li>
+                <li class="divider">
+                </li>
+                <li>
+                    <a href="#">Separated link</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-basket font-green-sharp"></i>
+                    <span class="caption-subject font-green-sharp bold uppercase">Item view</span>
+                    <span class="caption-helper">test</span>
+                </div>
+                <div class="actions">
+                </div>
+            </div>
+            <div class="portlet-body">
+                <form role="form" ng-submit="save()">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label translate>Item Name</label>
+
+                            <div class="input-icon">
+                                <i class="fa fa-info-circle"></i>
+                                <input type="text" placeholder="{{'Item Name'|translate}}"
+                                       class="form-control input-circle" ng-model="item.name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label translate>Item Price</label>
+
+                            <div class="input-icon">
+                                <i class="fa fa-money"></i>
+                                <input type="text" placeholder="{{'Item Price'|translate}}"
+                                       class="form-control input-circle" ng-model="item.price">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label translate>Creation time</label>
+
+                        <div class="input-icon">
+                            <i class="fa fa-clock-o"></i>
+                            <input type="text" placeholder="{{'Creation time'|translate}}"
+                                   class="form-control input-circle" ng-model="item.time">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn blue" type="submit" translate>Submit</button>
+                        <button class="btn default" type="button" translate>Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+</div>
+<!-- END PAGE CONTENT-->

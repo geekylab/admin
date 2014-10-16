@@ -1,6 +1,6 @@
 <h3 class="page-title">
-    {{ 'Order View' | translate }}
-    <small translate>view order details</small>
+    {{ 'Item Listing' | translate }}
+    <small translate>view item details</small>
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -10,23 +10,28 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#/order" translate>Order View</a>
+            <span translate>Item Listing</span>
         </li>
     </ul>
 </div>
 <div class="row">
-    <a href="#/item/-1">New</a>
-</div>
-<div class="row">
     <div class="col-md-12">
         <div class="portlet light">
-            <div class="portlet-body">
-                <div ng-repeat="entry in entries">
-                    <a ng-href="#/item/{{entry._id}}">{{entry.name}}</a>
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-basket font-green-sharp"></i>
+                    <span class="caption-subject font-green-sharp bold uppercase" translate>Item Listing</span>
+                    <span class="caption-helper" translate>manage items</span>
+                </div>
+                <div class="actions">
+                    <a href="#/item/-1" class="btn btn-circle btn-default">
+                        <i class="fa fa-plus"></i><span class="hidden-480" translate>New Item</span>
+                    </a>
                 </div>
             </div>
+            <div class="portlet-body">
+                <div id="grid1" ui-grid="gridOptions" class="grid" external-scopes="myScope"></div>
+            </div>
         </div>
-        <!-- End: life time stats -->
     </div>
 </div>
-<!-- END PAGE CONTENT-->
