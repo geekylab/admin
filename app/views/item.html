@@ -1,0 +1,32 @@
+<h3 class="page-title">
+    {{ 'Order View' | translate }}
+    <small translate>view order details</small>
+</h3>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/" translate>Dashboard</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#/order" translate>Order View</a>
+        </li>
+    </ul>
+</div>
+<div class="row">
+    <a href="#/item/-1">New</a>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-body">
+                <div ng-repeat="entry in entries">
+                    <a ng-href="#/item/{{entry._id}}">{{entry.name}}</a>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+</div>
+<!-- END PAGE CONTENT-->
