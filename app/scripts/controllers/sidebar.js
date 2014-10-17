@@ -21,14 +21,14 @@ angular.module('clientApp')
                 icon: "icon-basket"
             },
             {
-                name: "Category",
-                href: "/category",
-                icon: "icon-docs"
-            },
-            {
                 name: "Item",
                 href: "/item",
                 icon: "icon-cup"
+            },
+            {
+                name: "Category",
+                href: "/category",
+                icon: "icon-docs"
             }
         ];
 
