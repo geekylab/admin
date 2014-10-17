@@ -64,7 +64,8 @@ router.put('/item/:id', function (req, res) {
                 name: req.body.name,
                 price: req.body.price,
                 time: req.body.time,
-                images: req.body.images
+                images: req.body.images,
+                categories: req.body.categories
             }
         },
         {upsert: true},
@@ -91,6 +92,8 @@ router.post('/item', function (req, res) {
         item.time = req.body.time;
     if (req.body.images != undefined)
         item.iamges = req.body.images;
+    if (req.body.categories != undefined)
+        item.categories = req.body.categories;
     item.save(function (err) {
         if (err) {
             res.json(err);

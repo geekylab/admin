@@ -8,51 +8,52 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('ItemviewCtrl', function ($scope, Items, $location, $routeParams, alertService, FileUploader, $translate) {
+    .controller('ItemviewCtrl', function ($scope, Items, $location, $routeParams, alertService, FileUploader, $translate, Categories) {
 
         var uploader = $scope.uploader = new FileUploader(
             {url: '/api/upload'}
         );
 
         $scope.item = {};
+        $scope.categories = Categories.query();
         $scope.item.images = [];
         $scope.myPromise = {};
 
-        uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
-            console.info('onWhenAddingFileFailed', item, filter, options);
-        };
-        uploader.onAfterAddingFile = function (fileItem) {
-            console.info('onAfterAddingFile', fileItem);
-        };
-        uploader.onAfterAddingAll = function (addedFileItems) {
-            console.info('onAfterAddingAll', addedFileItems);
-        };
-        uploader.onBeforeUploadItem = function (item) {
-            console.info('onBeforeUploadItem', item);
-        };
-        uploader.onProgressItem = function (fileItem, progress) {
-            console.info('onProgressItem', fileItem, progress);
-        };
-        uploader.onProgressAll = function (progress) {
-            console.info('onProgressAll', progress);
-        };
-        uploader.onSuccessItem = function (fileItem, response, status, headers) {
-            console.info('onSuccessItem', fileItem, response, status, headers);
-        };
-        uploader.onErrorItem = function (fileItem, response, status, headers) {
-            console.info('onErrorItem', fileItem, response, status, headers);
-        };
-        uploader.onCancelItem = function (fileItem, response, status, headers) {
-            console.info('onCancelItem', fileItem, response, status, headers);
-        };
+        //uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
+        //    console.info('onWhenAddingFileFailed', item, filter, options);
+        //};
+        //uploader.onAfterAddingFile = function (fileItem) {
+        //    console.info('onAfterAddingFile', fileItem);
+        //};
+        //uploader.onAfterAddingAll = function (addedFileItems) {
+        //    console.info('onAfterAddingAll', addedFileItems);
+        //};
+        //uploader.onBeforeUploadItem = function (item) {
+        //    console.info('onBeforeUploadItem', item);
+        //};
+        //uploader.onProgressItem = function (fileItem, progress) {
+        //    console.info('onProgressItem', fileItem, progress);
+        //};
+        //uploader.onProgressAll = function (progress) {
+        //    console.info('onProgressAll', progress);
+        //};
+        //uploader.onSuccessItem = function (fileItem, response, status, headers) {
+        //    console.info('onSuccessItem', fileItem, response, status, headers);
+        //};
+        //uploader.onErrorItem = function (fileItem, response, status, headers) {
+        //    console.info('onErrorItem', fileItem, response, status, headers);
+        //};
+        //uploader.onCancelItem = function (fileItem, response, status, headers) {
+        //    console.info('onCancelItem', fileItem, response, status, headers);
+        //};
         uploader.onCompleteItem = function (fileItem, response, status, headers) {
             console.info('onCompleteItem', fileItem, response, status, headers);
             $scope.item.images.push(response);
             fileItem.remove();
         };
-        uploader.onCompleteAll = function () {
-            console.info('onCompleteAll');
-        };
+        //uploader.onCompleteAll = function () {
+        //    console.info('onCompleteAll');
+        //};
 
 
         uploader.filters.push({
@@ -130,6 +131,18 @@ angular.module('clientApp')
         $scope.removeImage = function (index) {
             if (window.confirm($translate.instant('Remove?'))) {
                 $scope.item.images.splice(index, 1);
+            }
+        };
+
+        $scope.toggleCheck = function (itemId, categoryId) {
+            if ($scope.item.categories != undefined) {
+                var idx = $scope.item.categories.indexOf(categoryId);
+                if (angular.equals(idx, -1)) {
+                    $scope.item.categories.push(categoryId);
+                }
+                else {
+                    $scope.item.categories.splice(idx, 1);
+                }
             }
         };
 

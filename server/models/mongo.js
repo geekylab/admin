@@ -75,6 +75,7 @@ var Items = new mongoose.Schema({
         default: 0
     },
     'images': [Image],
+    'categories': [String],
     created: {
         type: Date,
         default: Date.now

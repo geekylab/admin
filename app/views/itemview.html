@@ -23,204 +23,220 @@
 <div class="col-md-12">
 <form role="form" ng-submit="save(true)">
 <div class="portlet light">
-    <div class="portlet-title">
-        <div class="caption">
-            <i class="icon-note font-green-sharp"></i>
-            <span class="caption-subject font-green-sharp bold uppercase">{{'Item view'|translate}}</span>
-        </div>
-        <div class="actions btn-set">
-            <a ng-href="/#/item" type="button" name="back" class="btn btn-default btn-circle">
-                <i class="fa fa-angle-left"></i> {{'Back'|translate}}
-            </a>
-            <a href="javascript:;" class="btn green-haze btn-circle" ng-click="save(false)">
-                <i class="fa fa-check"></i> {{'Save'|translate}}
-            </a>
-            <button type="submit" class="btn green-haze btn-circle">
-                <i class="fa fa-check-circle"></i> {{'Save &amp; Continue Edit'|translate}}
-            </button>
+<div class="portlet-title">
+    <div class="caption">
+        <i class="icon-note font-green-sharp"></i>
+        <span class="caption-subject font-green-sharp bold uppercase">{{'Item view'|translate}}</span>
+    </div>
+    <div class="actions btn-set">
+        <a ng-href="/#/item" type="button" name="back" class="btn btn-default btn-circle">
+            <i class="fa fa-angle-left"></i> {{'Back'|translate}}
+        </a>
+        <a href="javascript:;" class="btn green-haze btn-circle" ng-click="save(false)">
+            <i class="fa fa-check"></i> {{'Save'|translate}}
+        </a>
+        <button type="submit" class="btn green-haze btn-circle">
+            <i class="fa fa-check-circle"></i> {{'Save &amp; Continue Edit'|translate}}
+        </button>
 
-            <div class="btn-group">
-                <a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
-                    <i class="fa fa-share"></i> {{'More'|translate}} <i class="fa fa-angle-down"></i>
-                </a>
-                <ul class="dropdown-menu pull-right">
-                    <li>
-                        <a href="javascript:;">{{'Duplicate'|translate}}</a>
-                    </li>
-                    <li ng-class="{'disabled':!item._id || item._id == -1}">
-                        <a href="javascript:;" ng-click="delete()"><span class="label label-danger">{{'Delete'|translate}}</span></a>
-                    </li>
-                </ul>
-            </div>
+        <div class="btn-group">
+            <a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
+                <i class="fa fa-share"></i> {{'More'|translate}} <i class="fa fa-angle-down"></i>
+            </a>
+            <ul class="dropdown-menu pull-right">
+                <li>
+                    <a href="javascript:;">{{'Duplicate'|translate}}</a>
+                </li>
+                <li ng-class="{'disabled':!item._id || item._id == -1}">
+                    <a href="javascript:;" ng-click="delete()"><span
+                            class="label label-danger">{{'Delete'|translate}}</span></a>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="portlet-body">
-        <div cg-busy="myPromise"></div>
-        <div class="tabbable">
-            <tabset>
-                <tab heading="{{'General'|translate}}">
-                    <div class="form-body">
-                        <div class="form-group">
-                            <label>{{'Item Name'|translate}}</label>
+</div>
+<div class="portlet-body">
+    <div cg-busy="myPromise"></div>
+    <div class="tabbable">
+        <tabset>
+            <tab heading="{{'General'|translate}}">
+                <div class="form-body">
+                    <div class="form-group">
+                        <label>{{'Item Name'|translate}}</label>
 
-                            <div class="input-icon">
-                                <i class="fa fa-info-circle"></i>
-                                <input type="text" placeholder="{{'Item Name'|translate}}"
-                                       class="form-control input-circle" ng-model="item.name">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>{{'Item Price'|translate}}</label>
-
-                            <div class="input-icon">
-                                <i class="fa fa-money"></i>
-                                <input type="text" placeholder="{{'Item Price'|translate}}"
-                                       class="form-control input-circle" ng-model="item.price">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>{{'Creation time'|translate}}</label>
-
-                            <div class="input-icon">
-                                <i class="fa fa-clock-o"></i>
-                                <input type="text" placeholder="{{'Creation time'|translate}}"
-                                       class="form-control input-circle" ng-model="item.time">
-                            </div>
+                        <div class="input-icon">
+                            <i class="fa fa-info-circle"></i>
+                            <input type="text" placeholder="{{'Item Name'|translate}}"
+                                   class="form-control input-circle" ng-model="item.name">
                         </div>
                     </div>
-                </tab>
-                <tab heading="{{'Images'|translate}}">
-                    <div class="text-align-reverse margin-bottom-10">
-                        <input type="file" nv-file-select="" uploader="uploader" multiple/>
-                        <button type="button" class="btn green" ng-click="uploader.uploadAll()"
-                                ng-disabled="!uploader.getNotUploadedItems().length">
-                            <span class="fa fa-share"></span> {{'Upload all'|translate}}
-                        </button>
-                    </div>
-                    <table class="table table-bordered table-hover"
-                           ng-show="uploader.getNotUploadedItems().length">
-                        <thead>
-                        <tr>
-                            <th width="60%">{{'Name'|translate}}</th>
-                            <th ng-show="uploader.isHTML5" width="10%">{{'Size'|translate}}</th>
-                            <th ng-show="uploader.isHTML5" width="10%">{{'Progress'|translate}}</th>
-                            <th width="10%">{{'Status'|translate}}</th>
-                            <th width="10%">{{'Actions'|translate}}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-repeat="img in uploader.queue">
-                            <td>
-                                <strong>{{ img.file.name }}</strong>
 
-                                <div ng-show="uploader.isHTML5"
-                                     ng-thumb="{ file: img._file, height: 100 }"></div>
-                            </td>
-                            <td ng-show="uploader.isHTML5" nowrap>{{ img.file.size/1024/1024|number:2}} MB
-                            </td>
-                            <td ng-show="uploader.isHTML5">
-                                <div class="progress" style="margin-bottom: 0;">
-                                    <div class="progress-bar" role="progressbar"
-                                         ng-style="{ 'width': img.progress + '%' }"></div>
-                                </div>
-                            </td>
-                            <td class="text-center">
+                    <div class="form-group">
+                        <label>{{'Item Price'|translate}}</label>
+
+                        <div class="input-icon">
+                            <i class="fa fa-money"></i>
+                            <input type="text" placeholder="{{'Item Price'|translate}}"
+                                   class="form-control input-circle" ng-model="item.price">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{'Creation time'|translate}}</label>
+
+                        <div class="input-icon">
+                            <i class="fa fa-clock-o"></i>
+                            <input type="text" placeholder="{{'Creation time'|translate}}"
+                                   class="form-control input-circle" ng-model="item.time">
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="{{'Images'|translate}}">
+                <div class="text-align-reverse margin-bottom-10">
+                    <input type="file" nv-file-select="" uploader="uploader" multiple/>
+                    <button type="button" class="btn green" ng-click="uploader.uploadAll()"
+                            ng-disabled="!uploader.getNotUploadedItems().length">
+                        <span class="fa fa-share"></span> {{'Upload all'|translate}}
+                    </button>
+                </div>
+                <table class="table table-bordered table-hover"
+                       ng-show="uploader.getNotUploadedItems().length">
+                    <thead>
+                    <tr>
+                        <th width="60%">{{'Name'|translate}}</th>
+                        <th ng-show="uploader.isHTML5" width="10%">{{'Size'|translate}}</th>
+                        <th ng-show="uploader.isHTML5" width="10%">{{'Progress'|translate}}</th>
+                        <th width="10%">{{'Status'|translate}}</th>
+                        <th width="10%">{{'Actions'|translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="img in uploader.queue">
+                        <td>
+                            <strong>{{ img.file.name }}</strong>
+
+                            <div ng-show="uploader.isHTML5"
+                                 ng-thumb="{ file: img._file, height: 100 }"></div>
+                        </td>
+                        <td ng-show="uploader.isHTML5" nowrap>{{ img.file.size/1024/1024|number:2}} MB
+                        </td>
+                        <td ng-show="uploader.isHTML5">
+                            <div class="progress" style="margin-bottom: 0;">
+                                <div class="progress-bar" role="progressbar"
+                                     ng-style="{ 'width': img.progress + '%' }"></div>
+                            </div>
+                        </td>
+                        <td class="text-center">
                                                 <span ng-show="img.isSuccess"><i
                                                         class="glyphicon glyphicon-ok"></i></span>
                                                 <span ng-show="img.isCancel"><i
                                                         class="glyphicon glyphicon-ban-circle"></i></span>
                                             <span ng-show="img.isError"><i
                                                     class="glyphicon glyphicon-remove"></i></span>
-                            </td>
-                            <td nowrap>
-                                <button type="button" class="btn btn-success btn-xs"
-                                        ng-click="img.upload()"
-                                        ng-disabled="img.isReady || img.isUploading || img.isSuccess">
-                                    <span class="glyphicon glyphicon-upload"></span> {{'Upload'|translate}}
-                                </button>
-                                <button type="button" class="btn btn-warning btn-xs"
-                                        ng-click="img.cancel()"
-                                        ng-disabled="!img.isUploading">
-                                    <span class="glyphicon glyphicon-ban-circle"></span>
-                                    {{'Cancel'|translate}}
-                                </button>
-                                <button type="button" class="btn btn-danger btn-xs"
-                                        ng-click="img.remove()">
-                                    <span class="glyphicon glyphicon-trash"></span> {{'Remove'|translate}}
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                        <tr role="row" class="heading">
-                            <th width="8%">
-                                {{'Image'|translate}}
-                            </th>
-                            <th width="25%">
-                                {{'Label'|translate}}
-                            </th>
-                            <th width="8%">
-                                {{'Sort Order'|translate}}
-                            </th>
-                            <th width="10%">
-                                {{'Base Image'|translate}}
-                            </th>
-                            <th width="10%">
-                                {{'Small Image'|translate}}
-                            </th>
-                            <th width="10%">
-                                {{'Thumbnail'|translate}}
-                            </th>
-                            <th width="10%">
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr ng-animate="'animate'" ng-repeat="img in item.images">
-                            <td>
-                                <a href="javascript:;" ng-href="{{img.path}}" class="fancybox-button"
-                                   data-rel="fancybox-button">
-                                    <img class="img-responsive" ng-src="{{img.path}}" alt="">
-                                </a>
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" ng-model="img.filename">
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" ng-model="img.sort_order">
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="radio" ng-model="img.image_type" ng-value="1">
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="radio" ng-model="img.image_type" ng-value="2">
-                                </label>
-                            </td>
-                            <td>
-                                <label>
-                                    <input type="radio" ng-model="img.image_type" ng-value="3">
-                                </label>
-                            </td>
-                            <td>
-                                <a href="javascript:;" class="btn default btn-sm"
-                                   ng-click="removeImage($index)">
-                                    <i class="fa fa-times"></i> {{'Remove'|translate}}
-                                </a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </tab>
-            </tabset>
-        </div>
+                        </td>
+                        <td nowrap>
+                            <button type="button" class="btn btn-success btn-xs"
+                                    ng-click="img.upload()"
+                                    ng-disabled="img.isReady || img.isUploading || img.isSuccess">
+                                <span class="glyphicon glyphicon-upload"></span> {{'Upload'|translate}}
+                            </button>
+                            <button type="button" class="btn btn-warning btn-xs"
+                                    ng-click="img.cancel()"
+                                    ng-disabled="!img.isUploading">
+                                <span class="glyphicon glyphicon-ban-circle"></span>
+                                {{'Cancel'|translate}}
+                            </button>
+                            <button type="button" class="btn btn-danger btn-xs"
+                                    ng-click="img.remove()">
+                                <span class="glyphicon glyphicon-trash"></span> {{'Remove'|translate}}
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr role="row" class="heading">
+                        <th width="8%">
+                            {{'Image'|translate}}
+                        </th>
+                        <th width="25%">
+                            {{'Label'|translate}}
+                        </th>
+                        <th width="8%">
+                            {{'Sort Order'|translate}}
+                        </th>
+                        <th width="10%">
+                            {{'Base Image'|translate}}
+                        </th>
+                        <th width="10%">
+                            {{'Small Image'|translate}}
+                        </th>
+                        <th width="10%">
+                            {{'Thumbnail'|translate}}
+                        </th>
+                        <th width="10%">
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-animate="'animate'" ng-repeat="img in item.images">
+                        <td>
+                            <a href="javascript:;" ng-href="{{img.path}}" class="fancybox-button"
+                               data-rel="fancybox-button">
+                                <img class="img-responsive" ng-src="{{img.path}}" alt="">
+                            </a>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="img.filename">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" ng-model="img.sort_order">
+                        </td>
+                        <td>
+                            <label>
+                                <input type="radio" ng-model="img.image_type" ng-value="1">
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input type="radio" ng-model="img.image_type" ng-value="2">
+                            </label>
+                        </td>
+                        <td>
+                            <label>
+                                <input type="radio" ng-model="img.image_type" ng-value="3">
+                            </label>
+                        </td>
+                        <td>
+                            <a href="javascript:;" class="btn default btn-sm"
+                               ng-click="removeImage($index)">
+                                <i class="fa fa-times"></i> {{'Remove'|translate}}
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </tab>
+            <tab heading="{{'Category'|translate}}">
+                <div class="form-control height-auto">
+                    <label>{{'Category'|translate}}</label>
+
+                    <div class="scroller" style="height:275px;" data-always-visible="1">
+                        <ul class="list-unstyled">
+                            <li ng-repeat="category in categories">
+                                <label><input type="checkbox"
+                                              ng-checked="item.categories.indexOf(category._id) > -1"
+                                              ng-click="toggleCheck(item._id,category._id)">{{category.name}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
     </div>
+</div>
 </div>
 </form>
 </div>
