@@ -220,17 +220,18 @@
                 </table>
             </tab>
             <tab heading="{{'Category'|translate}}">
-                <div class="form-control height-auto">
+                <div class="form-group">
                     <label>{{'Category'|translate}}</label>
-
-                    <div class="scroller" style="height:275px;" data-always-visible="1">
-                        <ul class="list-unstyled">
-                            <li ng-repeat="category in categories">
-                                <label><input type="checkbox"
-                                              ng-checked="item.categories.indexOf(category._id) > -1"
-                                              ng-click="toggleCheck(item._id,category._id)">{{category.name}}</label>
-                            </li>
-                        </ul>
+                    <div class="form-control height-auto">
+                        <div class="scroller" style="height:275px;" data-always-visible="1">
+                            <ul class="list-unstyled">
+                                <li ng-repeat="category in categories">
+                                    <label><input type="checkbox"
+                                                  ng-checked="item.categories.indexOf(category._id) > -1"
+                                                  ng-click="toggleCheck(item._id,category._id)">{{category.name}}</label>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </tab>
