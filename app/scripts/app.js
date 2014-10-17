@@ -34,6 +34,18 @@ angular
                 templateUrl: 'views/login.html',
                 controller: 'LoginCtrl'
             })
+            .when('/order', {
+                templateUrl: 'views/order.html',
+                controller: 'OrderCtrl'
+            })
+            .when('/item', {
+                templateUrl: 'views/item.html',
+                controller: 'ItemCtrl'
+            })
+            .when('/item/:id', {
+                templateUrl: 'views/itemedit.html',
+                controller: 'ItemeditCtrl'
+            })
             .when('/category', {
                 templateUrl: 'views/category.html',
                 controller: 'CategoryCtrl'
@@ -42,22 +54,14 @@ angular
                 templateUrl: 'views/categoryedit.html',
                 controller: 'CategoryeditCtrl'
             })
-            .when('/item', {
-                templateUrl: 'views/item.html',
-                controller: 'ItemCtrl'
+            .when('/table', {
+                templateUrl: 'views/table.html',
+                controller: 'TableCtrl'
             })
-            .when('/item/:id', {
-                templateUrl: 'views/itemview.html',
-                controller: 'ItemviewCtrl'
-            })
-            .when('/order', {
-                templateUrl: 'views/order.html',
-                controller: 'OrderCtrl'
-            })
-            .when('/kitchen', {
-                templateUrl: 'views/kitchen.html',
-                controller: 'KitchenCtrl'
-            })
+            //.when('/category/edit/:id', {
+            //    templateUrl: 'views/categoryedit.html',
+            //    controller: 'CategoryeditCtrl'
+            //})
             .otherwise({
                 redirectTo: '/'
             });

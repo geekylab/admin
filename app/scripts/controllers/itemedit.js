@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name clientApp.controller:ItemviewCtrl
+ * @name clientApp.controller:ItemeditCtrl
  * @description
- * # ItemviewCtrl
+ * # ItemeditCtrl
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('ItemviewCtrl', function ($scope, Items, $location, $routeParams, alertService, FileUploader, $translate, Categories) {
+    .controller('ItemeditCtrl', function ($scope, Items, $location, $routeParams, alertService, FileUploader, $translate, Categories) {
 
         var uploader = $scope.uploader = new FileUploader(
             {url: '/api/upload'}
