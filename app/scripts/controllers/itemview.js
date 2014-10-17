@@ -8,7 +8,7 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('ItemviewCtrl', function ($scope, Items, $location, $routeParams, alertService, FileUploader) {
+    .controller('ItemviewCtrl', function ($scope, Items, $location, $routeParams, alertService, FileUploader, $translate) {
 
         var uploader = $scope.uploader = new FileUploader(
             {url: '/api/upload'}
@@ -70,13 +70,19 @@ angular.module('clientApp')
             $scope.item.images = [];
         }
 
+        if ($scope.item.images === undefined)
+            $scope.item.images = [];
+
 
         $scope.save = function (continueFlg) {
             function success(response) {
                 alertService.add('success', '保存した');
                 console.log("success", response);
-                if (!continueFlg)
+                if (!continueFlg) {
                     $location.path("/item");
+                } else {
+                    $location.path("/item/" + $scope.item._id);
+                }
             }
 
             function failure(response) {
@@ -116,12 +122,13 @@ angular.module('clientApp')
             }
 
             if ($scope.item._id) {
-                $scope.myPromise = $scope.item.$delete(success, failure);
+                if (window.confirm($translate.instant('Remove?')))
+                    $scope.myPromise = $scope.item.$delete(success, failure);
             }
         };
 
         $scope.removeImage = function (index) {
-            if (window.confirm("本当に削除しますか？")) {
+            if (window.confirm($translate.instant('Remove?'))) {
                 $scope.item.images.splice(index, 1);
             }
         };

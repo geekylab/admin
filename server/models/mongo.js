@@ -58,16 +58,28 @@ var Items = new mongoose.Schema({
         required: true
     },
     price: {
-        type: Number
+        type: Number,
+        default: 0
     },
     'time': {
-        type: Number
+        type: Number,
+        default: 0
     },
     'images': [{
-        path: String,
-        filename: String,
-        sort_order : Number,
-        image_type: Number
+        path: {
+            type: String
+        },
+        filename: {
+            type: String
+        },
+        sort_order: {
+            type: Number,
+            default: 0
+        },
+        image_type: {
+            type: Number,
+            default: 0
+        }
     }],
     created: {
         type: Date,

@@ -65,6 +65,7 @@ router.put('/item/:id', function (req, res) {
         {upsert: true},
         function (err, obj) {
             if (err) {
+                console.log(err);
                 res.json(err);
             }
             res.json(obj);
@@ -77,15 +78,20 @@ router.post('/item', function (req, res) {
     console.info("post data", req.body);
 
     var item = new Items();
-    item.name = req.body.name;
-    item.price = req.body.price;
-    item.time = req.body.time;
-    item.iamges = req.body.images;
+    if (req.body.name != undefined)
+        item.name = req.body.name;
+    if (req.body.price != undefined)
+        item.price = req.body.price;
+    if (req.body.time != undefined)
+        item.time = req.body.time;
+    if (req.body.images != undefined)
+        item.iamges = req.body.images;
     item.save(function (err) {
         if (err) {
             res.json(err);
         }
-        res.json({message: 'Bear created!'});
+        console.info("insert item", item);
+        res.json(item);
     });
 });
 
@@ -124,8 +130,6 @@ router.post('/upload', function (req, res, next) {
         if (!part.filename) return;
 
         if (part.name !== 'file') return part.resume();
-
-        console.log(part);
 
         image = {};
         image.filename = part.filename;
