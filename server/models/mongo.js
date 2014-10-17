@@ -38,17 +38,26 @@ var Categories = new mongoose.Schema({
         type: String,
         required: true
     },
-    parent_id: {
-        type: String,
-        required: true,
-        default: '0'
-    },
-    type: {
-        type: Number
-    },
     created: {
         type: Date,
         default: Date.now
+    }
+});
+
+var Image = new mongoose.Schema({
+    path: {
+        type: String
+    },
+    filename: {
+        type: String
+    },
+    sort_order: {
+        type: Number,
+        default: 0
+    },
+    image_type: {
+        type: Number,
+        default: 0
     }
 });
 
@@ -65,22 +74,7 @@ var Items = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    'images': [{
-        path: {
-            type: String
-        },
-        filename: {
-            type: String
-        },
-        sort_order: {
-            type: Number,
-            default: 0
-        },
-        image_type: {
-            type: Number,
-            default: 0
-        }
-    }],
+    'images': [Image],
     created: {
         type: Date,
         default: Date.now

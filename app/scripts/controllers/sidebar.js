@@ -18,26 +18,17 @@ angular.module('clientApp')
             {
                 name: "Order",
                 href: "/order",
-                icon: "icon-basket",
-                children: [
-                    {
-                        name: "Dashboard",
-                        href: "/",
-                        icon: "icon-home"
-                    }
-                ]
+                icon: "icon-basket"
+            },
+            {
+                name: "Category",
+                href: "/category",
+                icon: "icon-note"
             },
             {
                 name: "Item",
                 href: "/item",
-                icon: "icon-basket",
-                children: [
-                    {
-                        name: "Dashboard",
-                        href: "/",
-                        icon: "icon-home"
-                    }
-                ]
+                icon: "icon-cup"
             }
         ];
 
