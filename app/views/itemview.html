@@ -18,46 +18,69 @@
     </ul>
     <div class="page-toolbar">
         <div class="btn-group pull-right">
-            <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown"
-                    data-hover="dropdown" data-delay="1000" data-close-others="true">
-                Actions <i class="fa fa-angle-down"></i>
-            </button>
-            <ul class="dropdown-menu pull-right" role="menu">
-                <li>
-                    <a href="#">Action</a>
-                </li>
-                <li>
-                    <a href="#">Another action</a>
-                </li>
-                <li>
-                    <a href="#">Something else here</a>
-                </li>
-                <li class="divider">
-                </li>
-                <li>
-                    <a href="#">Separated link</a>
-                </li>
-            </ul>
+            <!--<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown"-->
+            <!--data-hover="dropdown" data-delay="1000" data-close-others="true">-->
+            <!--Actions <i class="fa fa-angle-down"></i>-->
+            <!--</button>-->
+            <!--<ul class="dropdown-menu pull-right" role="menu">-->
+                <!--<li>-->
+                    <!--<a href="#">Action</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="#">Another action</a>-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="#">Something else here</a>-->
+                <!--</li>-->
+                <!--<li class="divider">-->
+                <!--</li>-->
+                <!--<li>-->
+                    <!--<a href="#">Separated link</a>-->
+                <!--</li>-->
+            <!--</ul>-->
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <div class="portlet light">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="icon-basket font-green-sharp"></i>
-                    <span class="caption-subject font-green-sharp bold uppercase">Item view</span>
-                    <span class="caption-helper">test</span>
+        <form role="form" ng-submit="save()">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-basket font-green-sharp"></i>
+                        <span class="caption-subject font-green-sharp bold uppercase">Item view</span>
+                        <span class="caption-helper">test</span>
+                    </div>
+                    <div class="actions btn-set">
+                        <a ng-href="/#/item" type="button" name="back" class="btn btn-default btn-circle">
+                            <i class="fa fa-angle-left"></i> {{'Back'|translate}}
+                        </a>
+                        <button type="submit" class="btn green-haze btn-circle">
+                            <i class="fa fa-check"></i> {{'Save'|translate}}
+                        </button>
+                        <a href="javascript:;" ng-click="save(true)" class="btn green-haze btn-circle">
+                            <i class="fa fa-check-circle"></i> {{'Save &amp; Continue Edit'|translate}}
+                        </a>
+
+                        <div class="btn-group">
+                            <a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
+                                <i class="fa fa-share"></i> {{'More'|translate}} <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="javascript:;">{{'Duplicate'|translate}}</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" ng-click="delete()">Delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="actions">
-                </div>
-            </div>
-            <div class="portlet-body">
-                <form role="form" ng-submit="save()">
+                <div class="portlet-body">
                     <div class="form-body">
                         <div class="form-group">
-                            <label translate>Item Name</label>
+                            <label translate>{{'Item Name'|translate}}</label>
 
                             <div class="input-icon">
                                 <i class="fa fa-info-circle"></i>
@@ -67,7 +90,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label translate>Item Price</label>
+                            <label translate>{{'Item Price'|translate}}</label>
 
                             <div class="input-icon">
                                 <i class="fa fa-money"></i>
@@ -78,7 +101,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label translate>Creation time</label>
+                        <label translate>{{'Creation time'|translate}}</label>
 
                         <div class="input-icon">
                             <i class="fa fa-clock-o"></i>
@@ -87,14 +110,8 @@
                         </div>
                     </div>
 
-                    <div class="form-actions">
-                        <button class="btn blue" type="submit" translate>Submit</button>
-                        <button class="btn default" type="button" translate>Cancel</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-        <!-- End: life time stats -->
+        </form>
     </div>
 </div>
-<!-- END PAGE CONTENT-->

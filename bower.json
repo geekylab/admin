@@ -31,9 +31,7 @@
     "moment": "~2.8.3",
     "moment-timezone": "~0.2.2",
     "angular-bootstrap": "~0.11.2",
-    "angular-ui-router": "~0.2.11",
     "angular-ui-grid": "~3.0.0-rc.11",
-    "pace": "~1.0.1",
     "angular-loading-bar": "~0.6.0"
   },
   "devDependencies": {

@@ -17,11 +17,12 @@ angular.module('clientApp')
         }
 
 
-        $scope.save = function () {
+        $scope.save = function (continueFlg) {
             function success(response) {
                 alertService.add('success', '保存した');
                 console.log("success", response);
-                $location.path("/item");
+                if (!continueFlg)
+                    $location.path("/item");
             }
 
             function failure(response) {
@@ -35,11 +36,15 @@ angular.module('clientApp')
                 });
             }
 
-
             if ($routeParams.id) {
                 Items.update($scope.item, success, failure);
             } else {
                 Items.save($scope.item, success, failure);
             }
-        }
+        };
+
+        $scope.delete = function () {
+            alert('delete');
+        };
+
     });
