@@ -20,7 +20,8 @@ angular
         'pascalprecht.translate',
         'ui.bootstrap',
         'ui.grid',
-        'angular-loading-bar'
+        'angular-loading-bar',
+        'angularFileUpload'
     ])
     .config(function ($routeProvider, $translateProvider) {
         $routeProvider
