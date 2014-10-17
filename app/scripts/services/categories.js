@@ -8,7 +8,7 @@
  * Factory in the clientApp.
  */
 angular.module('clientApp')
-    .factory('Categories', function () {
+    .factory('Categories', function ($resource) {
         return $resource('/api/category/:id', {id: '@_id'}, {
             update: {
                 method: 'PUT',

@@ -8,6 +8,7 @@ var fs = require('fs');
 
 var Items = model.Items;
 var Orders = model.Orders;
+var Categories = model.Categories;
 
 
 router.get('/dashboard/index', function (req, res) {
@@ -30,6 +31,10 @@ router.get('/order/:id', function (req, res) {
 
     });
 });
+
+/**
+ * Item
+ */
 
 router.get('/item', function (req, res) {
     Items.find({}, function (err, rows) {
@@ -104,6 +109,76 @@ router.delete('/item/:id', function (req, res) {
     });
 });
 
+/**
+ * Category
+ */
+
+router.get('/category', function (req, res) {
+    Categories.find({}, function (err, rows) {
+        if (err)
+            res.json(err);
+        res.json(rows);
+    });
+});
+
+router.get('/category/:id', function (req, res) {
+    Categories.findOne({_id: req.params.id}, function (err, item) {
+        if (err)
+            res.json(err);
+
+
+        console.info("get item :" + req.params.id, item);
+        res.json(item);
+
+    });
+});
+
+router.put('/category/:id', function (req, res) {
+    Categories.findByIdAndUpdate(req.params.id, {
+            $set: {
+                name: req.body.name
+            }
+        },
+        {upsert: true},
+        function (err, obj) {
+            if (err) {
+                console.log(err);
+                res.json(err);
+            }
+            res.json(obj);
+        });
+});
+
+
+router.post('/category', function (req, res) {
+
+    console.info("post data", req.body);
+
+    var category = new Categories();
+    if (req.body.name != undefined)
+        category.name = req.body.name;
+    category.save(function (err) {
+        if (err) {
+            res.json(err);
+        }
+        console.info("insert item", category);
+        res.json(category);
+    });
+});
+
+router.delete('/category/:id', function (req, res) {
+    Categories.findByIdAndRemove(req.params.id, function (err, response) {
+        if (err) {
+            res.json(err);
+        }
+        res.json({message: 'Deleted!'});
+    });
+});
+
+
+/**
+ * Image upload
+ */
 
 router.post('/upload', function (req, res, next) {
 // create a form to begin parsing
