@@ -82,7 +82,27 @@ var Items = new mongoose.Schema({
     }
 });
 
+var Tables = new mongoose.Schema({
+    'table_number': {
+        type: String,
+        required: true
+    },
+    'table_status': {
+        type: Number,
+        default: 0
+    },
+    'limited_number': {
+        type: Number,
+        default: 0
+    },
+    'created': {
+        type: Date,
+        default: Date.now
+    }
+});
+
 
 exports.Orders = db.model('Orders', Orders);
 exports.Items = db.model('Items', Items);
 exports.Categories = db.model('Categories', Categories);
+exports.Tables = db.model('Tables', Tables);
