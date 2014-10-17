@@ -38,6 +38,10 @@ angular
                 templateUrl: 'views/category.html',
                 controller: 'CategoryCtrl'
             })
+            .when('/category/edit/:id', {
+                templateUrl: 'views/categoryedit.html',
+                controller: 'CategoryeditCtrl'
+            })
             .when('/item', {
                 templateUrl: 'views/item.html',
                 controller: 'ItemCtrl'
