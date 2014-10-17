@@ -67,6 +67,7 @@ angular.module('clientApp')
             $scope.myPromise = $scope.item = Items.get({id: $routeParams.id});
         } else {
             $scope.item = new Items();
+            $scope.item.images = [];
         }
 
 
