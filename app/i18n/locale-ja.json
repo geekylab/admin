@@ -49,7 +49,11 @@
     "Upload": "アップロード",
     "Cancel": "キャンセル",
     "Remove?": "本当に削除しますか？",
+    "Edit": "編集",
 
     "Category": "カテゴリ",
-    "Edit": "編集"
+    "Category Listing": "カテゴリ一覧",
+    "manage categories": "カテゴリ管理",
+    "Category View": "カテゴリ詳細",
+    "Category view": "カテゴリ詳細"
 }

@@ -1,5 +1,5 @@
 <h3 class="page-title">
-    {{ 'Item View' | translate }}
+    {{ 'Category View' | translate }}
 </h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
@@ -13,7 +13,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span translate>Item View</span>
+            <span translate>Category View</span>
         </li>
     </ul>
     <div class="page-toolbar">
@@ -26,10 +26,10 @@
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="icon-note font-green-sharp"></i>
-                        <span class="caption-subject font-green-sharp bold uppercase">{{'Item view'|translate}}</span>
+                        <span class="caption-subject font-green-sharp bold uppercase">{{'Category view'|translate}}</span>
                     </div>
                     <div class="actions btn-set">
-                        <a ng-href="/#/item" type="button" name="back" class="btn btn-default btn-circle">
+                        <a ng-href="/#/category" type="button" name="back" class="btn btn-default btn-circle">
                             <i class="fa fa-angle-left"></i> {{'Back'|translate}}
                         </a>
                         <a href="javascript:;" class="btn green-haze btn-circle" ng-click="save(false)">
@@ -58,11 +58,11 @@
                     <div cg-busy="myPromise"></div>
                     <div class="form-body">
                         <div class="form-group">
-                            <label>{{'Item Name'|translate}}</label>
+                            <label>{{'Category Name'|translate}}</label>
 
                             <div class="input-icon">
                                 <i class="fa fa-info-circle"></i>
-                                <input type="text" placeholder="{{'Item Name'|translate}}"
+                                <input type="text" placeholder="{{'Category Name'|translate}}"
                                        class="form-control input-circle" ng-model="category.name">
                             </div>
                         </div>
