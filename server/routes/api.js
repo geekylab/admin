@@ -15,16 +15,16 @@ router.get('/dashboard/index', function (req, res) {
 router.get('/order', function (req, res) {
     Orders.find({}, function (err, rows) {
         if (err)
-            res.send(err);
-        res.send(rows);
+            res.json(err);
+        res.json(rows);
     });
 });
 
 router.get('/order/:id', function (req, res) {
     Orders.findOne({_id: req.params.id}, function (err, order) {
         if (err)
-            res.send(err);
-        res.send(order);
+            res.json(err);
+        res.json(order);
 
     });
 });
@@ -32,16 +32,16 @@ router.get('/order/:id', function (req, res) {
 router.get('/item', function (req, res) {
     Items.find({}, function (err, rows) {
         if (err)
-            res.send(err);
-        res.send(rows);
+            res.json(err);
+        res.json(rows);
     });
 });
 
 router.get('/item/:id', function (req, res) {
     Items.findOne({_id: req.params.id}, function (err, item) {
         if (err)
-            res.send(err);
-        res.send(item);
+            res.json(err);
+        res.json(item);
 
     });
 });
@@ -55,7 +55,10 @@ router.put('/item/:id', function (req, res) {
         },
         {upsert: true},
         function (err, obj) {
-            return res.json(true);
+            if (err) {
+                res.json(err);
+            }
+            res.json(obj);
         });
 });
 
@@ -66,10 +69,18 @@ router.post('/item', function (req, res) {
     item.price = req.body.price;
     item.save(function (err) {
         if (err) {
-            console.log(err);
-            res.send(err);
+            res.json(err);
         }
         res.json({message: 'Bear created!'});
+    });
+});
+
+router.delete('/item/:id', function (req, res) {
+    Items.findByIdAndRemove(req.params.id, function (err, response) {
+        if (err) {
+            res.json(err);
+        }
+        res.json({message: 'Deleted!'});
     });
 });
 

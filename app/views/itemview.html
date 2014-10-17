@@ -17,33 +17,11 @@
         </li>
     </ul>
     <div class="page-toolbar">
-        <div class="btn-group pull-right">
-            <!--<button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown"-->
-            <!--data-hover="dropdown" data-delay="1000" data-close-others="true">-->
-            <!--Actions <i class="fa fa-angle-down"></i>-->
-            <!--</button>-->
-            <!--<ul class="dropdown-menu pull-right" role="menu">-->
-                <!--<li>-->
-                    <!--<a href="#">Action</a>-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<a href="#">Another action</a>-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<a href="#">Something else here</a>-->
-                <!--</li>-->
-                <!--<li class="divider">-->
-                <!--</li>-->
-                <!--<li>-->
-                    <!--<a href="#">Separated link</a>-->
-                <!--</li>-->
-            <!--</ul>-->
-        </div>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <form role="form" ng-submit="save()">
+        <form role="form" ng-submit="save(true)">
             <div class="portlet light">
                 <div class="portlet-title">
                     <div class="caption">
@@ -55,12 +33,12 @@
                         <a ng-href="/#/item" type="button" name="back" class="btn btn-default btn-circle">
                             <i class="fa fa-angle-left"></i> {{'Back'|translate}}
                         </a>
-                        <button type="submit" class="btn green-haze btn-circle">
+                        <a href="javascript:;" class="btn green-haze btn-circle" ng-click="save(false)">
                             <i class="fa fa-check"></i> {{'Save'|translate}}
-                        </button>
-                        <a href="javascript:;" ng-click="save(true)" class="btn green-haze btn-circle">
-                            <i class="fa fa-check-circle"></i> {{'Save &amp; Continue Edit'|translate}}
                         </a>
+                        <button type="submit" class="btn green-haze btn-circle">
+                            <i class="fa fa-check-circle"></i> {{'Save &amp; Continue Edit'|translate}}
+                        </button>
 
                         <div class="btn-group">
                             <a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
