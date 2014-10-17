@@ -56,6 +56,7 @@
     </div>
 </div>
 <div class="portlet-body">
+    <div cg-busy="myPromise"></div>
     <div class="tabbable">
         <tabset>
             <tab heading="{{'General'|translate}}">
@@ -93,49 +94,65 @@
             </tab>
             <tab heading="{{'Images'|translate}}">
                 <div class="text-align-reverse margin-bottom-10">
-                    <input type="file" nv-file-select="" uploader="uploader" multiple  />
-                    <a id="tab_images_uploader_uploadfiles" href="javascript:;" class="btn green">
-                        <i class="fa fa-share"></i> Upload Files </a>
+                    <input type="file" nv-file-select="" uploader="uploader" multiple/>
+                    <button type="button" class="btn green" ng-click="uploader.uploadAll()"
+                            ng-disabled="!uploader.getNotUploadedItems().length">
+                        <span class="fa fa-share"></span> Upload all
+                    </button>
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
-                        <table class="table">
+                        <table class="table" ng-show="uploader.getNotUploadedItems().length">
                             <thead>
+                            <tr>
+                                <th width="50%">Name</th>
+                                <th ng-show="uploader.isHTML5">Size</th>
+                                <th ng-show="uploader.isHTML5">Progress</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="item in uploader.queue">
+                            <tr ng-repeat="img in uploader.queue">
                                 <td>
-                                    <strong>{{ item.file.name }}</strong>
+                                    <strong>{{ img.file.name }}</strong>
                                     <!-- Image preview -->
                                     <!--auto height-->
-                                    <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
+                                    <!--<div ng-thumb="{ file: img.file, width: 100 }"></div>-->
                                     <!--auto width-->
-                                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+                                    <div ng-show="uploader.isHTML5"
+                                         ng-thumb="{ file: img._file, height: 100 }"></div>
                                     <!--fixed width and height -->
-                                    <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
+                                    <!--<div ng-thumb="{ file: img.file, width: 100, height: 100 }"></div>-->
                                 </td>
-                                <td ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
+                                <td ng-show="uploader.isHTML5" nowrap>{{ img.file.size/1024/1024|number:2}} MB
+                                </td>
                                 <td ng-show="uploader.isHTML5">
                                     <div class="progress" style="margin-bottom: 0;">
                                         <div class="progress-bar" role="progressbar"
-                                             ng-style="{ 'width': item.progress + '%' }"></div>
+                                             ng-style="{ 'width': img.progress + '%' }"></div>
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-                                    <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-                                    <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                                <span ng-show="img.isSuccess"><i
+                                                        class="glyphicon glyphicon-ok"></i></span>
+                                                <span ng-show="img.isCancel"><i
+                                                        class="glyphicon glyphicon-ban-circle"></i></span>
+                                    <span ng-show="img.isError"><i class="glyphicon glyphicon-remove"></i></span>
                                 </td>
                                 <td nowrap>
-                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()"
-                                            ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                    <button type="button" class="btn btn-success btn-xs"
+                                            ng-click="img.upload()"
+                                            ng-disabled="img.isReady || img.isUploading || img.isSuccess">
                                         <span class="glyphicon glyphicon-upload"></span> Upload
                                     </button>
-                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()"
-                                            ng-disabled="!item.isUploading">
+                                    <button type="button" class="btn btn-warning btn-xs"
+                                            ng-click="img.cancel()"
+                                            ng-disabled="!img.isUploading">
                                         <span class="glyphicon glyphicon-ban-circle"></span> Cancel
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                    <button type="button" class="btn btn-danger btn-xs"
+                                            ng-click="img.remove()">
                                         <span class="glyphicon glyphicon-trash"></span> Remove
                                     </button>
                                 </td>
@@ -170,62 +187,42 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr ng-animate="'animate'" ng-repeat="img in item.images">
                         <td>
-                            <a href="../../assets/admin/pages/media/works/img1.jpg"
-                               class="fancybox-button"
+                            <a href="javascript:;" ng-href="{{img.path}}" class="fancybox-button"
                                data-rel="fancybox-button">
-                                <img class="img-responsive"
-                                     src="../../assets/admin/pages/media/works/img1.jpg" alt="">
+                                <img class="img-responsive" ng-src="{{img.path}}" alt="">
                             </a>
                         </td>
                         <td>
-                            <input type="text" class="form-control" name="product[images][1][label]"
-                                   value="Thumbnail image">
+                            <input type="text" class="form-control" ng-model="img.filename">
                         </td>
                         <td>
-                            <input type="text" class="form-control"
-                                   name="product[images][1][sort_order]" value="1">
+                            <input type="text" class="form-control" ng-model="img.sort_order">
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="product[images][1][image_type]" value="1">
+                                <input type="radio" ng-model="img.image_type" ng-value="1">
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="product[images][1][image_type]" value="2">
+                                <input type="radio" ng-model="img.image_type" ng-value="2">
                             </label>
                         </td>
                         <td>
                             <label>
-                                <input type="radio" name="product[images][1][image_type]" value="3"
-                                       checked>
+                                <input type="radio" ng-model="img.image_type" ng-value="3">
                             </label>
                         </td>
                         <td>
-                            <a href="javascript:;" class="btn default btn-sm">
-                                <i class="fa fa-times"></i> Remove </a>
+                            <a href="javascript:;" class="btn default btn-sm" ng-click="removeImage($index)">
+                                <i class="fa fa-times"></i> Remove
+                            </a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <!--<div class="form-body">-->
-                <!--<div class="form-group">-->
-                <!--<label translate>{{'Creation time'|translate}}</label>-->
-
-                <!--<div class="input-icon">-->
-                <!--<i class="fa fa-clock-o"></i>-->
-                <!--<input type="file" />-->
-                <!--<ul>-->
-                <!--<li ng-repeat="item in uploader.queue">-->
-                <!--Name: <span ng-bind="item.file.name"></span><br/>-->
-                <!--<button ng-click="item.upload()">upload</button>-->
-                <!--</li>-->
-                <!--</ul>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--</div>-->
             </tab>
         </tabset>
     </div>

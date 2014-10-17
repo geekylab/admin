@@ -21,7 +21,8 @@ angular
         'ui.bootstrap',
         'ui.grid',
         'angular-loading-bar',
-        'angularFileUpload'
+        'angularFileUpload',
+        'cgBusy'
     ])
     .config(function ($routeProvider, $translateProvider) {
         $routeProvider

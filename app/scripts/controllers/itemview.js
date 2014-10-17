@@ -10,9 +10,52 @@
 angular.module('clientApp')
     .controller('ItemviewCtrl', function ($scope, Items, $location, $routeParams, alertService, FileUploader) {
 
-        $scope.uploader = new FileUploader();
+        var uploader = $scope.uploader = new FileUploader(
+            {url: '/api/upload'}
+        );
 
-        $scope.uploader.filters.push({
+        $scope.item = {};
+        $scope.item.images = [];
+        $scope.myPromise = {};
+
+        uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
+            console.info('onWhenAddingFileFailed', item, filter, options);
+        };
+        uploader.onAfterAddingFile = function (fileItem) {
+            console.info('onAfterAddingFile', fileItem);
+        };
+        uploader.onAfterAddingAll = function (addedFileItems) {
+            console.info('onAfterAddingAll', addedFileItems);
+        };
+        uploader.onBeforeUploadItem = function (item) {
+            console.info('onBeforeUploadItem', item);
+        };
+        uploader.onProgressItem = function (fileItem, progress) {
+            console.info('onProgressItem', fileItem, progress);
+        };
+        uploader.onProgressAll = function (progress) {
+            console.info('onProgressAll', progress);
+        };
+        uploader.onSuccessItem = function (fileItem, response, status, headers) {
+            console.info('onSuccessItem', fileItem, response, status, headers);
+        };
+        uploader.onErrorItem = function (fileItem, response, status, headers) {
+            console.info('onErrorItem', fileItem, response, status, headers);
+        };
+        uploader.onCancelItem = function (fileItem, response, status, headers) {
+            console.info('onCancelItem', fileItem, response, status, headers);
+        };
+        uploader.onCompleteItem = function (fileItem, response, status, headers) {
+            console.info('onCompleteItem', fileItem, response, status, headers);
+            $scope.item.images.push(response);
+            fileItem.remove();
+        };
+        uploader.onCompleteAll = function () {
+            console.info('onCompleteAll');
+        };
+
+
+        uploader.filters.push({
             name: 'imageFilter',
             fn: function (item /*{File|FileLikeObject}*/, options) {
                 var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
@@ -21,7 +64,7 @@ angular.module('clientApp')
         });
 
         if ($routeParams.id != -1) {
-            $scope.item = Items.get({id: $routeParams.id});
+            $scope.myPromise = $scope.item = Items.get({id: $routeParams.id});
         } else {
             $scope.item = new Items();
         }
@@ -47,14 +90,14 @@ angular.module('clientApp')
             }
 
             if ($scope.item._id) {
-                Items.update($scope.item, success, failure);
+//                $scope.myPromise = Items.update($scope.item, success, failure);
+                $scope.myPromise = $scope.item.$update(success, failure);
             } else {
-                Items.save($scope.item, success, failure);
+                $scope.myPromise = $scope.item.$save(success, failure);//Items.save($scope.item, success, failure);
             }
         };
 
         $scope.delete = function () {
-
             function success(response) {
                 alertService.add('success', '削除されました。');
                 $location.path("/item");
@@ -72,7 +115,13 @@ angular.module('clientApp')
             }
 
             if ($scope.item._id) {
-                Items.delete({id: $scope.item._id}, success, failure);
+                $scope.myPromise = $scope.item.$delete(success, failure);
+            }
+        };
+
+        $scope.removeImage = function (index) {
+            if (window.confirm("本当に削除しますか？")) {
+                $scope.item.images.splice(index, 1);
             }
         };
 
