@@ -8,41 +8,40 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('OrderCtrl', function ($scope) {
-
-        $scope.filters = {
-            order_id: "",
-            order_date_from: "",
-            order_date_to: "",
-            table_number: "",
-            price: "",
-            product_name: ""
+    .controller('OrderCtrl', function ($scope, Orders, uiGridConstants) {
+        $scope.gridOptions = {
+            enableSorting: true,
+            enableFiltering: true,
+            columnDefs: [
+                {field: '_id'},
+                {field: 'name'},
+                {
+                    field: 'price', filters: [
+                    {
+                        condition: uiGridConstants.filter.GREATER_THAN,
+                        placeholder: 'greater than'
+                    },
+                    {
+                        condition: uiGridConstants.filter.LESS_THAN,
+                        placeholder: 'less than'
+                    }
+                ]
+                },
+                {
+                    field: 'created',
+                    enableSorting: false
+                },
+                {
+                    field: 'Action',
+                    cellTemplate: '<a class="btn btn-success" ng-href="/#/order/{{row.entity._id}}" >Edit</a>',
+                    enableFiltering: false,
+                    enableSorting: false
+                }
+            ]
         };
 
-        $scope.doSearch = function () {
-            alert('search');
-        };
-
-        $scope.doReset = function () {
-            alert('reset');
-        };
-
-        $scope.toggleOrder = function ($event) {
-            var target = angular.element($event.target);
-            target.parent().parent().parent().parent().css({backgroundColor: "#ccc"});
-        };
-
-        $scope.completeOrder = function () {
-            alert('complete');
-        };
-
-        $scope.editOrder = function () {
-            alert('editOrder');
-        };
-
-        $scope.cancelOrder = function () {
-            alert('cancelOrder');
-        };
-
+        $scope.entries = Orders.query(function (data) {
+            $scope.gridOptions.data = data;
+        });
 
     });

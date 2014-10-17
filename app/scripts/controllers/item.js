@@ -44,19 +44,4 @@ angular.module('clientApp')
         $scope.entries = Items.query(function (data) {
             $scope.gridOptions.data = data;
         });
-
-        $scope.myScope = {
-            edit: function (row) {
-                console.log(row);
-            }
-        };
-
-
-        //$scope.entry = new Items(); //You can instantiate resource class
-        //$scope.entry.name = 'some data';
-        //$scope.entry.price = '1500';
-        //Items.save($scope.entry, function () {
-        //    //data saved. do something here.
-        //}); //saves an entry. Assuming $scope.entry is the Entry object
-
     });

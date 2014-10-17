@@ -8,10 +8,10 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('ToolbarCtrl', function ($scope, socket) {
+    .controller('ToolbarCtrl', function ($scope, socket, alertService, $rootScope) {
         $scope.connected = socket.socket.connected;
 
-
+        $rootScope.closeAlert = alertService.closeAlert;
         //$scope.$watch('connected', function (newVal, oldVal) {
         //
         //});

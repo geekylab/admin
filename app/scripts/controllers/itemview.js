@@ -8,29 +8,38 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('ItemviewCtrl', function ($scope, Items, $routeParams) {
-        var itemId = $routeParams.id;
-        $scope.item = {
-            name: '',
-            price: 0,
-            created: ''
-        };
-        if (itemId != -1) {
-            $scope.item = Items.get({id: itemId});
+    .controller('ItemviewCtrl', function ($scope, Items, $location, $routeParams, alertService) {
+
+        if ($routeParams.id) {
+            $scope.item = Items.get({id: $routeParams.id});
+        } else {
+            $scope.item = new Items();
         }
 
 
         $scope.save = function () {
-            console.log($scope.item);
-            if ($scope._id) {
-                alert('save');
-                $scope.$save();
-            } else {
-                var post = new Items($scope.item);
-                post.$save(function (savedObject, handler) {
-                    // 保存後の処理
-                    alert('ok');
+            function success(response) {
+                alertService.add('success', '保存した');
+                console.log("success", response);
+                $location.path("/item");
+            }
+
+            function failure(response) {
+                _.each(response.data, function (errors, key) {
+                    if (errors.length > 0) {
+                        _.each(errors, function (e) {
+                            $scope.form[key].$dirty = true;
+                            $scope.form[key].$setValidity(e, false);
+                        });
+                    }
                 });
+            }
+
+
+            if ($routeParams.id) {
+                Items.update($scope.item, success, failure);
+            } else {
+                Items.save($scope.item, success, failure);
             }
         }
     });

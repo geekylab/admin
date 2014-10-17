@@ -1,7 +1,3 @@
-<h3 class="page-title">
-    {{ 'Order View' | translate }}
-    <small translate>view order details</small>
-</h3>
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
@@ -10,85 +6,28 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <a href="#/order" translate>Order View</a>
+            <span translate>Order Listing</span>
         </li>
     </ul>
-    <div class="page-toolbar">
-        <div class="btn-group pull-right">
-            <button type="button" class="btn btn-fit-height grey-salt dropdown-toggle" data-toggle="dropdown"
-                    data-hover="dropdown" data-delay="1000" data-close-others="true">
-                Actions <i class="fa fa-angle-down"></i>
-            </button>
-            <ul class="dropdown-menu pull-right" role="menu">
-                <li>
-                    <a href="#">Action</a>
-                </li>
-                <li>
-                    <a href="#">Another action</a>
-                </li>
-                <li>
-                    <a href="#">Something else here</a>
-                </li>
-                <li class="divider">
-                </li>
-                <li>
-                    <a href="#">Separated link</a>
-                </li>
-            </ul>
-        </div>
-    </div>
 </div>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet light">
-            <!--<div class="portlet-title">-->
-            <!--<div class="caption">-->
-            <!--<i class="icon-basket font-green-sharp"></i>-->
-            <!--<span class="caption-subject font-green-sharp bold uppercase">Order Listing</span>-->
-            <!--<span class="caption-helper">manage orders...</span>-->
-            <!--</div>-->
-            <!--<div class="actions">-->
-            <!--<a href="#" class="btn btn-circle btn-default">-->
-            <!--<i class="fa fa-plus"></i>-->
-            <!--<span class="hidden-480">-->
-            <!--New Order </span>-->
-            <!--</a>-->
-
-            <!--<div class="btn-group">-->
-            <!--<a class="btn btn-default btn-circle" href="#" data-toggle="dropdown">-->
-            <!--<i class="fa fa-share"></i>-->
-            <!--<span class="hidden-480">-->
-            <!--Tools </span>-->
-            <!--<i class="fa fa-angle-down"></i>-->
-            <!--</a>-->
-            <!--<ul class="dropdown-menu pull-right">-->
-            <!--<li>-->
-            <!--<a href="#">-->
-            <!--Export to Excel </a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a href="#">-->
-            <!--Export to CSV </a>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a href="#">-->
-            <!--Export to XML </a>-->
-            <!--</li>-->
-            <!--<li class="divider">-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<a href="#">-->
-            <!--Print Invoices </a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-basket font-green-sharp"></i>
+                    <span class="caption-subject font-green-sharp bold uppercase" translate>Order Listing</span>
+                    <span class="caption-helper" translate>manage orders</span>
+                </div>
+                <div class="actions">
+                    <a href="#/order/-1" class="btn btn-circle btn-default">
+                        <i class="fa fa-plus"></i><span class="hidden-480" translate>New Item</span>
+                    </a>
+                </div>
+            </div>
             <div class="portlet-body">
-                <div class="table-container" datatable></div>
+                <div id="grid1" ui-grid="gridOptions" class="grid"></div>
             </div>
         </div>
-        <!-- End: life time stats -->
     </div>
 </div>
-<!-- END PAGE CONTENT-->

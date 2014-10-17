@@ -19,8 +19,8 @@ angular
         'base64',
         'pascalprecht.translate',
         'ui.bootstrap',
-        'ui.router',
-        'ui.grid'
+        'ui.grid',
+        'angular-loading-bar'
     ])
     .config(function ($routeProvider, $translateProvider) {
         $routeProvider
