@@ -23,7 +23,7 @@ angular.module('clientApp')
             {
                 name: "Category",
                 href: "/category",
-                icon: "icon-note"
+                icon: "icon-docs"
             },
             {
                 name: "Item",
