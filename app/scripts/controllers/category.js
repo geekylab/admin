@@ -15,10 +15,6 @@ angular.module('clientApp')
             columnDefs: [
                 {field: 'name'},
                 {
-                    field: 'created',
-                    enableSorting: false
-                },
-                {
                     field: 'Action',
                     cellTemplate: '<a class="btn btn-success" ng-href="/#/category/edit/{{row.entity._id}}"> Edit</a>',
                     enableFiltering: false,

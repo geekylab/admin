@@ -29,10 +29,6 @@ angular.module('clientApp')
                 ]
                 },
                 {
-                    field: 'created',
-                    enableSorting: false
-                },
-                {
                     field: 'Action',
                     cellTemplate: '<a class="btn btn-success" ng-href="/#/item/{{row.entity._id}}"> Edit</a>',
                     enableFiltering: false,
