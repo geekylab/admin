@@ -29,7 +29,7 @@
                         <span class="caption-subject font-green-sharp bold uppercase">{{'Table view'|translate}}</span>
                     </div>
                     <div class="actions btn-set">
-                        <a ng-href="/#/category" type="button" name="back" class="btn btn-default btn-circle">
+                        <a ng-href="/#/table" type="button" name="back" class="btn btn-default btn-circle">
                             <i class="fa fa-angle-left"></i> {{'Back'|translate}}
                         </a>
                         <a href="javascript:;" class="btn green-haze btn-circle" ng-click="save(false)">
@@ -58,12 +58,12 @@
                     <div cg-busy="myPromise"></div>
                     <div class="form-body">
                         <div class="form-group">
-                            <label>{{'Table Name'|translate}}</label>
+                            <label>{{'Table Number'|translate}}</label>
 
                             <div class="input-icon">
                                 <i class="fa fa-info-circle"></i>
-                                <input type="text" placeholder="{{'Table Name'|translate}}"
-                                       class="form-control input-circle" ng-model="table.name">
+                                <input type="text" placeholder="{{'Table Number'|translate}}"
+                                       class="form-control input-circle" ng-model="table.table_number">
                             </div>
                         </div>
 
@@ -84,7 +84,7 @@
                             <div class="input-icon">
                                 <i class="fa fa-info-circle"></i>
                                 <input type="text" placeholder="{{'Limited Number'|translate}}"
-                                       class="form-control input-circle" ng-model="table.name">
+                                       class="form-control input-circle" ng-model="table.limited_number">
                             </div>
                         </div>
                     </div>

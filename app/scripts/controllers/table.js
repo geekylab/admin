@@ -13,14 +13,10 @@ angular.module('clientApp')
             enableSorting: true,
             enableFiltering: true,
             columnDefs: [
-                {field: '_id'},
                 {field: 'table_number'},
                 {
-                    field: 'created',
-                    enableSorting: false
-                },
-                {
-                    field: 'table_status'
+                    field: 'table_status',
+                    cellTemplate: '<div class="ui-grid-cell-contents" ng-href="/#/table/edit/{{row.entity._id}}" table-status="{{row.entity.table_status}}"></div>'
                 },
                 {
                     field: 'limited_number'

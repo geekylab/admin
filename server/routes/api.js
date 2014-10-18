@@ -206,7 +206,9 @@ router.get('/table/:id', function (req, res) {
 router.put('/table/:id', function (req, res) {
     Tables.findByIdAndUpdate(req.params.id, {
             $set: {
-                name: req.body.name
+                table_number: req.body.table_number,
+                table_status: req.body.table_status,
+                limited_number: req.body.limited_number
             }
         },
         {upsert: true},
@@ -225,8 +227,12 @@ router.post('/table', function (req, res) {
     console.info("post data", req.body);
 
     var table = new Tables();
-    if (req.body.name != undefined)
-        table.name = req.body.name;
+    if (req.body.table_number != undefined)
+        table.table_number = req.body.table_number;
+    if (req.body.table_status != undefined)
+        table.table_status = req.body.table_status;
+    if (req.body.limited_number != undefined)
+        table.limited_number = req.body.limited_number;
     table.save(function (err) {
         if (err) {
             res.json(err);
