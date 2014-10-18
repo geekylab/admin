@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name clientApp.tables
+ * @name clientApp.Tables
  * @description
- * # tables
+ * # Tables
  * Factory in the clientApp.
  */
 angular.module('clientApp')
-    .factory('tables', function () {
+    .factory('Tables', function ($resource) {
         return $resource('/api/table/:id', {id: '@_id'}, {
             update: {
                 method: 'PUT',

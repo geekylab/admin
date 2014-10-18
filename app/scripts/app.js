@@ -58,10 +58,10 @@ angular
                 templateUrl: 'views/table.html',
                 controller: 'TableCtrl'
             })
-            //.when('/category/edit/:id', {
-            //    templateUrl: 'views/categoryedit.html',
-            //    controller: 'CategoryeditCtrl'
-            //})
+            .when('/table/edit/:id', {
+                templateUrl: 'views/tableedit.html',
+                controller: 'TableeditCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });

@@ -9,6 +9,7 @@ var fs = require('fs');
 var Items = model.Items;
 var Orders = model.Orders;
 var Categories = model.Categories;
+var Tables = model.Tables;
 
 
 router.get('/dashboard/index', function (req, res) {
@@ -171,6 +172,72 @@ router.post('/category', function (req, res) {
 
 router.delete('/category/:id', function (req, res) {
     Categories.findByIdAndRemove(req.params.id, function (err, response) {
+        if (err) {
+            res.json(err);
+        }
+        res.json({message: 'Deleted!'});
+    });
+});
+
+/**
+ * Tables
+ */
+
+router.get('/table', function (req, res) {
+    Tables.find({}, function (err, rows) {
+        if (err)
+            res.json(err);
+        res.json(rows);
+    });
+});
+
+router.get('/table/:id', function (req, res) {
+    Tables.findOne({_id: req.params.id}, function (err, item) {
+        if (err)
+            res.json(err);
+
+
+        console.info("get item :" + req.params.id, item);
+        res.json(item);
+
+    });
+});
+
+router.put('/table/:id', function (req, res) {
+    Tables.findByIdAndUpdate(req.params.id, {
+            $set: {
+                name: req.body.name
+            }
+        },
+        {upsert: true},
+        function (err, obj) {
+            if (err) {
+                console.log(err);
+                res.json(err);
+            }
+            res.json(obj);
+        });
+});
+
+
+router.post('/table', function (req, res) {
+
+    console.info("post data", req.body);
+
+    var table = new Tables();
+    if (req.body.name != undefined)
+        table.name = req.body.name;
+    table.save(function (err) {
+        if (err) {
+            res.json(err);
+        }
+        console.info("insert item", table);
+        res.json(table);
+    });
+});
+
+router.delete('/table/:id', function (req, res) {
+    Tables.findByIdAndRemove(req.params.id, function (err, response) {
         if (err) {
             res.json(err);
         }

@@ -58,6 +58,11 @@
     "Category view": "カテゴリ詳細",
     "Category Name": "カテゴリ名",
 
+    "Table": "テーブル",
     "Table Listing": "テーブル一覧",
-    "manage tables": "テーブル管理"
+    "manage tables": "テーブル管理",
+    "Table view": "テーブル詳細",
+    "vacated": "空席",
+    "busy": "満席"
+
 }

@@ -40,7 +40,7 @@ angular.module('clientApp')
 
         $scope.getClass = function (path) {
             var current = $location.path();
-            if (current === path) {
+            if (current === path || (current.indexOf(path) === 0 && path != '/')) {
                 return "active";
             } else {
                 return "";
@@ -49,7 +49,7 @@ angular.module('clientApp')
 
         $scope.isSelected = function (path) {
             var current = $location.path();
-            if (current === path) {
+            if (current === path || (current.indexOf(path) === 0 && path != '/')) {
                 return true;
             } else {
                 return false;
