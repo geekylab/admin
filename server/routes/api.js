@@ -13,7 +13,18 @@ var Tables = model.Tables;
 
 
 router.get('/dashboard/index', function (req, res) {
-    res.send([{name: "test"}]);
+
+    Tables.count({table_status: 1}, function (err, count) {
+        if (err) {
+            console.log(err);
+            res.json(err);
+        }
+        var response = {
+            busy_tables: count
+        };
+        console.log(response);
+        res.json(response);
+    });
 });
 
 router.get('/order', function (req, res) {
@@ -291,8 +302,6 @@ router.post('/upload', function (req, res, next) {
 
         var out = fs.createWriteStream(__dirname + '/../assets/uploads/' + part.filename);
         part.pipe(out);
-
-
     });
 
     // parse the form
