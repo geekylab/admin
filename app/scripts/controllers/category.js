@@ -13,7 +13,6 @@ angular.module('clientApp')
             enableSorting: true,
             enableFiltering: true,
             columnDefs: [
-                {field: '_id'},
                 {field: 'name'},
                 {
                     field: 'created',
