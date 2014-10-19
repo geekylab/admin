@@ -33,6 +33,7 @@ router.get('/dashboard/index', function (req, res) {
 });
 
 router.get('/order', function (req, res) {
+    console.log(req.user);
     Orders.find({}, function (err, rows) {
         if (err)
             res.json(err);

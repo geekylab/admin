@@ -16,14 +16,14 @@ angular.module('clientApp')
                 {field: 'table_number'},
                 {
                     field: 'table_status',
-                    cellTemplate: '<div class="ui-grid-cell-contents" ng-href="/#/table/edit/{{row.entity._id}}" table-status="{{row.entity.table_status}}"></div>'
+                    cellTemplate: '<div class="ui-grid-cell-contents" table-status="{{row.entity.table_status}}"></div>'
                 },
                 {
                     field: 'limited_number'
                 },
                 {
                     field: 'Action',
-                    cellTemplate: '<a class="btn btn-success" ng-href="/#/table/edit/{{row.entity._id}}"> Edit</a>',
+                    cellTemplate: '<a class="btn btn-success" ng-href="#/table/edit/{{row.entity._id}}"> Edit</a>',
                     enableFiltering: false,
                     enableSorting: false
                 }

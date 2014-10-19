@@ -16,7 +16,7 @@ angular.module('clientApp')
                 {field: 'name'},
                 {
                     field: 'Action',
-                    cellTemplate: '<a class="btn btn-success" ng-href="/#/category/edit/{{row.entity._id}}"> Edit</a>',
+                    cellTemplate: '<a class="btn btn-success" ng-href="#/category/edit/{{row.entity._id}}"> Edit</a>',
                     enableFiltering: false,
                     enableSorting: false
                 }

@@ -124,6 +124,7 @@ module.exports = function (passport) {
             // asynchronous
             process.nextTick(function () {
                 // check if the user is already logged in
+                console.log(profile.id);
                 if (!req.user) {
                     User.findOne({'twitter.id': profile.id}, function (err, user) {
                         if (err)
@@ -185,7 +186,6 @@ module.exports = function (passport) {
             // asynchronous
             process.nextTick(function () {
                 // check if the user is already logged in
-                console.log(profile.id);
                 if (!req.user) {
                     User.findOne({'facebook.id': profile.id}, function (err, user) {
                         if (err)
