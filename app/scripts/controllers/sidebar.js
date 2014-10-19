@@ -21,6 +21,11 @@ angular.module('clientApp')
                 icon: "icon-basket"
             },
             {
+                name: "Customer",
+                href: "/customer",
+                icon: "icon-users"
+            },
+            {
                 name: "Item",
                 href: "/item",
                 icon: "icon-cup"

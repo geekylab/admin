@@ -1,0 +1,33 @@
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/" translate>Dashboard</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span translate>Customer Listing</span>
+        </li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-docs font-green-sharp"></i>
+                    <span class="caption-subject font-green-sharp bold uppercase" translate>Customer Listing</span>
+                    <span class="caption-helper" translate>manage customers</span>
+                </div>
+                <div class="actions">
+                    <a href="#/customer/edit/-1" class="btn btn-circle btn-default">
+                        <i class="fa fa-plus"></i> <span class="hidden-480" translate>New Item</span>
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div id="grid1" ui-grid="gridOptions" class="grid"></div>
+            </div>
+        </div>
+    </div>
+</div>

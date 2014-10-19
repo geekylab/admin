@@ -10,16 +10,15 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/select2/select2.css" />
-    <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css" />
-    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
-    <link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="bower_components/select2/select2.css"/>
+    <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css"/>
+    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css"/>
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css"/>
+    <link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.css"/>
     <!-- endbower -->
-    <link rel="stylesheet" href="bower_components/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
     <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.min.css"/>
 
     <!-- endbuild -->
@@ -264,9 +263,7 @@
             <li class="dropdown dropdown-user">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                    data-close-others="true">
-                    <img alt="" class="img-circle" src="/images/avatar4.jpg"/>
-						<span class="username username-hide-on-mobile">
-						Bob </span>
+                    <img alt="" class="img-circle" src="/images/avatar4.jpg"/><span class="username username-hide-on-mobile">Bob </span>
                     <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu">
@@ -280,14 +277,12 @@
                     </li>
                     <li>
                         <a href="inbox.html">
-                            <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
-								3 </span>
+                            <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger"> 3 </span>
                         </a>
                     </li>
                     <li>
                         <a href="page_todo.html">
-                            <i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-								7 </span>
+                            <i class="icon-rocket"></i> My Tasks <span class="badge badge-success"> 7 </span>
                         </a>
                     </li>
                     <li class="divider">
@@ -297,8 +292,7 @@
                             <i class="icon-lock"></i> Lock Screen </a>
                     </li>
                     <li>
-                        <a href="login.html">
-                            <i class="icon-key"></i> Log Out </a>
+                        <a href="/logout"><i class="icon-key"></i> {{'Log Out'|translate}} </a>
                     </li>
                 </ul>
             </li>
@@ -463,11 +457,12 @@
 <script src="scripts/controllers/categoryedit.js"></script>
 <script src="scripts/directives/applyuniform.js"></script>
 <script src="scripts/controllers/table.js"></script>
-<script src="scripts/services/table.js"></script>
 <script src="scripts/services/tables.js"></script>
 <script src="scripts/controllers/tableedit.js"></script>
 <script src="scripts/directives/table-status.js"></script>
 <script src="scripts/services/const-table-status.js"></script>
+<script src="scripts/controllers/customer.js"></script>
+<script src="scripts/services/customers.js"></script>
 <!-- endbuild -->
 </body>
 </html>
