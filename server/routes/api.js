@@ -11,9 +11,14 @@ var Orders = model.Orders;
 var Categories = model.Categories;
 var Tables = model.Tables;
 
+router.get('/me', function (req, res) {
+    var user = req.user;
+    res.json({
+        email: user.local.email
+    });
+});
 
 router.get('/dashboard/index', function (req, res) {
-
     Tables.count({table_status: 1}, function (err, count) {
         if (err) {
             console.log(err);

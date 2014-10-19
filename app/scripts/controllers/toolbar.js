@@ -8,7 +8,14 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('ToolbarCtrl', function ($scope, socket, alertService, $rootScope) {
+    .controller('ToolbarCtrl', function ($scope, socket, alertService, $rootScope, $http) {
+
+        $scope.me = {};
+        $http.get('/api/me').success(function (data, status, headers, config) {
+            $scope.me = data;
+        }).error(function (data, status, headers, config) {
+        });
+
         $scope.connected = socket.socket.connected;
 
         $rootScope.closeAlert = alertService.closeAlert;

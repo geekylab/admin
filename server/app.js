@@ -42,9 +42,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, '../app')));
+app.use('/app', isLoggedIn, express.static(path.join(__dirname, '../app')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
+// route middleware to ensure user is logged in
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.redirect('/');
+}
 
 //app.use(expressSession({
 //    secret: 'secret',
@@ -62,8 +68,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 require('./routes/routes')(app, passport);
 
 
-//app.get('/', isLoggedIn, loginCheck);
-//app.use('/api', isLoggedIn, api);
+app.use('/api', isLoggedIn, api);
 //app.use('/handy', handy);
 //app.use('/kitchen', isLoggedIn, kitchen);
 
