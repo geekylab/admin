@@ -68,7 +68,7 @@ function isLoggedIn(req, res, next) {
 require('./routes/routes')(app, passport);
 
 
-app.use('/api', isLoggedIn, api);
+app.use('/api', api);
 //app.use('/handy', handy);
 //app.use('/kitchen', isLoggedIn, kitchen);
 
