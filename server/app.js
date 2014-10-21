@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
+var cors = require('cors')
 
 var api = require('./routes/api');
 var handy = require('./routes/handy');
@@ -68,7 +69,7 @@ function isLoggedIn(req, res, next) {
 require('./routes/routes')(app, passport);
 
 
-app.use('/api', api);
+app.use('/api', cors(), api);
 //app.use('/handy', handy);
 //app.use('/kitchen', isLoggedIn, kitchen);
 
