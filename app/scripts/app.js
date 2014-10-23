@@ -22,7 +22,8 @@ angular
         'ui.grid',
         'angular-loading-bar',
         'angularFileUpload',
-        'cgBusy'
+        'cgBusy',
+        'google-maps'.ns()
     ])
     .config(function ($routeProvider, $translateProvider, $httpProvider) {
         $routeProvider
@@ -70,6 +71,14 @@ angular
                 templateUrl: 'views/tableedit.html',
                 controller: 'TableeditCtrl'
             })
+            .when('/store', {
+                templateUrl: 'views/store.html',
+                controller: 'StoreCtrl'
+            })
+            .when('/store/edit/:id', {
+                templateUrl: 'views/storeedit.html',
+                controller: 'StoreeditCtrl'
+            })
             .otherwise({
                 redirectTo: '/'
             });
@@ -80,7 +89,7 @@ angular
         });
         $translateProvider.preferredLanguage('ja');
         $translateProvider.fallbackLanguage('en');
-        $translateProvider.useMissingTranslationHandlerLog();
+//        $translateProvider.useMissingTranslationHandlerLog();
         $translateProvider.useLocalStorage();
 
         $httpProvider.responseInterceptors.push(['$q', '$location', function ($q, $location) {
@@ -99,6 +108,5 @@ angular
                 );
             };
         }]);
-
 
     });

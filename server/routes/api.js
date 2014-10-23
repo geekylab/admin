@@ -10,6 +10,7 @@ var Items = model.Items;
 var Orders = model.Orders;
 var Categories = model.Categories;
 var Tables = model.Tables;
+var Stores = model.Stores;
 
 router.get('/me', function (req, res) {
     var user = req.user;
@@ -33,7 +34,6 @@ router.get('/dashboard/index', function (req, res) {
 });
 
 router.get('/order', function (req, res) {
-    console.log(req.user);
     Orders.find({}, function (err, rows) {
         if (err)
             res.json(err);
@@ -260,6 +260,144 @@ router.post('/table', function (req, res) {
 });
 
 router.delete('/table/:id', function (req, res) {
+    Tables.findByIdAndRemove(req.params.id, function (err, response) {
+        if (err) {
+            res.json(err);
+        }
+        res.json({message: 'Deleted!'});
+    });
+});
+
+/**
+ * Store
+ */
+
+router.get('/store', function (req, res) {
+    var user = req.user;
+    Stores.find({user_id: user._id}, function (err, rows) {
+        if (err)
+            res.json(err);
+        res.json(rows);
+    });
+});
+
+router.get('/store/:id/:lang?', function (req, res) {
+    var user = req.user;
+    var lang = req.params.lang;
+
+    if (lang == undefined) {
+        lang = 'en';
+    }
+
+
+    Stores.findOne({_id: req.params.id, user_id: user._id}, function (err, item) {
+        if (err)
+            res.json(err);
+
+        res.json(item);
+    });
+});
+
+//router.get('/store/:id/:lang', function (req, res) {
+//    var user = req.user;
+//    console.log("lang" + req.params.lang);
+//    Stores.findOne({_id: req.params.id, user_id: user._id}, function (err, item) {
+//        if (err)
+//            res.json(err);
+//
+//        res.json(item);
+//    });
+//});
+
+
+router.put('/store/:id', function (req, res) {
+    var user = req.user;
+
+    var updateData = {};
+    if (req.body.store_name != undefined)
+        updateData.store_name = req.body.store_name;
+
+    if (req.body.tel != undefined)
+        updateData.tel = req.body.tel;
+
+    if (req.body.country != undefined)
+        updateData.country = req.body.country;
+
+    if (req.body.zip_code != undefined)
+        updateData.zip_code = req.body.zip_code;
+
+    if (req.body.state != undefined)
+        updateData.state = req.body.state;
+
+    if (req.body.city != undefined)
+        updateData.city = req.body.city;
+
+    if (req.body.address != undefined)
+        updateData.address = req.body.address;
+
+    if (req.body.address2 != undefined)
+        updateData.address2 = req.body.address2;
+
+    if (req.body.location != undefined)
+        updateData.location = req.body.location;
+
+    if (req.body.opening_hour != undefined) {
+        if (updateData.opening_hour.start != undefined)
+            updateData.opening_hour.start = req.body.opening_hour.start;
+
+        if (updateData.opening_hour.end != undefined)
+            updateData.opening_hour.end = req.body.opening_hour.end;
+    }
+
+    if (req.body.seat_type != undefined)
+        updateData.seat_type = req.body.seat_type;
+
+
+    Stores.findOneAndUpdate({'_id': req.params.id, user_id: user._id}, {
+            $set: updateData
+        },
+        function (err, obj) {
+            if (err) {
+                res.json(err);
+            }
+            res.json(obj);
+        });
+});
+
+
+router.post('/store', function (req, res) {
+    var user = req.user;
+    var store = new Stores();
+
+    store.user_id = user._id;
+
+    if (req.body.store_name != undefined)
+        store.store_name = req.body.store_name;
+
+
+    store.save(function (err) {
+        if (err) {
+            res.json(err);
+        }
+        res.json(store);
+    });
+
+    //if (req.body.user_id != undefined)
+    //    table.table_number = req.body.table_number;
+    //if (req.body.table_status != undefined)
+    //    table.table_status = req.body.table_status;
+    //if (req.body.limited_number != undefined)
+    //    table.limited_number = req.body.limited_number;
+    //table.save(function (err) {
+    //    if (err) {
+    //        res.json(err);
+    //    }
+    //    console.info("insert item", table);
+    //    res.json(table);
+    //});
+});
+
+router.delete('/store/:id', function (req, res) {
     Tables.findByIdAndRemove(req.params.id, function (err, response) {
         if (err) {
             res.json(err);

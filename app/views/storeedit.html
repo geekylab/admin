@@ -1,0 +1,153 @@
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <li>
+            <i class="fa fa-home"></i>
+            <a href="#/" translate>Dashboard</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <a href="#/item" translate>Store Listing</a>
+            <i class="fa fa-angle-right"></i>
+        </li>
+        <li>
+            <span translate>Store View</span>
+        </li>
+    </ul>
+    <div class="page-toolbar">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form role="form" ng-submit="save(true)">
+            <div class="portlet light">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="icon-note font-green-sharp"></i>
+                        <span class="caption-subject font-green-sharp bold uppercase">{{'Store view'|translate}}</span>
+
+                        <select ng-model="supportLang.selected"
+                                ng-options="lang.name for lang in supportLang.languages"></select>
+                    </div>
+                    <div class="actions btn-set">
+                        <a ng-href="#/store" type="button" name="back" class="btn btn-default btn-circle">
+                            <i class="fa fa-angle-left"></i> {{'Back'|translate}}
+                        </a>
+                        <a href="javascript:;" class="btn green-haze btn-circle" ng-click="save(false)">
+                            <i class="fa fa-check"></i> {{'Save'|translate}}
+                        </a>
+                        <button type="submit" class="btn green-haze btn-circle">
+                            <i class="fa fa-check-circle"></i> {{'Save &amp; Continue Edit'|translate}}
+                        </button>
+
+                        <div class="btn-group">
+                            <a class="btn yellow btn-circle" href="javascript:;" data-toggle="dropdown">
+                                <i class="fa fa-share"></i> {{'More'|translate}} <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu pull-right">
+                                <li>
+                                    <a href="javascript:;">{{'Duplicate'|translate}}</a>
+                                </li>
+                                <li ng-class="{'disabled':!item._id || item._id == -1}">
+                                    <a href="javascript:;" ng-click="delete()"><span
+                                            class="label label-danger">{{'Delete'|translate}}</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-body">
+                    <div cg-busy="myPromise"></div>
+                    <div class="tabbable">
+                        <tabset>
+                            <tab heading="{{'General'|translate}}">
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label>{{'Store Name'|translate}} <i class="fa fa-language"
+                                                                             title="{{'Support translation'|translate}}"></i></label>
+
+                                        <div class="input-icon">
+                                            <i class="fa fa-info-circle"></i>
+                                            <input type="text" placeholder="{{'Store Name'|translate}}"
+                                                   class="form-control input-circle"
+                                                   ng-model="store.store_name[supportLang.selected.code]">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>{{'Store Telephone'|translate}}</label>
+
+                                        <div class="input-icon">
+                                            <i class="fa fa-comment-o"></i>
+                                            <input type="text" placeholder="{{'Store Telephone'|translate}}"
+                                                   class="form-control input-circle" ng-model="store.tel">
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                            <tab heading="{{'Address'|translate}}">
+                                <div class="form-group">
+                                    <label>{{'Country'|translate}}</label>
+
+                                    <div class="input-icon">
+                                        <i class="fa fa-location-arrow"></i>
+                                        <input type="text" placeholder="{{'Country'|translate}}"
+                                               class="form-control input-circle" ng-model="store.country">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{'Zip Code'|translate}}</label>
+
+                                    <div class="input-icon">
+                                        <i class="fa fa-location-arrow"></i>
+                                        <input type="text" placeholder="{{'Zip Code'|translate}}"
+                                               class="form-control input-circle" ng-model="store.zip_code">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{'State'|translate}}</label>
+
+                                    <div class="input-icon">
+                                        <i class="fa fa-location-arrow"></i>
+                                        <input type="text" placeholder="{{'State'|translate}}"
+                                               class="form-control input-circle" ng-model="store.state">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{'City'|translate}}</label>
+
+                                    <div class="input-icon">
+                                        <i class="fa fa-location-arrow"></i>
+                                        <input type="text" placeholder="{{'City'|translate}}"
+                                               class="form-control input-circle" ng-model="store.city">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>{{'Latitude Longitude'|translate}}</label>
+                                    <button type="button" class="btn btn-success" ng-click="getLocation()"
+                                            ng-disabled="locationSearching">
+                                        <i class="fa fa-circle-o-notch fa-spin" ng-show="locationSearching"></i> {{'Get
+                                        the current position'|translate}}
+                                    </button>
+                                    <a href="javascript:;" class="btn btn-success">{{'Search in map'|translate}}</a>
+
+                                    <div class="row margin-top-10">
+                                        <div class="input-icon col-xs-6">
+                                            <i class="fa fa-location-arrow"></i>
+                                            <input type="text" placeholder="{{'Latitude'|translate}}"
+                                                   class="form-control input-circle" ng-model="store.location[0]">
+                                        </div>
+                                        <div class="input-icon col-xs-6">
+                                            <i class="fa fa-location-arrow"></i>
+                                            <input type="text" placeholder="{{'Longitude'|translate}}"
+                                                   class="form-control input-circle" ng-model="store.location[1]">
+                                        </div>
+                                    </div>
+                                </div>
+                            </tab>
+                        </tabset>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

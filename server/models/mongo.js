@@ -7,26 +7,39 @@ function validator(v) {
 }
 
 var Orders = new mongoose.Schema({
+    order_number: {
+        type: String,
+        required: true,
+        index: true
+    },
     table_number: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     order_status: {
         type: Number
     },
+    secret_number: {
+        type: Number
+    },
     items: [{
-        item_id: {
-            type: String
-        },
-        name: {
-            type: String,
-            required: true
-        },
-        price: {
-            type: Number,
-            required: true
-        },
-        annotation: [String]
+        item: {
+            item_id: {
+                type: String,
+                required: true
+            },
+            name: {
+                type: String,
+                required: true,
+                index: true
+            },
+            price: {
+                type: Number,
+                default: 0,
+                index: true
+            }
+        }
     }],
     created: {
         type: Date,
@@ -37,7 +50,8 @@ var Orders = new mongoose.Schema({
 var Categories = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     created: {
         type: Date,
@@ -65,11 +79,13 @@ var Image = new mongoose.Schema({
 var Items = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     price: {
         type: Number,
-        default: 0
+        default: 0,
+        index: true
     },
     'time': {
         type: Number,
@@ -86,7 +102,8 @@ var Items = new mongoose.Schema({
 var Tables = new mongoose.Schema({
     'table_number': {
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     'table_status': {
         type: Number,
@@ -102,8 +119,60 @@ var Tables = new mongoose.Schema({
     }
 });
 
-var Users = mongoose.Schema({
+var Store = new mongoose.Schema({
+    user_id: {
+        type: String,
+        required: true
+    },
+    'store_name': {
+        type: mongoose.Schema.Types.Mixed,
+        index: true
+    },
+    'logo': {
+        type: String
+    },
+    'tel': {
+        type: String
+    },
+    'country': {
+        type: String
+    },
+    'zip_code': {
+        type: String
+    },
+    'state': {
+        type: String
+    },
+    'city': {
+        type: String
+    },
+    'address': {
+        type: String
+    },
+    'address2': {
+        type: String
+    },
+    location: [Number, Number],
+    'opening_hour': {
+        start: {
+            type: String
+        },
+        end: {
+            type: String
+        }
+    },
+    'seat_type': [{
+        type: String
+    }],
+    'created': {
+        type: Date,
+        default: Date.now
+    }
+});
 
+Store.index({name: 1, location: "2d"});
+
+var Users = mongoose.Schema({
     local: {
         email: String,
         password: String
@@ -146,3 +215,4 @@ exports.Items = db.model('Items', Items);
 exports.Categories = db.model('Categories', Categories);
 exports.Tables = db.model('Tables', Tables);
 exports.Users = db.model('Users', Users);
+exports.Stores = db.model('Stores', Store);

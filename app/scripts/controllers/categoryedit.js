@@ -9,6 +9,7 @@
  */
 angular.module('clientApp')
     .controller('CategoryeditCtrl', function ($scope, Categories, $routeParams, alertService, $location, $translate) {
+        $scope.category = {};
         if ($routeParams.id != -1) {
             $scope.myPromise = $scope.category = Categories.get({id: $routeParams.id});
         } else {

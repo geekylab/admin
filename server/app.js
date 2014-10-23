@@ -6,24 +6,24 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var cors = require('cors')
-
 var api = require('./routes/api');
+var openApi = require('./routes/open-api');
 var handy = require('./routes/handy');
 var kitchen = require('./routes/kitchen');
-
 var expressSession = require('express-session');
 var MongoStore = require('connect-mongo')(expressSession);
-
 /* passportの設定 */
 var passport = require('passport');
-
 var app = express();
-
+var i18n = require("i18n");
 require('./config/passport')(passport);
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+i18n.configure({
+    locales: ['en', 'ja', 'pt'],
+    directory: __dirname + '/locales'
+});
+
+app.use(i18n.init);
 
 // required for passport
 app.use(expressSession({
@@ -36,7 +36,11 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
+require('./routes/routes')(app, passport);
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -66,10 +70,8 @@ function isLoggedIn(req, res, next) {
 //}));
 
 
-require('./routes/routes')(app, passport);
-
-
-app.use('/api', cors(), api);
+app.use('/api', api);
+app.use('/open-api', cors(), openApi);
 //app.use('/handy', handy);
 //app.use('/kitchen', isLoggedIn, kitchen);
 
