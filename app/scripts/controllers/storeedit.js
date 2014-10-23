@@ -55,7 +55,7 @@ angular.module('clientApp')
                 if (!continueFlg) {
                     $location.path("/store");
                 } else {
-                    $location.path("/store/edit/" + $scope.store._id);
+                    //$location.path("/store/edit/" + $scope.store._id);
                 }
             }
 
@@ -82,7 +82,6 @@ angular.module('clientApp')
             if (navigator.geolocation) {
                 $scope.locationSearching = true;
                 navigator.geolocation.getCurrentPosition(function (position) {
-                    console.debug('getCurrentPosition');
                     if ($scope.store.location == undefined) {
                         $scope.store.location = [];
                     }

@@ -341,11 +341,15 @@ router.put('/store/:id', function (req, res) {
     if (req.body.location != undefined)
         updateData.location = req.body.location;
 
+    if (req.body.seat_count != undefined)
+        updateData.seat_count = req.body.seat_count;
+
     if (req.body.opening_hour != undefined) {
-        if (updateData.opening_hour.start != undefined)
+        updateData.opening_hour = {};
+        if (req.body.opening_hour.start != undefined)
             updateData.opening_hour.start = req.body.opening_hour.start;
 
-        if (updateData.opening_hour.end != undefined)
+        if (req.body.opening_hour.end != undefined)
             updateData.opening_hour.end = req.body.opening_hour.end;
     }
 

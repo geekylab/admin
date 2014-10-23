@@ -153,6 +153,9 @@ var Store = new mongoose.Schema({
         type: String
     },
     location: [Number, Number],
+    seat_count: {
+        type: Number
+    },
     'opening_hour': {
         start: {
             type: String
