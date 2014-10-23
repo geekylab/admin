@@ -23,9 +23,9 @@ angular.module('clientApp')
         $scope.supportLang = {
             selected: {},
             languages: [
-                {name: 'English', code: 'en'},
-                {name: 'Japanese', code: 'ja'},
-                {name: 'Portuguese', code: 'pt'}
+                {name: 'English', code: 'us'},
+                {name: 'Japanese', code: 'jp'},
+                {name: 'Portuguese', code: 'br'}
             ]
         };
         $scope.supportLang.selected = $scope.supportLang.languages[0];

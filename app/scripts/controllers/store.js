@@ -14,10 +14,14 @@ angular.module('clientApp')
             enableFiltering: true,
             columnDefs: [
                 {
-                    field: 'store_name'
+                    field: 'store_name',
+                    cellTemplate: '<div grid-multi-lang-field="{{row.entity.store_name}}"></div>'
                 },
                 {
                     field: 'tel'
+                },
+                {
+                    field: 'seat_count'
                 },
                 {
                     field: 'Action',
