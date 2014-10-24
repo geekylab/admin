@@ -9,7 +9,8 @@
 angular.module('clientApp')
     .directive('applyUniform', function () {
         return {
-            link: function (scope, element, attr) {
+            restrict: 'A',
+            link: function postLink(scope, element, attrs) {
                 element.uniform();
             }
         };
