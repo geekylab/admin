@@ -25,9 +25,8 @@
         <i class="icon-note font-green-sharp"></i>
         <span class="caption-subject font-green-sharp bold uppercase">{{'Store view'|translate}}</span>
 
-        <select ng-model="supportLang.selected"
-                ng-options="lang.name for lang in supportLang.languages"></select>
     </div>
+
     <div class="actions btn-set">
         <a ng-href="#/store" type="button" name="back" class="btn btn-default btn-circle">
             <i class="fa fa-angle-left"></i> {{'Back'|translate}}
@@ -53,6 +52,9 @@
                 </li>
             </ul>
         </div>
+
+        <select ng-model="supportLang.selected"
+                ng-options="lang.name for lang in supportLang.languages" class="form-control margin-top-10"></select>
     </div>
 </div>
 <div class="portlet-body">

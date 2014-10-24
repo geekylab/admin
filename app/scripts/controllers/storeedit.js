@@ -8,7 +8,14 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('StoreeditCtrl', function ($scope, $routeParams, Store, constAllCountries, alertService, $location, FileUploader) {
+    .controller('StoreeditCtrl', function ($scope,
+                                           $routeParams,
+                                           Store,
+                                           constAllCountries,
+                                           alertService,
+                                           $location,
+                                           FileUploader,
+                                           $translate) {
 
         var uploader = $scope.uploader = new FileUploader(
             {url: '/api/upload'}
@@ -51,9 +58,9 @@ angular.module('clientApp')
         $scope.supportLang = {
             selected: {},
             languages: [
-                {name: 'English', code: 'us'},
-                {name: 'Japanese', code: 'jp'},
-                {name: 'Portuguese', code: 'br'}
+                {name: $translate.instant('English'), code: 'us'},
+                {name: $translate.instant('Japanese'), code: 'jp'},
+                {name: $translate.instant('Portuguese'), code: 'br'}
             ]
         };
         $scope.supportLang.selected = $scope.supportLang.languages[0];
