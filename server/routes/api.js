@@ -358,6 +358,9 @@ function getStoreObjectFromReq(req, updateData) {
     if (req.body.opts != undefined)
         updateData.opts = req.body.opts;
 
+    if (req.body.tables != undefined)
+        updateData.tables = req.body.tables;
+
     return updateData;
 }
 

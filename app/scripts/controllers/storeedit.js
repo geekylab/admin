@@ -70,8 +70,9 @@ angular.module('clientApp')
 
         if ($routeParams.id != -1) {
             $scope.myPromise = $scope.store = Store.get(
-                {
-                    id: $routeParams.id
+                {id: $routeParams.id},
+                function (data) {
+                    $scope.tableGridOptions.data = $scope.store.tables;
                 }
             );
         } else {
@@ -158,6 +159,8 @@ angular.module('clientApp')
 
 
         $scope.checkCheckbox = function (option) {
+            if ($scope.store.opts == undefined)
+                return false;
             return $scope.store.opts.indexOf(option) > -1;
         };
 
@@ -175,4 +178,71 @@ angular.module('clientApp')
             }
         };
 
+        /**
+         * Table grid
+         */
+
+        $scope.addRow = function () {
+            $scope.store.tables.push({
+                'table_number': 0,
+                'limited_number': 4,
+                'table_status': 0
+            });
+        };
+
+        $scope.tableGridScope = {
+            deleteRow: function (col, row, index) {
+                if (window.confirm($translate.instant('Delete?'))) {
+                    var idx = $scope.store.tables.indexOf(row.entity);
+                    $scope.store.tables.splice(idx, 1);
+                }
+            }
+        };
+
+        $scope.tableGridOptions = {
+            enableSorting: true,
+            enableFiltering: true,
+            columnDefs: [
+                {
+                    field: 'table_number',
+                    enableCellEdit: true
+                },
+                {
+                    field: 'table_status',
+                    name: 'table_status',
+                    displayName: 'Table',
+                    editableCellTemplate: 'ui-grid/dropdownEditor',
+                    editDropdownValueLabel: 'status',
+                    cellFilter: 'mapGender',
+                    editDropdownOptionsArray: [
+                        {id: 0, status: $translate.instant('vacated')},
+                        {id: 1, status: $translate.instant('busy')}
+                    ]
+                },
+
+                {
+                    field: 'limited_number'
+                },
+                {
+                    field: 'Action',
+                    cellTemplate: '<button class="btn btn-xs red" type="button" ng-click="getExternalScopes().deleteRow(col,row,$index)"><i class="fa fa-times"></i> Delete</button>',
+                    enableFiltering: false,
+                    enableSorting: false,
+                    enableCellEdit: false
+                }
+            ]
+        };
+
+    }).filter('mapGender', function ($translate) {
+        var genderHash = {
+            0: $translate.instant('vacated'),
+            1: $translate.instant('busy')
+        };
+        return function (input) {
+            if (input == undefined || input === '') {
+                return '';
+            } else {
+                return genderHash[input];
+            }
+        }
     });

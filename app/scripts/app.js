@@ -20,6 +20,8 @@ angular
         'pascalprecht.translate',
         'ui.bootstrap',
         'ui.grid',
+        'ui.grid.autoResize',
+        'ui.grid.edit',
         'angular-loading-bar',
         'angularFileUpload',
         'cgBusy',

@@ -191,6 +191,7 @@ var Store = new mongoose.Schema({
         type: String,
         index: true
     }],
+    'tables': [Tables],
     'created': {
         type: Date,
         default: Date.now

@@ -63,7 +63,7 @@
 <div cg-busy="myPromise"></div>
 <div class="form-body">
 <div class="tabbable">
-<tabset>
+<tabset justified="true">
 <tab heading="{{'General'|translate}}">
     <div class="form-body">
         <div class="form-group" ng-class="{'has-error':form.store_name.$invalid}">
@@ -364,6 +364,28 @@
         </tr>
         </tbody>
     </table>
+</tab>
+<tab heading="{{'Tables'|translate}}">
+    <div class="portlet box">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-gift"></i> Table manage
+            </div>
+            <div class="actions">
+                <button type="button" class="btn btn-default btn-sm" ng-click="addRow()">
+                    <i class="fa fa-plus"></i> Add Table
+                </button>
+            </div>
+        </div>
+        <div class="portlet-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div ui-grid="tableGridOptions" style="height: 350px;" external-scopes="tableGridScope"
+                         ui-grid-auto-resize ui-grid-edit></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </tab>
 </tabset>
 </div>
