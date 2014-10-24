@@ -96,24 +96,19 @@ angular.module('clientApp')
                 } else {
                     $location.path("/store/edit/" + $scope.store._id);
                 }
+
+                $scope.tableGridOptions.data = $scope.store.tables;
             }
 
             function failure(response) {
-                _.each(response.data, function (errors, key) {
-                    if (errors.length > 0) {
-                        _.each(errors, function (e) {
-                            $scope.form[key].$dirty = true;
-                            $scope.form[key].$setValidity(e, false);
-                        });
-                    }
-                });
+                alert('error');
+                console.log(response);
             }
 
             if ($scope.store._id) {
-//                $scope.myPromise = Items.update($scope.category, success, failure);
                 $scope.myPromise = $scope.store.$update(success, failure);
             } else {
-                $scope.myPromise = $scope.store.$save(success, failure);//Items.save($scope.category, success, failure);
+                $scope.myPromise = $scope.store.$save(success, failure);
             }
         };
 
