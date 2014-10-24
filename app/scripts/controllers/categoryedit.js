@@ -20,7 +20,6 @@ angular.module('clientApp')
         $scope.save = function (continueFlg) {
             function success(response) {
                 alertService.add('success', '保存した');
-                console.log("success", response);
                 if (!continueFlg) {
                     $location.path("/category");
                 } else {

@@ -187,6 +187,10 @@ var Store = new mongoose.Schema({
             type: mongoose.Schema.Types.Mixed
         }
     }],
+    'opts': [{
+        type: String,
+        index: true
+    }],
     'created': {
         type: Date,
         default: Date.now

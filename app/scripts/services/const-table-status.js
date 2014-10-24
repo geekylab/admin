@@ -9,6 +9,12 @@
  */
 angular.module('clientApp')
     .constant('constTableStatus', {0: 'vacated', 1: 'busy'})
+    .constant('constFacility', {
+        'parking': 'Parking',
+        'wifi': 'Wifi',
+        'live_show': 'Live show',
+        'kids_space': 'Kids space'
+    })
     .constant('constAllCountries', [
         {name: 'Afghanistan', code: 'AF'},
         {name: 'Aland Islands', code: 'AX'},

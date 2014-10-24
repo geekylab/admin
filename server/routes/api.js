@@ -355,6 +355,9 @@ function getStoreObjectFromReq(req, updateData) {
     if (req.body.seat_type != undefined)
         updateData.seat_type = req.body.seat_type;
 
+    if (req.body.opts != undefined)
+        updateData.opts = req.body.opts;
+
     return updateData;
 }
 
@@ -389,24 +392,11 @@ router.post('/store', function (req, res) {
         }
         res.json(store);
     });
-
-    //if (req.body.user_id != undefined)
-    //    table.table_number = req.body.table_number;
-    //if (req.body.table_status != undefined)
-    //    table.table_status = req.body.table_status;
-    //if (req.body.limited_number != undefined)
-    //    table.limited_number = req.body.limited_number;
-    //table.save(function (err) {
-    //    if (err) {
-    //        res.json(err);
-    //    }
-    //    console.info("insert item", table);
-    //    res.json(table);
-    //});
 });
 
 router.delete('/store/:id', function (req, res) {
-    Tables.findByIdAndRemove(req.params.id, function (err, response) {
+    var user = req.user;
+    Stores.findByIdAndRemove(req.params.id, {user_id: user._id}, function (err, response) {
         if (err) {
             res.json(err);
         }

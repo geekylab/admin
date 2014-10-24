@@ -15,7 +15,8 @@ angular.module('clientApp')
                                            alertService,
                                            $location,
                                            FileUploader,
-                                           $translate) {
+                                           $translate,
+                                           constFacility) {
 
         var uploader = $scope.uploader = new FileUploader(
             {url: '/api/upload'}
@@ -43,6 +44,8 @@ angular.module('clientApp')
             });
             fileItem.remove();
         };
+
+        $scope.constFacility = constFacility;
 
         $scope.locationSearching = false;
         $scope.addressBase = {
@@ -113,6 +116,29 @@ angular.module('clientApp')
             }
         };
 
+        $scope.delete = function () {
+            function success(response) {
+                alertService.add('success', '削除されました。');
+                $location.path("/store");
+            }
+
+            function failure(response) {
+                _.each(response.data, function (errors, key) {
+                    if (errors.length > 0) {
+                        _.each(errors, function (e) {
+                            $scope.form[key].$dirty = true;
+                            $scope.form[key].$setValidity(e, false);
+                        });
+                    }
+                });
+            }
+
+            if ($scope.store._id) {
+                if (window.confirm($translate.instant('Remove?')))
+                    $scope.myPromise = $scope.store.$delete(success, failure);
+            }
+        };
+
         $scope.getLocation = function () {
             if (navigator.geolocation) {
                 $scope.locationSearching = true;
@@ -128,7 +154,25 @@ angular.module('clientApp')
             } else {
                 alert('not support');
             }
-        }
+        };
 
+
+        $scope.checkCheckbox = function (option) {
+            return $scope.store.opts.indexOf(option) > -1;
+        };
+
+        $scope.toggleCheck = function (store_id, option) {
+            if ($scope.store.opts == undefined) {
+                $scope.store.opts = [];
+            }
+            var idx = $scope.store.opts.indexOf(option);
+
+            if (angular.equals(idx, -1)) {
+                $scope.store.opts.push(option);
+            }
+            else {
+                $scope.store.opts.splice(idx, 1);
+            }
+        };
 
     });
