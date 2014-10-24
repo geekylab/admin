@@ -86,7 +86,8 @@
                         <input type="tel" name="tel" placeholder="{{'Store Telephone'|translate}}"
                                class="form-control input-circle" ng-model="store.tel" required>
                         <span class="help-block" ng-show="form.tel.$error.required" translate>Required</span>
-                        <span class="help-block" ng-show="form.tel.$error.tel" translate>This is not a valid telephone.</span>
+                        <span class="help-block" ng-show="form.tel.$error.tel"
+                              translate>This is not a valid telephone.</span>
 
                     </div>
                 </div>
@@ -113,17 +114,35 @@
             <label>{{'Business hours'|translate}}</label>
 
             <div class="row margin-top-10">
-                <div class="input-icon col-xs-6" ng-class="{'has-error':form.stime.$invalid}">
-                    <i class="fa fa-clock-o"></i>
-                    <input type="time" name="stime" placeholder="{{'Start'|translate}}"
-                           class="form-control input-circle"
-                           ng-model="store.opening_hour.start" jtimepicker>
+                <div class="col-xs-4">
+                    <label class="control-label">{{'Start'|translate}}</label>
+                    <div class="input-icon" ng-class="{'has-error':form.stime.$invalid}">
+                        <i class="fa fa-clock-o"></i>
+                        <input type="time" name="stime" placeholder="{{'Start'|translate}}"
+                               class="form-control input-circle"
+                               ng-model="store.opening_hour.start" jtimepicker>
+                    </div>
                 </div>
-                <div class="input-icon col-xs-6" ng-class="{'has-error':form.etime.$invalid}">
-                    <i class="fa fa-clock-o"></i>
-                    <input type="time" name="etime" placeholder="{{'End'|translate}}"
-                           class="form-control input-circle"
-                           ng-model="store.opening_hour.end" jtimepicker>
+
+                <div class="col-xs-4">
+                    <label class="control-label">{{'End'|translate}}</label>
+                    <div class="input-icon" ng-class="{'has-error':form.etime.$invalid}">
+                        <i class="fa fa-clock-o"></i>
+                        <input type="time" name="etime" placeholder="{{'End'|translate}}"
+                               class="form-control input-circle"
+                               ng-model="store.opening_hour.end" jtimepicker>
+                    </div>
+                </div>
+
+                <div class="col-xs-4">
+                    <label class="control-label">{{'Last order'|translate}}</label>
+
+                    <div class="input-icon" ng-class="{'has-error':form.etime.$invalid}">
+                        <i class="fa fa-clock-o"></i>
+                        <input type="time" name="last_order" placeholder="{{'Last order'|translate}}"
+                               class="form-control input-circle"
+                               ng-model="store.opening_hour.last_order" jtimepicker>
+                    </div>
                 </div>
             </div>
         </div>

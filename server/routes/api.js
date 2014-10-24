@@ -352,6 +352,9 @@ function getStoreObjectFromReq(req, updateData) {
 
         if (req.body.opening_hour.end != undefined)
             updateData.opening_hour.end = req.body.opening_hour.end;
+
+        if (req.body.opening_hour.last_order != undefined)
+            updateData.opening_hour.last_order = req.body.opening_hour.last_order;
     }
 
     if (req.body.seat_type != undefined)

@@ -162,6 +162,9 @@ var Store = new mongoose.Schema({
         },
         end: {
             type: String
+        },
+        last_order: {
+            type: String
         }
     },
     'seat_type': [{
