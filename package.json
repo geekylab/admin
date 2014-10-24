@@ -20,7 +20,8 @@
     "passport-facebook": "~1.0.3",
     "passport-google-oauth": "~0.1.5",
     "cors": "~2.4.2",
-    "i18n": "~0.5.0"
+    "i18n": "~0.5.0",
+    "mongodb": "~1.4.19"
   },
   "devDependencies": {
     "grunt": "^0.4.1",

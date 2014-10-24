@@ -77,6 +77,10 @@ var Image = new mongoose.Schema({
 });
 
 var Items = new mongoose.Schema({
+    user_id: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true,
@@ -91,6 +95,12 @@ var Items = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    stores: [{
+        store_id: {
+            type: String,
+            required: true
+        }
+    }],
     'images': [Image],
     'categories': [String],
     created: {

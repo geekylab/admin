@@ -66,9 +66,6 @@ router.get('/item/:id', function (req, res) {
     Items.findOne({_id: req.params.id}, function (err, item) {
         if (err)
             res.json(err);
-
-
-        console.info("get item :" + req.params.id, item);
         res.json(item);
 
     });
@@ -425,7 +422,8 @@ router.delete('/store/:id', function (req, res) {
  */
 
 router.post('/upload', function (req, res, next) {
-// create a form to begin parsing
+    // create a form to begin parsing
+    var user = req.user;
     var form = new multiparty.Form();
     var image;
     var title = "test";
@@ -457,7 +455,12 @@ router.post('/upload', function (req, res, next) {
             image.size += buf.length;
         });
 
-        var out = fs.createWriteStream(__dirname + '/../assets/uploads/' + part.filename);
+        var userImageDir = __dirname + '/../assets/uploads/' + user._id;
+        if (!fs.existsSync(userImageDir)) {
+            fs.mkdirSync(userImageDir);
+        }
+
+        var out = fs.createWriteStream(userImageDir + '/' + part.filename);
         part.pipe(out);
     });
 
