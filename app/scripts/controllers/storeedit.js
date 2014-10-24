@@ -25,7 +25,15 @@ angular.module('clientApp')
         uploader.onCompleteItem = function (fileItem, response, status, headers) {
             if ($scope.store.images == undefined)
                 $scope.store.images = [];
-            $scope.store.images.push(response);
+            var desc = {};
+            var filename = {};
+            desc[$scope.supportLang.selected.code] = '';
+            filename[$scope.supportLang.selected.code] = response.filename;
+            $scope.store.images.push({
+                path: response.path,
+                filename: filename,
+                desc: desc
+            });
             fileItem.remove();
         };
 
@@ -39,6 +47,7 @@ angular.module('clientApp')
                 'Santos': 'Santos'
             }
         };
+
         $scope.supportLang = {
             selected: {},
             languages: [

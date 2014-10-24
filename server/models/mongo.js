@@ -172,10 +172,10 @@ var Store = new mongoose.Schema({
             type: String
         },
         filename: {
-            type: String
+            type: mongoose.Schema.Types.Mixed
         },
         desc: {
-            type: String
+            type: mongoose.Schema.Types.Mixed
         }
     }],
     'created': {
