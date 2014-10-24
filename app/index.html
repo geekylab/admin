@@ -10,15 +10,15 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css" />
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
-    <link rel="stylesheet" href="bower_components/select2/select2.css" />
-    <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css" />
-    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
-    <link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-timepicker/css/bootstrap-timepicker.min.css" />
-    <link rel="stylesheet" href="bower_components/jquery.uniform/themes/default/css/uniform.default.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="bower_components/select2/select2.css"/>
+    <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css"/>
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css"/>
+    <link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
+    <link rel="stylesheet" href="bower_components/jquery.uniform/themes/default/css/uniform.default.css"/>
 
     <!-- endbower -->
     <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.min.css"/>
@@ -134,131 +134,148 @@
 <div class="page-top">
     <!-- BEGIN HEADER SEARCH BOX -->
     <!-- DOC: Apply "search-form-expanded" right after the "search-form" class to have half expanded search box -->
-    <form class="search-form search-form-expanded" action="extra_search.html" method="GET">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search..." name="query">
-					<span class="input-group-btn">
-					<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
-					</span>
-        </div>
-    </form>
+    <!--<form class="search-form search-form-expanded" action="extra_search.html" method="GET">-->
+    <!--<div class="input-group">-->
+    <!--<input type="text" class="form-control" placeholder="Search..." name="query">-->
+    <!--<span class="input-group-btn">-->
+    <!--<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>-->
+    <!--</span>-->
+    <!--</div>-->
+    <!--</form>-->
     <!-- END HEADER SEARCH BOX -->
     <!-- BEGIN TOP NAVIGATION MENU -->
     <div class="top-menu">
         <ul class="nav navbar-nav pull-right">
             <!-- BEGIN NOTIFICATION DROPDOWN -->
-            <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-                   data-close-others="true">
-                    <i class="icon-bell"></i><span class="badge badge-danger">7 </span>
+            <!--<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">-->
+            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"-->
+            <!--data-close-others="true">-->
+            <!--<i class="icon-bell"></i><span class="badge badge-danger">7 </span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+            <!--<li>-->
+            <!--<p>-->
+            <!--You have 14 new notifications-->
+            <!--</p>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<ul class="dropdown-menu-list scroller" style="height: 250px;">-->
+            <!--<li>-->
+            <!--<a href="#">-->
+            <!--<span class="label label-sm label-icon label-success">-->
+            <!--<i class="fa fa-plus"></i>-->
+            <!--</span>-->
+            <!--New user registered. <span class="time">-->
+            <!--Just now </span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">-->
+            <!--<span class="label label-sm label-icon label-danger">-->
+            <!--<i class="fa fa-bolt"></i>-->
+            <!--</span>-->
+            <!--Server #12 overloaded. <span class="time">-->
+            <!--15 mins </span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">-->
+            <!--<span class="label label-sm label-icon label-warning">-->
+            <!--<i class="fa fa-bell-o"></i>-->
+            <!--</span>-->
+            <!--Server #2 not responding. <span class="time">-->
+            <!--22 mins </span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">-->
+            <!--<span class="label label-sm label-icon label-info">-->
+            <!--<i class="fa fa-bullhorn"></i>-->
+            <!--</span>-->
+            <!--Application error. <span class="time">-->
+            <!--40 mins </span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">-->
+            <!--<span class="label label-sm label-icon label-danger">-->
+            <!--<i class="fa fa-bolt"></i>-->
+            <!--</span>-->
+            <!--Database overloaded 68%. <span class="time">-->
+            <!--2 hrs </span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">-->
+            <!--<span class="label label-sm label-icon label-danger">-->
+            <!--<i class="fa fa-bolt"></i>-->
+            <!--</span>-->
+            <!--2 user IP blocked. <span class="time">-->
+            <!--5 hrs </span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">-->
+            <!--<span class="label label-sm label-icon label-warning">-->
+            <!--<i class="fa fa-bell-o"></i>-->
+            <!--</span>-->
+            <!--Storage Server #4 not responding. <span class="time">-->
+            <!--45 mins </span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">-->
+            <!--<span class="label label-sm label-icon label-info">-->
+            <!--<i class="fa fa-bullhorn"></i>-->
+            <!--</span>-->
+            <!--System Error. <span class="time">-->
+            <!--55 mins </span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<a href="#">-->
+            <!--<span class="label label-sm label-icon label-danger">-->
+            <!--<i class="fa fa-bolt"></i>-->
+            <!--</span>-->
+            <!--Database overloaded 68%. <span class="time">-->
+            <!--2 hrs </span>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</li>-->
+            <!--<li class="external">-->
+            <!--<a href="#">-->
+            <!--See all notifications <i class="icon-arrow-right"></i>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</li>-->
+            <!-- END NOTIFICATION DROPDOWN -->
+
+            <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+            <!--<li class="dropdown dropdown-quick-sidebar-toggler hide">-->
+            <!--<a href="javascript:;" class="dropdown-toggle">-->
+            <!--<i class="icon-logout"></i>-->
+            <!--</a>-->
+            <!--</li>-->
+            <!-- END QUICK SIDEBAR TOGGLER -->
+            <li class="dropdown dropdown-language">
+                <a data-close-others="true" data-hover="dropdown" data-toggle="dropdown" class="dropdown-toggle"
+                   href="#">
+                    <img ng-src="/app/images/flags/{{languages.selected.flag}}.png" alt="">
+                    <span class="langname">{{languages.selected.code}}</span>
+                    <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu">
-                    <li>
-                        <p>
-                            You have 14 new notifications
-                        </p>
-                    </li>
-                    <li>
-                        <ul class="dropdown-menu-list scroller" style="height: 250px;">
-                            <li>
-                                <a href="#">
-										<span class="label label-sm label-icon label-success">
-										<i class="fa fa-plus"></i>
-										</span>
-                                    New user registered. <span class="time">
-										Just now </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="label label-sm label-icon label-danger">
-										<i class="fa fa-bolt"></i>
-										</span>
-                                    Server #12 overloaded. <span class="time">
-										15 mins </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="label label-sm label-icon label-warning">
-										<i class="fa fa-bell-o"></i>
-										</span>
-                                    Server #2 not responding. <span class="time">
-										22 mins </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="label label-sm label-icon label-info">
-										<i class="fa fa-bullhorn"></i>
-										</span>
-                                    Application error. <span class="time">
-										40 mins </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="label label-sm label-icon label-danger">
-										<i class="fa fa-bolt"></i>
-										</span>
-                                    Database overloaded 68%. <span class="time">
-										2 hrs </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="label label-sm label-icon label-danger">
-										<i class="fa fa-bolt"></i>
-										</span>
-                                    2 user IP blocked. <span class="time">
-										5 hrs </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="label label-sm label-icon label-warning">
-										<i class="fa fa-bell-o"></i>
-										</span>
-                                    Storage Server #4 not responding. <span class="time">
-										45 mins </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="label label-sm label-icon label-info">
-										<i class="fa fa-bullhorn"></i>
-										</span>
-                                    System Error. <span class="time">
-										55 mins </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-										<span class="label label-sm label-icon label-danger">
-										<i class="fa fa-bolt"></i>
-										</span>
-                                    Database overloaded 68%. <span class="time">
-										2 hrs </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="external">
-                        <a href="#">
-                            See all notifications <i class="icon-arrow-right"></i>
+                    <li ng-hide="languages.selected.code == lng.code" ng-repeat="lng in languages.lang">
+                        <a href="javascript:;" ng-click="changeLang(lng.code)"> <img
+                                ng-src="/app/images/flags/{{lng.flag}}.png" alt=""> {{lng.label}}
                         </a>
                     </li>
                 </ul>
             </li>
-            <!-- END NOTIFICATION DROPDOWN -->
 
-            <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-            <li class="dropdown dropdown-quick-sidebar-toggler hide">
-                <a href="javascript:;" class="dropdown-toggle">
-                    <i class="icon-logout"></i>
-                </a>
-            </li>
-            <!-- END QUICK SIDEBAR TOGGLER -->
+
             <!-- BEGIN USER LOGIN DROPDOWN -->
             <li class="dropdown dropdown-user">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
@@ -272,25 +289,7 @@
                         <a href="/profile">
                             <i class="icon-user"></i> My Profile </a>
                     </li>
-                    <li>
-                        <a href="page_calendar.html">
-                            <i class="icon-calendar"></i> My Calendar </a>
-                    </li>
-                    <li>
-                        <a href="inbox.html">
-                            <i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger"> 3 </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="page_todo.html">
-                            <i class="icon-rocket"></i> My Tasks <span class="badge badge-success"> 7 </span>
-                        </a>
-                    </li>
                     <li class="divider">
-                    </li>
-                    <li>
-                        <a href="extra_lock.html">
-                            <i class="icon-lock"></i> Lock Screen </a>
                     </li>
                     <li>
                         <a href="/logout"><i class="icon-key"></i> {{'Log Out'|translate}} </a>
