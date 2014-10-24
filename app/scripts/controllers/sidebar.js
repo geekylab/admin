@@ -35,11 +35,11 @@ angular.module('clientApp')
                 href: "/category",
                 icon: "icon-docs"
             },
-            {
-                name: "Table",
-                href: "/table",
-                icon: "icon-screen-tablet"
-            },
+            //{
+            //    name: "Table",
+            //    href: "/table",
+            //    icon: "icon-screen-tablet"
+            //},
             {
                 name: "Store",
                 href: "/store",

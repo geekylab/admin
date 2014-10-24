@@ -65,14 +65,14 @@ angular
                 templateUrl: 'views/categoryedit.html',
                 controller: 'CategoryeditCtrl'
             })
-            .when('/table', {
-                templateUrl: 'views/table.html',
-                controller: 'TableCtrl'
-            })
-            .when('/table/edit/:id', {
-                templateUrl: 'views/tableedit.html',
-                controller: 'TableeditCtrl'
-            })
+            //.when('/table', {
+            //    templateUrl: 'views/table.html',
+            //    controller: 'TableCtrl'
+            //})
+            //.when('/table/edit/:id', {
+            //    templateUrl: 'views/tableedit.html',
+            //    controller: 'TableeditCtrl'
+            //})
             .when('/store', {
                 templateUrl: 'views/store.html',
                 controller: 'StoreCtrl'
