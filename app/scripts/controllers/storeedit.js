@@ -8,7 +8,26 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('StoreeditCtrl', function ($scope, $routeParams, Store, constAllCountries, alertService, $location) {
+    .controller('StoreeditCtrl', function ($scope, $routeParams, Store, constAllCountries, alertService, $location, FileUploader) {
+
+        var uploader = $scope.uploader = new FileUploader(
+            {url: '/api/upload'}
+        );
+
+        uploader.filters.push({
+            name: 'imageFilter',
+            fn: function (item /*{File|FileLikeObject}*/, options) {
+                var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                return '|jpg|png|jpeg|gif|'.indexOf(type) !== -1;
+            }
+        });
+
+        uploader.onCompleteItem = function (fileItem, response, status, headers) {
+            if ($scope.store.images == undefined)
+                $scope.store.images = [];
+            $scope.store.images.push(response);
+            fileItem.remove();
+        };
 
         $scope.locationSearching = false;
         $scope.addressBase = {
@@ -55,7 +74,7 @@ angular.module('clientApp')
                 if (!continueFlg) {
                     $location.path("/store");
                 } else {
-                    //$location.path("/store/edit/" + $scope.store._id);
+                    $location.path("/store/edit/" + $scope.store._id);
                 }
             }
 

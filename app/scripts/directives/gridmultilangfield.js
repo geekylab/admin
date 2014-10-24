@@ -16,11 +16,11 @@ angular.module('clientApp')
 
                 var langImages = '';
                 angular.forEach(scope.$eval(attrs.gridMultiLangField), function (value, key) {
-                    if (key == 'en') {
+                    if (key == 'us') {
                         element.text(value);
-                    } else {
-                        langImages += '<img style="margin-left:4px" src="/app/images/flags/' + key + '.png" alt="" title="' + value + '" />';
                     }
+
+                    langImages += '<img style="margin-left:4px" src="/app/images/flags/' + key + '.png" alt="" title="' + value + '" />';
                 });
                 element.append(langImages);
             }

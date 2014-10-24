@@ -310,10 +310,7 @@ router.get('/store/:id/:lang?', function (req, res) {
 //});
 
 
-router.put('/store/:id', function (req, res) {
-    var user = req.user;
-
-    var updateData = {};
+function getStoreObjectFromReq(req, updateData) {
     if (req.body.store_name != undefined)
         updateData.store_name = req.body.store_name;
 
@@ -344,6 +341,10 @@ router.put('/store/:id', function (req, res) {
     if (req.body.seat_count != undefined)
         updateData.seat_count = req.body.seat_count;
 
+    if (req.body.images != undefined)
+        updateData.images = req.body.images;
+
+
     if (req.body.opening_hour != undefined) {
         updateData.opening_hour = {};
         if (req.body.opening_hour.start != undefined)
@@ -356,7 +357,14 @@ router.put('/store/:id', function (req, res) {
     if (req.body.seat_type != undefined)
         updateData.seat_type = req.body.seat_type;
 
+    return updateData;
+}
 
+router.put('/store/:id', function (req, res) {
+    var user = req.user;
+
+    var updateData = {};
+    getStoreObjectFromReq(req, updateData);
     Stores.findOneAndUpdate({'_id': req.params.id, user_id: user._id}, {
             $set: updateData
         },
@@ -375,9 +383,7 @@ router.post('/store', function (req, res) {
 
     store.user_id = user._id;
 
-    if (req.body.store_name != undefined)
-        store.store_name = req.body.store_name;
-
+    getStoreObjectFromReq(req, store);
 
     store.save(function (err) {
         if (err) {

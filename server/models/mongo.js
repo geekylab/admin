@@ -167,6 +167,17 @@ var Store = new mongoose.Schema({
     'seat_type': [{
         type: String
     }],
+    'images': [{
+        path: {
+            type: String
+        },
+        filename: {
+            type: String
+        },
+        desc: {
+            type: String
+        }
+    }],
     'created': {
         type: Date,
         default: Date.now
