@@ -10,7 +10,7 @@
             <i class="fa fa-angle-right"></i>
         </li>
         <li>
-            <span translate>Store View</span>
+            <span translate>Store view</span>
         </li>
     </ul>
     <div class="page-toolbar">
@@ -69,7 +69,7 @@
                 <input type="text" placeholder="{{'Store Name'|translate}}"
                        class="form-control input-circle" name="store_name"
                        ng-model="store.store_name[supportLang.selected.code]" required>
-                <span class="help-block" ng-show="form.store_name.$error.required">Required</span>
+                <span class="help-block" ng-show="form.store_name.$error.required" translate>Required.</span>
             </div>
         </div>
 
@@ -83,8 +83,9 @@
                         <i class="fa fa-comment-o"></i>
                         <input type="tel" name="tel" placeholder="{{'Store Telephone'|translate}}"
                                class="form-control input-circle" ng-model="store.tel" required>
-                        <span class="help-block" ng-show="form.tel.$error.tel">This is not a valid telephone.</span>
-                        <span class="help-block" ng-show="form.tel.$error.required">Required</span>
+                        <span class="help-block" ng-show="form.tel.$error.required" translate>Required</span>
+                        <span class="help-block" ng-show="form.tel.$error.tel" translate>This is not a valid telephone.</span>
+
                     </div>
                 </div>
 
@@ -97,9 +98,10 @@
                                class="form-control input-circle"
                                ng-model="store.seat_count" required>
                         <span class="help-block"
-                              ng-show="form.seat_count.$error.number">Please fill in only numbers.</span>
+                              ng-show="form.seat_count.$error.required" translate>Required.</span>
                         <span class="help-block"
-                              ng-show="form.seat_count.$error.required">Required.</span>
+                              ng-show="form.seat_count.$error.number" translate>Please fill in only numbers.</span>
+
                     </div>
                 </div>
             </div>
@@ -207,7 +209,7 @@
             </div>
 
             <div class="col-xs-6">
-                <label>{{'Latitude'|translate}}</label>
+                <label>{{'Longitude'|translate}}</label>
 
                 <div class="input-icon">
                     <i class="fa fa-location-arrow"></i>
