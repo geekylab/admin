@@ -70,6 +70,7 @@ module.exports = function (passport) {
         },
         function (req, email, password, done) {
             // asynchronous
+            console.log("johna");
             process.nextTick(function () {
                 // Whether we're signing up or connecting an account, we'll need
                 // to know if the email address is in use.

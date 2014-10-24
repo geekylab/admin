@@ -36,7 +36,6 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
-require('./routes/routes')(app, passport);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -47,6 +46,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
+require('./routes/routes')(app, passport);
 app.use('/app', isLoggedIn, express.static(path.join(__dirname, '../app')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 

@@ -96,8 +96,6 @@ router.put('/item/:id', function (req, res) {
 
 router.post('/item', function (req, res) {
 
-    console.info("post data", req.body);
-
     var item = new Items();
     if (req.body.name != undefined)
         item.name = req.body.name;
@@ -381,7 +379,7 @@ router.post('/store', function (req, res) {
     var user = req.user;
     var store = new Stores();
 
-    store.user_id = user._id;
+    store.user_id.push(user._id);
 
     getStoreObjectFromReq(req, store);
 

@@ -77,10 +77,6 @@ var Image = new mongoose.Schema({
 });
 
 var Items = new mongoose.Schema({
-    user_id: {
-        type: String,
-        required: true
-    },
     name: {
         type: String,
         required: true,
@@ -130,10 +126,10 @@ var Tables = new mongoose.Schema({
 });
 
 var Store = new mongoose.Schema({
-    user_id: {
+    user_id: [{
         type: String,
         required: true
-    },
+    }],
     'store_name': {
         type: mongoose.Schema.Types.Mixed,
         index: true
