@@ -91,6 +91,7 @@ angular
         });
         $translateProvider.preferredLanguage('ja');
         $translateProvider.fallbackLanguage('en');
+        $translateProvider.use('ja');
 //        $translateProvider.useMissingTranslationHandlerLog();
         $translateProvider.useLocalStorage();
 
