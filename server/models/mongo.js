@@ -49,8 +49,7 @@ var Orders = new mongoose.Schema({
 
 var Categories = new mongoose.Schema({
     name: {
-        type: String,
-        required: true,
+        type: mongoose.Schema.Types.Mixed,
         index: true
     },
     created: {
@@ -64,7 +63,7 @@ var Image = new mongoose.Schema({
         type: String
     },
     filename: {
-        type: String
+        type: mongoose.Schema.Types.Mixed
     },
     sort_order: {
         type: Number,
@@ -78,9 +77,14 @@ var Image = new mongoose.Schema({
 
 var Items = new mongoose.Schema({
     name: {
-        type: String,
-        required: true,
-        index: true
+        type: mongoose.Schema.Types.Mixed,
+        index: true,
+        required: true
+    },
+    desc: {
+        type: mongoose.Schema.Types.Mixed,
+        index: true,
+        required: true
     },
     price: {
         type: Number,

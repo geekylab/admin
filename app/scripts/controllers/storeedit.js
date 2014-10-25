@@ -58,16 +58,6 @@ angular.module('clientApp')
             }
         };
 
-        $scope.supportLang = {
-            selected: {},
-            languages: [
-                {name: $translate.instant('English'), code: 'us'},
-                {name: $translate.instant('Japanese'), code: 'jp'},
-                {name: $translate.instant('Portuguese'), code: 'br'}
-            ]
-        };
-        $scope.supportLang.selected = $scope.supportLang.languages[0];
-
         if ($routeParams.id != -1) {
             $scope.myPromise = $scope.store = Store.get(
                 {id: $routeParams.id},

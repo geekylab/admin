@@ -15,7 +15,7 @@ angular.module('clientApp')
             columnDefs: [
                 {
                     field: 'store_name',
-                    cellTemplate: '<div grid-multi-lang-field="{{row.entity.store_name}}"></div>'
+                    cellTemplate: '<div class="ui-grid-cell-contents" grid-multi-lang-field="{{row.entity.store_name}}"></div>'
                 },
                 {
                     field: 'tel'

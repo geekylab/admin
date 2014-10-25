@@ -9,9 +9,8 @@
 angular.module('clientApp')
     .directive('gridMultiLangField', function ($compile) {
         return {
-            template: '<div class="ui-grid-cell-contents"></div>',
+            //template: '<span class="ui-grid-cell-contents"></span>',
             restrict: 'A',
-            replace: true,
             link: function postLink(scope, element, attrs) {
 
                 var langImages = '';

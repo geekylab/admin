@@ -72,11 +72,10 @@ router.get('/item/:id', function (req, res) {
 });
 
 router.put('/item/:id', function (req, res) {
-
-    console.info("post data", req.body);
     Items.findByIdAndUpdate(req.params.id, {
             $set: {
                 name: req.body.name,
+                desc: req.body.desc,
                 price: req.body.price,
                 time: req.body.time,
                 images: req.body.images,
@@ -99,6 +98,8 @@ router.post('/item', function (req, res) {
     var item = new Items();
     if (req.body.name != undefined)
         item.name = req.body.name;
+    if (req.body.desc != undefined)
+        item.desc = req.body.desc;
     if (req.body.price != undefined)
         item.price = req.body.price;
     if (req.body.time != undefined)

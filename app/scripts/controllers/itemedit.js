@@ -47,8 +47,12 @@ angular.module('clientApp')
         //    console.info('onCancelItem', fileItem, response, status, headers);
         //};
         uploader.onCompleteItem = function (fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
-            $scope.item.images.push(response);
+            var filename = {};
+            filename[$scope.supportLang.selected.code] = response.filename;
+            $scope.item.images.push({
+                path: response.path,
+                filename: filename,
+            });
             fileItem.remove();
         };
         //uploader.onCompleteAll = function () {

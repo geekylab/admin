@@ -53,6 +53,7 @@
                 </li>
             </ul>
         </div>
+        <support-lang></support-lang>
     </div>
 </div>
 <div class="portlet-body">
@@ -67,7 +68,17 @@
                         <div class="input-icon">
                             <i class="fa fa-info-circle"></i>
                             <input type="text" placeholder="{{'Item Name'|translate}}"
-                                   class="form-control input-circle" ng-model="item.name">
+                                   class="form-control input-circle" ng-model="item.name[supportLang.selected.code]">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{'Item Description'|translate}}</label>
+
+                        <div class="input-icon">
+                            <i class="fa fa-quote-left"></i>
+                            <textarea rows="3" class="form-control" placeholder="{{'Item Description'|translate}}"
+                                      ng-model="item.desc[supportLang.selected.code]"></textarea>
                         </div>
                     </div>
 
@@ -189,7 +200,7 @@
                             </a>
                         </td>
                         <td>
-                            <input type="text" class="form-control" ng-model="img.filename">
+                            <input type="text" class="form-control" ng-model="img.filename[supportLang.selected.code]">
                         </td>
                         <td>
                             <input type="text" class="form-control" ng-model="img.sort_order">
@@ -222,15 +233,17 @@
             <tab heading="{{'Category'|translate}}">
                 <div class="form-group">
                     <label>{{'Category'|translate}}</label>
+
                     <div class="form-control height-auto">
                         <div class="scroller" style="height:275px;" data-always-visible="1">
-                            <ul class="list-unstyled">
-                                <li ng-repeat="category in categories">
-                                    <label><input type="checkbox"
-                                                  ng-checked="item.categories.indexOf(category._id) > -1"
-                                                  ng-click="toggleCheck(item._id,category._id)">{{category.name}}</label>
-                                </li>
-                            </ul>
+                            <div class="checkbox-list">
+                                <label style="margin-left: 20px;" ng-repeat="category in categories">
+                                    <input type="checkbox"
+                                           ng-checked="item.categories.indexOf(category._id) > -1"
+                                           ng-click="toggleCheck(item._id,category._id)">
+                                    <span grid-multi-lang-field="{{category.name}}"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>

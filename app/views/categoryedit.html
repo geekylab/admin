@@ -52,6 +52,8 @@
                                 </li>
                             </ul>
                         </div>
+
+                        <support-lang></support-lang>
                     </div>
                 </div>
                 <div class="portlet-body">
@@ -63,7 +65,7 @@
                             <div class="input-icon">
                                 <i class="fa fa-info-circle"></i>
                                 <input type="text" placeholder="{{'Category Name'|translate}}"
-                                       class="form-control input-circle" ng-model="category.name">
+                                       class="form-control input-circle" ng-model="category.name[supportLang.selected.code]">
                             </div>
                         </div>
                     </div>

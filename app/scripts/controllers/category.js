@@ -13,7 +13,10 @@ angular.module('clientApp')
             enableSorting: true,
             enableFiltering: true,
             columnDefs: [
-                {field: 'name'},
+                {
+                    field: 'name',
+                    cellTemplate: '<div class="ui-grid-cell-contents" grid-multi-lang-field="{{row.entity.name}}"></div>'
+                },
                 {
                     field: 'Action',
                     cellTemplate: '<a class="btn btn-success" ng-href="#/category/edit/{{row.entity._id}}"> Edit</a>',

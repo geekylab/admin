@@ -14,8 +14,10 @@ angular.module('clientApp')
             enableSorting: true,
             enableFiltering: true,
             columnDefs: [
-                {field: '_id'},
-                {field: 'name'},
+                {
+                    field: 'name',
+                    cellTemplate: '<div class="ui-grid-cell-contents" grid-multi-lang-field="{{row.entity.name}}"></div>'
+                },
                 {
                     field: 'price', filters: [
                     {

@@ -49,6 +49,7 @@ app.use(cookieParser());
 require('./routes/routes')(app, passport);
 app.use('/app', isLoggedIn, express.static(path.join(__dirname, '../app')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use('/bower_components', express.static(path.join(__dirname, '../bower_components')));
 
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {

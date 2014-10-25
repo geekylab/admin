@@ -55,8 +55,7 @@
             </ul>
         </div>
 
-        <select ng-model="supportLang.selected"
-                ng-options="lang.name for lang in supportLang.languages" class="form-control margin-top-10"></select>
+        <support-lang></support-lang>
     </div>
 </div>
 <div class="portlet-body">
@@ -90,7 +89,6 @@
                         <span class="help-block" ng-show="form.tel.$error.required" translate>Required</span>
                         <span class="help-block" ng-show="form.tel.$error.tel"
                               translate>This is not a valid telephone.</span>
-
                     </div>
                 </div>
 
