@@ -25,7 +25,8 @@ angular
         'angular-loading-bar',
         'angularFileUpload',
         'cgBusy',
-        'google-maps'.ns()
+        'google-maps'.ns(),
+        'ngTagsInput'
     ])
     .config(function ($routeProvider, $translateProvider, $httpProvider) {
         $routeProvider

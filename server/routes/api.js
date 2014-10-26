@@ -11,6 +11,7 @@ var Orders = model.Orders;
 var Categories = model.Categories;
 var Tables = model.Tables;
 var Stores = model.Stores;
+var Ingredients = model.Ingredients;
 
 router.get('/me', function (req, res) {
     var user = req.user;
@@ -458,6 +459,20 @@ router.post('/upload', function (req, res, next) {
 
     // parse the form
     form.parse(req);
+});
+
+router.post('/ingredients', function (req, res) {
+    if (req.body.name != undefined && req.body.lang != undefined) {
+        var conditions = {};
+        conditions['text.' + req.body.lang] = new RegExp(req.body.name, 'i');
+        Ingredients.find(conditions, function (err, rows) {
+            if (err)
+                res.json(err);
+            res.json(rows);
+        });
+    } else {
+        res.json([]);
+    }
 });
 
 

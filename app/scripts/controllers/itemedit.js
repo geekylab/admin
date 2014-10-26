@@ -8,7 +8,16 @@
  * Controller of the clientApp
  */
 angular.module('clientApp')
-    .controller('ItemeditCtrl', function ($scope, Items, $location, $routeParams, alertService, FileUploader, $translate, Categories) {
+    .controller('ItemeditCtrl', function ($scope,
+                                          Items,
+                                          $location,
+                                          $routeParams,
+                                          alertService,
+                                          FileUploader,
+                                          $translate,
+                                          Categories,
+                                          $modal,
+                                          $log) {
 
         var uploader = $scope.uploader = new FileUploader(
             {url: '/api/upload'}
@@ -19,46 +28,15 @@ angular.module('clientApp')
         $scope.item.images = [];
         $scope.myPromise = {};
 
-        //uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
-        //    console.info('onWhenAddingFileFailed', item, filter, options);
-        //};
-        //uploader.onAfterAddingFile = function (fileItem) {
-        //    console.info('onAfterAddingFile', fileItem);
-        //};
-        //uploader.onAfterAddingAll = function (addedFileItems) {
-        //    console.info('onAfterAddingAll', addedFileItems);
-        //};
-        //uploader.onBeforeUploadItem = function (item) {
-        //    console.info('onBeforeUploadItem', item);
-        //};
-        //uploader.onProgressItem = function (fileItem, progress) {
-        //    console.info('onProgressItem', fileItem, progress);
-        //};
-        //uploader.onProgressAll = function (progress) {
-        //    console.info('onProgressAll', progress);
-        //};
-        //uploader.onSuccessItem = function (fileItem, response, status, headers) {
-        //    console.info('onSuccessItem', fileItem, response, status, headers);
-        //};
-        //uploader.onErrorItem = function (fileItem, response, status, headers) {
-        //    console.info('onErrorItem', fileItem, response, status, headers);
-        //};
-        //uploader.onCancelItem = function (fileItem, response, status, headers) {
-        //    console.info('onCancelItem', fileItem, response, status, headers);
-        //};
         uploader.onCompleteItem = function (fileItem, response, status, headers) {
             var filename = {};
             filename[$scope.supportLang.selected.code] = response.filename;
             $scope.item.images.push({
                 path: response.path,
-                filename: filename,
+                filename: filename
             });
             fileItem.remove();
         };
-        //uploader.onCompleteAll = function () {
-        //    console.info('onCompleteAll');
-        //};
-
 
         uploader.filters.push({
             name: 'imageFilter',
@@ -69,15 +47,15 @@ angular.module('clientApp')
         });
 
         if ($routeParams.id != -1) {
-            $scope.myPromise = $scope.item = Items.get({id: $routeParams.id});
+            $scope.myPromise = $scope.item = Items.get({id: $routeParams.id}, function (item) {
+                if ($scope.item.images === undefined)
+                    $scope.item.images = [];
+
+            });
         } else {
             $scope.item = new Items();
             $scope.item.images = [];
         }
-
-        if ($scope.item.images === undefined)
-            $scope.item.images = [];
-
 
         $scope.save = function (continueFlg) {
             function success(response) {
@@ -102,10 +80,9 @@ angular.module('clientApp')
             }
 
             if ($scope.item._id) {
-//                $scope.myPromise = Items.update($scope.item, success, failure);
                 $scope.myPromise = $scope.item.$update(success, failure);
             } else {
-                $scope.myPromise = $scope.item.$save(success, failure);//Items.save($scope.item, success, failure);
+                $scope.myPromise = $scope.item.$save(success, failure);
             }
         };
 
@@ -116,14 +93,8 @@ angular.module('clientApp')
             }
 
             function failure(response) {
-                _.each(response.data, function (errors, key) {
-                    if (errors.length > 0) {
-                        _.each(errors, function (e) {
-                            $scope.form[key].$dirty = true;
-                            $scope.form[key].$setValidity(e, false);
-                        });
-                    }
-                });
+                alert('error');
+                console.log(response);
             }
 
             if ($scope.item._id) {
@@ -150,4 +121,69 @@ angular.module('clientApp')
             }
         };
 
+        $scope.addIngredient = function () {
+            var modalInstance = $modal.open({
+                templateUrl: 'myModalWindow.html',
+                controller: 'ModalIngredientsCtrl',
+                size: 'lg',
+                resolve: {
+                    defaultLang: function () {
+                        return $scope.supportLang.selected.code;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+
+        }
+
+    }).controller('ModalIngredientsCtrl', function ($scope,
+                                                    $modalInstance,
+                                                    defaultLang,
+                                                    $http,
+                                                    $log) {
+
+        $scope.defaultLang = defaultLang;
+        $scope.query = '';
+        $scope.ingredients = [];
+        $scope.selected = [];
+        $scope.search = function (q) {
+            $scope.myLoadingPromise = $http.post('/api/ingredients', {lang: defaultLang, name: $scope.query})
+                .success(function (json) {
+                    console.debug(json);
+                    $scope.ingredients = json;
+                }).error(function () {
+                    alert('error');
+                });
+        };
+
+        $scope.selectIngredient = function (ingredient) {
+            $log.info(ingredient);
+            $scope.selected.push(ingredient);
+        };
+
+        $scope.ok = function () {
+            $modalInstance.close($scope.selected.item);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
     });
+
+test = {
+    "text": {
+        "us": "Onion",
+        "jp": "Tamanegi",
+        "br": "Cebola"
+    },
+    "desc": {
+        "us": "The onion (Allium cepa) (Latin 'cepa' = onion), also known as the bulb onion or common onion, is used as a vegetable and is the most widely cultivated species of the genus Allium. This genus also contains several other species variously referred to as onions and cultivated for food, such as the Japanese bunching onion (A. fistulosum), the Egyptian onion (A. ×proliferum), and the Canada onion (A. canadense). The name \"wild onion\" is applied to a number of Allium species but A. cepa is exclusively known from cultivation and its ancestral wild original form is not known, although escapes from cultivation have become established in some regions.[2] The onion is most frequently a biennial or a perennial plant, but is usually treated as an annual and harvested in its first growing season.",
+        "jp": "test",
+        "br": "test"
+    }
+}

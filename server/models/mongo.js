@@ -101,6 +101,10 @@ var Items = new mongoose.Schema({
             required: true
         }
     }],
+    'ingredients': [{
+        type: mongoose.Schema.Types.Mixed,
+        index: true
+    }],
     'images': [Image],
     'categories': [String],
     created: {
@@ -230,6 +234,20 @@ var Users = mongoose.Schema({
 
 });
 
+var Ingredients = mongoose.Schema({
+    text: {
+        type: mongoose.Schema.Types.Mixed,
+        index: true
+    },
+    image: {
+        type: String
+    },
+    desc: {
+        type: mongoose.Schema.Types.Mixed,
+        index: true
+    }
+});
+
 // methods ======================
 // generating a hash
 Users.methods.generateHash = function (password) {
@@ -248,3 +266,4 @@ exports.Categories = db.model('Categories', Categories);
 exports.Tables = db.model('Tables', Tables);
 exports.Users = db.model('Users', Users);
 exports.Stores = db.model('Stores', Store);
+exports.Ingredients = db.model('Ingredients', Ingredients);
