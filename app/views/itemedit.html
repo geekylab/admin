@@ -284,7 +284,7 @@
                 <form class="alert alert-warning alert-borderless" ng-submit="search()">
                     <div class="input-group">
                         <div class="input-cont">
-                            <input type="text" class="form-control" placeholder="Search..." ng-model="query">
+                            <input type="text" class="form-control" placeholder="Search..." ng-model="query" required>
                         </div>
                         <span class="input-group-btn">
                             <button class="btn green-haze" type="submit">
@@ -298,37 +298,122 @@
 
         <div cg-busy="myLoadingPromise"></div>
 
-        <div class="row booking-results" ng-repeat="ingredient in ingredients">
-            <div class="col-md-12">
-                <div class="booking-result">
-                    <div class="booking-img">
-                        <img alt="" ng-src="{{ingredient.image}}">
-                        <ul class="list-unstyled price-location">
-                            <li ng-repeat="(k,v) in ingredient.text">
-                                {{v}}
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="booking-info">
-                        <h2>
-                            {{ingredient.text[defaultLang]}}
-                            <button class="bnt btn-success" type="button" ng-click="selectIngredient(ingredient)">
-                                Add
-                            </button>
-                        </h2>
+        <div class="row">
+            <div class="col-md-8">
+                <div ng-show="not_found && ingredients.length == 0">
+                    <h3>
+                        This ingredient ({{query}}) was not found.
+                    </h3>
+                    <button class="btn btn-success" ng-click="createNewIngredient()"><i class="fa fa-plus"></i> create a
+                        new ingredient ({{query}})
+                    </button>
 
-                        <p>
-                            {{ingredient.desc[defaultLang]}}
-                        </p>
+                    <div ng-show="create_new_flg">
+                        <div class="portlet light tasks-widget">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="icon-share font-green-haze hide"></i>
+                                    <span class="caption-subject font-green-haze bold uppercase">New Ingredient</span>
+                                </div>
+                                <div class="actions">
+                                    <a class="btn btn-circle btn-success" href="#"><i class="fa fa-check"></i> Save </a>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                <form role="form">
+                                    <div class="form">
+                                        <div class="form-group">
+                                            <label>{{'Choose a language'|translate}}</label>
+                                            <support-lang></support-lang>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>{{'Name'|translate}}</label>
+                                            <input type="text" placeholder="{{'Name'|translate}}"
+                                                   class="form-control input-circle" ng-model="newingredient.text[supportLang.selected.code]">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>{{'Small description'|translate}}</label>
+                                            <textarea placeholder="{{'Small description'|translate}}"
+                                                   class="form-control" ng-model="newingredient.desc[supportLang.selected.code]"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>{{'Image'|translate}}</label>
+                                            <input type="file" ng-model="newingredient.image">
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row booking-results" ng-repeat="ingredient in ingredients">
+                    <div class="col-md-12">
+                        <div class="booking-result">
+                            <div class="booking-img">
+                                <img alt="" ng-src="{{ingredient.image}}">
+                                <ul class="list-unstyled price-location">
+                                    <li ng-repeat="(k,v) in ingredient.text">
+                                        {{v}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="booking-info">
+                                <h2>
+                                    {{ingredient.text[defaultLang]}}
+
+                                    <label>
+                                        <input type="checkbox" class="bnt btn-success" type="button"
+                                               ng-click="selectIngredient(ingredient)"
+                                               ng-checked="hasIngredientInArray(ingredient)"> Add
+                                    </label>
+                                </h2>
+
+                                <p>
+                                    {{ingredient.desc[defaultLang]}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="portlet light tasks-widget">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="icon-share font-green-haze hide"></i>
+                            <span class="caption-subject font-green-haze bold uppercase">Selected ingredients</span>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="task-content">
+                            <ul class="task-list">
+                                <li ng-repeat="item in selected.items">
+                                    <div class="task-checkbox">
+                                        <input type="checkbox" class="liChild"
+                                               ng-click="selectIngredient(item)"
+                                               ng-checked="hasIngredientInArray(item)"/>
+                                    </div>
+                                    <div class="task-title">
+                                        <span class="task-title-sp"> {{item.text[defaultLang]}} </span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-    </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
 </script>
 

@@ -22,7 +22,7 @@ angular
         'ui.grid',
         'ui.grid.autoResize',
         'ui.grid.edit',
-        'angular-loading-bar',
+//        'angular-loading-bar',
         'angularFileUpload',
         'cgBusy',
         'google-maps'.ns(),

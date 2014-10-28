@@ -69,14 +69,8 @@ angular.module('clientApp')
             }
 
             function failure(response) {
-                _.each(response.data, function (errors, key) {
-                    if (errors.length > 0) {
-                        _.each(errors, function (e) {
-                            $scope.form[key].$dirty = true;
-                            $scope.form[key].$setValidity(e, false);
-                        });
-                    }
-                });
+                alert('error');
+                console.log(response);
             }
 
             if ($scope.item._id) {
@@ -146,28 +140,51 @@ angular.module('clientApp')
                                                     defaultLang,
                                                     $http,
                                                     $log) {
-
+        $scope.not_found = false;
+        $scope.newingredient = {};
+        $scope.create_new_flg = false;
         $scope.defaultLang = defaultLang;
         $scope.query = '';
         $scope.ingredients = [];
-        $scope.selected = [];
+        $scope.selected = {
+            items: []
+        };
+
         $scope.search = function (q) {
             $scope.myLoadingPromise = $http.post('/api/ingredients', {lang: defaultLang, name: $scope.query})
                 .success(function (json) {
                     console.debug(json);
                     $scope.ingredients = json;
+                    $scope.not_found = $scope.ingredients.length == 0;
+                    $scope.create_new_flg = false;
+
                 }).error(function () {
                     alert('error');
                 });
         };
 
         $scope.selectIngredient = function (ingredient) {
-            $log.info(ingredient);
-            $scope.selected.push(ingredient);
+            var idx = $scope.selected.items.indexOf(ingredient);
+            if (angular.equals(idx, -1)) {
+                $scope.selected.items.push(ingredient);
+            } else {
+                $scope.selected.items.splice(idx, 1);
+            }
         };
 
+        $scope.hasIngredientInArray = function (ingredient) {
+            return ($scope.selected.items.indexOf(ingredient) > -1);
+        };
+
+        $scope.createNewIngredient = function () {
+            $scope.create_new_flg = true;
+            $scope.newingredient.text = {};
+            $scope.newingredient.text[$scope.supportLang.selected.code] = $scope.query;
+        };
+
+
         $scope.ok = function () {
-            $modalInstance.close($scope.selected.item);
+            $modalInstance.close($scope.selected.items);
         };
 
         $scope.cancel = function () {

@@ -53,14 +53,8 @@ angular.module('clientApp')
             }
 
             function failure(response) {
-                _.each(response.data, function (errors, key) {
-                    if (errors.length > 0) {
-                        _.each(errors, function (e) {
-                            $scope.form[key].$dirty = true;
-                            $scope.form[key].$setValidity(e, false);
-                        });
-                    }
-                });
+                alert('error');
+                console.log(response);
             }
 
             if ($scope.category._id) {
