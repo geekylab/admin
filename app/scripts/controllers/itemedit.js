@@ -28,6 +28,18 @@ angular.module('clientApp')
         $scope.item.images = [];
         $scope.myPromise = {};
 
+        //ingredient table
+        $scope.ingredientGridOptions = {
+            enableSorting: true,
+            enableFiltering: true,
+            columnDefs: [
+                {
+                    field: 'text',
+                    cellTemplate: '<div class="ui-grid-cell-contents" grid-multi-lang-field="{{row.entity.text}}"></div>'
+                }
+            ]
+        };
+
         uploader.onCompleteItem = function (fileItem, response, status, headers) {
             var filename = {};
             filename[$scope.supportLang.selected.code] = response.filename;
@@ -51,11 +63,20 @@ angular.module('clientApp')
                 if ($scope.item.images === undefined)
                     $scope.item.images = [];
 
+                if ($scope.item.ingredients === undefined)
+                    $scope.item.ingredients = [];
+
+                console.log($scope.item.ingredients);
+
+                $scope.ingredientGridOptions.data = $scope.item.ingredients;
             });
         } else {
             $scope.item = new Items();
             $scope.item.images = [];
+            $scope.item.ingredients = [];
+            $scope.ingredientGridOptions.data = $scope.item.ingredients;
         }
+
 
         $scope.save = function (continueFlg) {
             function success(response) {
@@ -123,12 +144,16 @@ angular.module('clientApp')
                 resolve: {
                     defaultLang: function () {
                         return $scope.supportLang.selected.code;
+                    },
+                    defaultIngredients: function () {
+                        return $scope.item.ingredients;
                     }
                 }
             });
 
             modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
+                angular.copy(selectedItem, $scope.item.ingredients);
+                $scope.ingredientGridOptions.data = $scope.item.ingredients;
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
@@ -138,10 +163,13 @@ angular.module('clientApp')
     }).controller('ModalIngredientsCtrl', function ($scope,
                                                     $modalInstance,
                                                     defaultLang,
+                                                    defaultIngredients,
                                                     $http,
-                                                    $log) {
+                                                    $log,
+                                                    Ingredients,
+                                                    alertService) {
         $scope.not_found = false;
-        $scope.newingredient = {};
+        $scope.newingredient = new Ingredients();
         $scope.create_new_flg = false;
         $scope.defaultLang = defaultLang;
         $scope.query = '';
@@ -150,21 +178,28 @@ angular.module('clientApp')
             items: []
         };
 
-        $scope.search = function (q) {
-            $scope.myLoadingPromise = $http.post('/api/ingredients', {lang: defaultLang, name: $scope.query})
-                .success(function (json) {
-                    console.debug(json);
-                    $scope.ingredients = json;
-                    $scope.not_found = $scope.ingredients.length == 0;
-                    $scope.create_new_flg = false;
+        angular.copy(defaultIngredients, $scope.selected.items);
 
-                }).error(function () {
-                    alert('error');
-                });
+        $scope.search = function () {
+            $scope.ingredients = Ingredients.query('/api/ingredients', {
+                lang: defaultLang,
+                name: $scope.query
+            }, function (json) {
+                console.debug(json);
+                $scope.ingredients = json;
+                $scope.not_found = $scope.ingredients.length == 0;
+                $scope.create_new_flg = false;
+            });
         };
 
         $scope.selectIngredient = function (ingredient) {
-            var idx = $scope.selected.items.indexOf(ingredient);
+            var idx = -1;
+            angular.forEach($scope.selected.items, function (item, i) {
+                if (item._id == ingredient._id) {
+                    idx = i;
+                }
+            });
+
             if (angular.equals(idx, -1)) {
                 $scope.selected.items.push(ingredient);
             } else {
@@ -173,13 +208,55 @@ angular.module('clientApp')
         };
 
         $scope.hasIngredientInArray = function (ingredient) {
-            return ($scope.selected.items.indexOf(ingredient) > -1);
+            var idx = -1;
+            angular.forEach($scope.selected.items, function (item, i) {
+                if (item._id == ingredient._id) {
+                    idx = i;
+                }
+            });
+
+            return (idx > -1);
+        };
+
+        $scope.editIngredient = function (ingredient) {
+            $scope.create_new_flg = true;
+            angular.copy(ingredient, $scope.newingredient);
         };
 
         $scope.createNewIngredient = function () {
             $scope.create_new_flg = true;
             $scope.newingredient.text = {};
             $scope.newingredient.text[$scope.supportLang.selected.code] = $scope.query;
+        };
+
+        $scope.saveIngredient = function () {
+            var updateFlg = false;
+
+            function success(response) {
+                alertService.add('success', '保存した');
+                $scope.create_new_flg = false;
+                if (!updateFlg)
+                    $scope.selectIngredient(response);
+
+                $scope.searchCurrent(response);
+            }
+
+            function failure(response) {
+                alert('error');
+                console.log(response);
+            }
+
+            if ($scope.newingredient._id) {
+                updateFlg = true;
+                $scope.myLoadingPromise = $scope.newingredient.$update(success, failure);
+            } else {
+                $scope.myLoadingPromise = $scope.newingredient.$save(success, failure);
+            }
+        };
+
+        $scope.searchCurrent = function (ingredient) {
+            $scope.query = ingredient.text[defaultLang];
+            $scope.search();
         };
 
 

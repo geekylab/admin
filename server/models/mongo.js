@@ -47,6 +47,7 @@ var Orders = new mongoose.Schema({
     }
 });
 
+
 var Categories = new mongoose.Schema({
     name: {
         type: mongoose.Schema.Types.Mixed,
@@ -72,6 +73,28 @@ var Image = new mongoose.Schema({
     image_type: {
         type: Number,
         default: 0
+    }
+});
+
+var Ingredients = mongoose.Schema({
+    text: {
+        type: mongoose.Schema.Types.Mixed,
+        index: true
+    },
+    image: {
+        type: String
+    },
+    desc: {
+        type: mongoose.Schema.Types.Mixed,
+        index: true
+    },
+    is_okay: {
+        type: Boolean,
+        index: true
+    },
+    user_id: {
+        type: String,
+        index: true
     }
 });
 
@@ -101,10 +124,7 @@ var Items = new mongoose.Schema({
             required: true
         }
     }],
-    'ingredients': [{
-        type: mongoose.Schema.Types.Mixed,
-        index: true
-    }],
+    'ingredients': [Ingredients],
     'images': [Image],
     'categories': [String],
     created: {
@@ -136,7 +156,8 @@ var Tables = new mongoose.Schema({
 var Store = new mongoose.Schema({
     user_id: [{
         type: String,
-        required: true
+        required: true,
+        index: true
     }],
     'store_name': {
         type: mongoose.Schema.Types.Mixed,
@@ -232,20 +253,6 @@ var Users = mongoose.Schema({
         name: String
     }
 
-});
-
-var Ingredients = mongoose.Schema({
-    text: {
-        type: mongoose.Schema.Types.Mixed,
-        index: true
-    },
-    image: {
-        type: String
-    },
-    desc: {
-        type: mongoose.Schema.Types.Mixed,
-        index: true
-    }
 });
 
 // methods ======================

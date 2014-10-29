@@ -136,12 +136,12 @@
                 </div>
             </td>
             <td class="text-center">
-                                                <span ng-show="img.isSuccess"><i
-                                                        class="glyphicon glyphicon-ok"></i></span>
-                                                <span ng-show="img.isCancel"><i
-                                                        class="glyphicon glyphicon-ban-circle"></i></span>
-                                            <span ng-show="img.isError"><i
-                                                    class="glyphicon glyphicon-remove"></i></span>
+                <span ng-show="img.isSuccess"><i
+                        class="glyphicon glyphicon-ok"></i></span>
+                <span ng-show="img.isCancel"><i
+                        class="glyphicon glyphicon-ban-circle"></i></span>
+                <span ng-show="img.isError"><i
+                        class="glyphicon glyphicon-remove"></i></span>
             </td>
             <td nowrap>
                 <button type="button" class="btn btn-success btn-xs"
@@ -231,7 +231,7 @@
     <div class="portlet">
         <div class="portlet-title">
             <div class="caption">
-                <i class="fa icon-screen-tablet"></i> Table manage
+                <i class="fa icon-screen-tablet"></i> Ingredients manage
             </div>
             <div class="actions">
                 <button type="button" class="btn btn-default btn-sm" ng-click="addIngredient()">
@@ -242,8 +242,7 @@
         <div class="portlet-body">
             <div class="row">
                 <div class="col-md-12">
-                    <!--<div ui-grid="tableGridOptions" style="height: 350px;" external-scopes="tableGridScope"-->
-                    <!--ui-grid-auto-resize></div>-->
+                    <div ui-grid="ingredientGridOptions" style="height: 350px;" ui-grid-auto-resize></div>
                 </div>
             </div>
         </div>
@@ -288,7 +287,7 @@
                         </div>
                         <span class="input-group-btn">
                             <button class="btn green-haze" type="submit">
-                                Search &nbsp; <i class="m-icon-swapright m-icon-white"></i>
+                                Search &nbsp; <i class="fa fa-binoculars"></i>
                             </button>
                         </span>
                     </div>
@@ -304,11 +303,13 @@
                     <h3>
                         This ingredient ({{query}}) was not found.
                     </h3>
-                    <button class="btn btn-success" ng-click="createNewIngredient()"><i class="fa fa-plus"></i> create a
-                        new ingredient ({{query}})
+                    <button class="btn btn-success" type="button" ng-click="createNewIngredient()"><i
+                            class="fa fa-plus"></i> create a new ingredient ({{query}})
                     </button>
+                </div>
 
-                    <div ng-show="create_new_flg">
+                <div ng-show="create_new_flg">
+                    <form role="form" ng-submit="saveIngredient()">
                         <div class="portlet light tasks-widget">
                             <div class="portlet-title">
                                 <div class="caption">
@@ -316,41 +317,42 @@
                                     <span class="caption-subject font-green-haze bold uppercase">New Ingredient</span>
                                 </div>
                                 <div class="actions">
-                                    <a class="btn btn-circle btn-success" href="#"><i class="fa fa-check"></i> Save </a>
+                                    <button class="btn btn-circle btn-success"><i
+                                            class="fa fa-check"></i> Save And Select
+                                    </button>
                                 </div>
                             </div>
                             <div class="portlet-body">
-                                <form role="form">
-                                    <div class="form">
-                                        <div class="form-group">
-                                            <label>{{'Choose a language'|translate}}</label>
-                                            <support-lang></support-lang>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>{{'Name'|translate}}</label>
-                                            <input type="text" placeholder="{{'Name'|translate}}"
-                                                   class="form-control input-circle" ng-model="newingredient.text[supportLang.selected.code]">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>{{'Small description'|translate}}</label>
-                                            <textarea placeholder="{{'Small description'|translate}}"
-                                                   class="form-control" ng-model="newingredient.desc[supportLang.selected.code]"></textarea>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>{{'Image'|translate}}</label>
-                                            <input type="file" ng-model="newingredient.image">
-                                        </div>
-
+                                <div class="form">
+                                    <div class="form-group">
+                                        <label>{{'Choose a language'|translate}}</label>
+                                        <support-lang></support-lang>
                                     </div>
-                                </form>
+
+                                    <div class="form-group">
+                                        <label>{{'Name'|translate}}</label>
+                                        <input type="text" placeholder="{{'Name'|translate}}"
+                                               class="form-control input-circle"
+                                               ng-model="newingredient.text[supportLang.selected.code]">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>{{'Small description'|translate}}</label>
+                                        <textarea placeholder="{{'Small description'|translate}}"
+                                                  class="form-control"
+                                                  ng-model="newingredient.desc[supportLang.selected.code]"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>{{'Image'|translate}}</label>
+                                        <input type="file" ng-model="newingredient.image">
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-
 
                 <div class="row booking-results" ng-repeat="ingredient in ingredients">
                     <div class="col-md-12">
@@ -366,13 +368,19 @@
                             <div class="booking-info">
                                 <h2>
                                     {{ingredient.text[defaultLang]}}
-
-                                    <label>
-                                        <input type="checkbox" class="bnt btn-success" type="button"
-                                               ng-click="selectIngredient(ingredient)"
-                                               ng-checked="hasIngredientInArray(ingredient)"> Add
-                                    </label>
                                 </h2>
+
+                                <label>
+                                    <input type="checkbox" type="button"
+                                           ng-click="selectIngredient(ingredient)"
+                                           ng-checked="hasIngredientInArray(ingredient)"> Add
+                                </label>
+
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default" ng-click="editIngredient(ingredient)">
+                                        Edit
+                                    </button>
+                                </div>
 
                                 <p>
                                     {{ingredient.desc[defaultLang]}}
@@ -398,10 +406,20 @@
                                     <div class="task-checkbox">
                                         <input type="checkbox" class="liChild"
                                                ng-click="selectIngredient(item)"
+                                               id="selectedIngredient{{$index+1}}"
                                                ng-checked="hasIngredientInArray(item)"/>
                                     </div>
                                     <div class="task-title">
-                                        <span class="task-title-sp"> {{item.text[defaultLang]}} </span>
+                                        <label for="selectedIngredient{{$index+1}}"
+                                               style="display: block"
+                                               class="task-title-sp"> {{item.text[defaultLang]}} </span></label>
+                                    </div>
+                                    <div class="task-config">
+                                        <div class="task-config-btn btn-group">
+                                            <button ng-click="searchCurrent(item)" class="btn btn-xs default">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>

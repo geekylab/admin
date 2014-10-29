@@ -80,7 +80,8 @@ router.put('/item/:id', function (req, res) {
                 price: req.body.price,
                 time: req.body.time,
                 images: req.body.images,
-                categories: req.body.categories
+                categories: req.body.categories,
+                ingredients: req.body.ingredients,
             }
         },
         {upsert: true},
@@ -109,6 +110,10 @@ router.post('/item', function (req, res) {
         item.iamges = req.body.images;
     if (req.body.categories != undefined)
         item.categories = req.body.categories;
+
+    if (req.body.ingredients != undefined)
+        item.ingredients = req.body.ingredients;
+
     item.save(function (err) {
         if (err) {
             res.json(err);
@@ -461,18 +466,74 @@ router.post('/upload', function (req, res, next) {
     form.parse(req);
 });
 
-router.post('/ingredients', function (req, res) {
-    if (req.body.name != undefined && req.body.lang != undefined) {
+router.get('/ingredients', function (req, res) {
+    if (req.query.name != undefined && req.query.lang != undefined) {
         var conditions = {};
-        conditions['text.' + req.body.lang] = new RegExp(req.body.name, 'i');
+        conditions['text.' + req.query.lang] = new RegExp(req.query.name, 'i');
         Ingredients.find(conditions, function (err, rows) {
             if (err)
-                res.json(err);
+                res.json([err]);
             res.json(rows);
         });
     } else {
         res.json([]);
     }
+});
+
+router.post('/ingredients', function (req, res) {
+    var user = req.user;
+    var ingredient = new Ingredients();
+
+    if (req.body.text != null)
+        ingredient.text = req.body.text;
+
+    if (req.body.desc != null)
+        ingredient.desc = req.body.desc;
+
+    if (req.body.is_okay != null)
+        ingredient.is_okay = false;
+
+    if (req.body.user_id != null)
+        ingredient.user_id = user._id;
+
+    ingredient.save(function (err) {
+        if (err) {
+            res.json(err);
+        }
+        console.info("insert ingredient", ingredient);
+        res.json(ingredient);
+    });
+
+});
+
+router.put('/ingredients/:id', function (req, res) {
+    var user = req.user;
+    var ingredient = {};
+
+    if (req.body.text != null)
+        ingredient.text = req.body.text;
+
+    if (req.body.desc != null)
+        ingredient.desc = req.body.desc;
+
+    if (req.body.is_okay != null)
+        ingredient.is_okay = false;
+
+    if (req.body.user_id != null)
+        ingredient.user_id = user._id;
+
+    Ingredients.findOneAndUpdate({'_id': req.params.id}, {
+            $set: ingredient
+        },
+        function (err, obj) {
+            if (err) {
+                res.json(err);
+            } else {
+                console.log(obj, err);
+                res.json(obj);
+            }
+        });
+
 });
 
 
