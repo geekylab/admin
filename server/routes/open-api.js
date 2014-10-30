@@ -1,8 +1,27 @@
 var express = require('express');
 var router = express.Router();
+var model = require('../models/mongo');
 
-router.get('/search/zip', function (req, res) {
+var Stores = model.Stores;
 
+router.get('/store/near/:longitude/:latitude', function (req, res) {
+
+    console.log(req.params.longitude);
+    console.log(req.params.latitude);
+
+    Stores.find({
+        location: {
+            $near: {
+                $geometry: {type: "Point", coordinates: [req.params.longitude, req.params.latitude]},
+                $maxDistance: 5000
+            }
+        }
+    }, function (err, rows) {
+        if (err)
+            res.json(err);
+        else
+            res.json(rows);
+    });
 });
 
 

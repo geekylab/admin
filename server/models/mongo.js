@@ -227,7 +227,7 @@ var Store = new mongoose.Schema({
     }
 });
 
-Store.index({name: 1, location: "2d"});
+Store.index({location: "2dsphere"});
 
 var Users = mongoose.Schema({
     local: {

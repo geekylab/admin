@@ -132,8 +132,8 @@ angular.module('clientApp')
                     if ($scope.store.location == undefined) {
                         $scope.store.location = [];
                     }
-                    $scope.store.location[0] = position.coords.latitude;
-                    $scope.store.location[1] = position.coords.longitude;
+                    $scope.store.location[0] = position.coords.longitude;
+                    $scope.store.location[1] = position.coords.latitude;
                     $scope.$apply($scope.locationSearching = false);
 
                 });
