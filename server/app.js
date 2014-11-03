@@ -48,7 +48,7 @@ app.use(bodyParser.urlencoded({extended: false, limit: '50mb'}));
 
 app.use(cookieParser());
 require('./routes/routes')(app, passport);
-app.use('/app', isLoggedIn, express.static(path.join(__dirname, '../app')));
+app.use('/app', express.static(path.join(__dirname, '../app')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/bower_components', express.static(path.join(__dirname, '../bower_components')));
 

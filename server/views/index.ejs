@@ -1,23 +1,235 @@
 <!doctype html>
-<html>
+<html ng-app="clientApp">
 <head>
-    <title>Node Authentication</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <style>
-        body { padding-top:80px; }
-    </style>
+    <title>Geeky menu - login</title>
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="bower_components/select2/select2.css"/>
+    <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css"/>
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css"/>
+    <link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
+    <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css"/>
+    <!-- endbower -->
+    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.min.css"/>
+
+    <!-- endbuild -->
+
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="/app/styles/main.css">
+    <link rel="stylesheet" href="/app/styles/global/components.css">
+    <link rel="stylesheet" href="/app/styles/global/plugins.css">
+    <link rel="stylesheet" href="/app/styles/layout.css">
+    <link rel="stylesheet" href="/app/styles/themes/grey.css">
+    <link rel="stylesheet" href="/app/styles/pages/login-soft.css">
+    <!-- endbuild -->
 </head>
-<body>
-<div class="container">
-    <div class="jumbotron text-center">
-        <p>Login or Register with:</p>
-        <a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>
-        <a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>
-        <a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
-        <a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>
-        <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google+</a>
-    </div>
+<body class="login" ng-controller="LoginCtrl" jbackstretch
+      background-url="['/app/images/bg/0.jpg','/app/images/bg/1.jpg','/app/images/bg/2.jpg','/app/images/bg/3.jpg','/app/images/bg/4.jpg']"
+      background-option="{fade: 1000, duration: 8000}">
+
+<!-- BEGIN LOGO -->
+<div class="logo">
+    <a href="/">
+        <img src="/assets/images/logo-big.png" alt=""/>
+    </a>
 </div>
+<!-- END LOGO -->
+
+<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+<div class="menu-toggler sidebar-toggler">
+</div>
+<!-- END SIDEBAR TOGGLER BUTTON -->
+
+<div class="content">
+    <!-- BEGIN LOGIN FORM -->
+    <form class="login-form" action="/login" method="post" ng-show="loginForm">
+        <h3 class="form-title">Login to your account</h3>
+
+        <div class="alert alert-danger display-hide">
+            <button class="close" data-close="alert"></button>
+            <span>Enter any username and password. </span>
+        </div>
+
+        <div class="form-group">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">Username</label>
+
+            <div class="input-icon">
+                <i class="fa fa-user"></i>
+                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username"
+                       name="username"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label visible-ie8 visible-ie9">Password</label>
+
+            <div class="input-icon">
+                <i class="fa fa-lock"></i>
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password"
+                       name="password"/>
+            </div>
+        </div>
+        <div class="form-actions">
+            <label class="checkbox">
+                <input type="checkbox" name="remember" value="1"/> Remember me </label>
+            <button type="submit" class="btn blue pull-right"> Login <i class="m-icon-swapright m-icon-white"></i>
+            </button>
+        </div>
+        <div class="login-options">
+            <h4>Or login with</h4>
+            <ul class="social-icons">
+                <li>
+                    <a class="facebook" data-original-title="facebook" href="/auth/facebook"></a>
+                </li>
+                <li>
+                    <a class="twitter" data-original-title="Twitter" href="/auth/twitter"></a>
+                </li>
+                <li>
+                    <a class="googleplus" data-original-title="Goole Plus" href="/auth/google"></a>
+                </li>
+            </ul>
+        </div>
+        <div class="forget-password">
+            <h4>Forgot your password ?</h4>
+
+            <p>
+                no worries, click <a href="javascript:;"> here </a> to reset your password.
+            </p>
+        </div>
+        <div class="create-account">
+            <p>
+                Don't have an account yet ?&nbsp; <a href="javascript:;" ng-click="createAnAccount()"> Create an
+                    account </a>
+            </p>
+        </div>
+    </form>
+    <!-- END LOGIN FORM -->
+
+    <!-- BEGIN REGISTRATION FORM -->
+    <form class="register-form" name="registerForm" novalidate action="/signup" method="post" ng-show="registerFormFlg">
+        <h3>Sign Up</h3>
+
+        <p>
+            Enter your personal details below:
+        </p>
+
+        <div class="form-group" ng-class="{'has-error': registerForm.email.$invalid}">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">Email</label>
+
+            <div class="input-icon">
+                <i class="fa fa-envelope"></i>
+                <input class="form-control placeholder-no-fix" type="email" placeholder="Email" name="email"
+                       ng-model="registerFormInput.email" required/>
+            </div>
+
+            <div ng-show="registerForm.email.$dirty && registerForm.email.$invalid">
+                <span class="help-block" ng-show="registerForm.email.$error.required">Tell us your email.</span>
+                <span class="help-block" ng-show="registerForm.email.$error.email">This is not a valid email.</span>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': registerForm.password.$invalid}">
+            <label class="control-label visible-ie8 visible-ie9">Password</label>
+
+            <div class="input-icon">
+                <i class="fa fa-lock"></i>
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password"
+                       name="password" ng-model="registerFormInput.password" required/>
+            </div>
+
+            <div ng-show="registerForm.password.$dirty && registerForm.password.$invalid">
+                <span class="help-block" ng-show="registerForm.password.$error.required">Tell us your email.</span>
+            </div>
+
+        </div>
+
+        <div class="form-group" ng-class="{'has-error': registerForm.rpassword.$invalid}">
+            <label class="control-label visible-ie8 visible-ie9">Re-type Your Password</label>
+
+            <div class="controls">
+                <div class="input-icon">
+                    <i class="fa fa-check"></i>
+                    <input class="form-control placeholder-no-fix" type="password" autocomplete="off"
+                           placeholder="Re-type Your Password" name="rpassword" ng-model="registerFormInput.rpassword"
+                           required ng-match="registerFormInput.password"/>
+                </div>
+            </div>
+
+            <div ng-show="registerForm.rpassword.$dirty && registerForm.rpassword.$invalid">
+                <span class="help-block" ng-show="registerForm.rpassword.$error.required">Tell us your email.</span>
+                <span class="help-block" ng-show="registerForm.rpassword.$error.match">Password have to match!</span>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="tnc"/> I agree to the <a href="#"> Terms of Service </a> and <a href="#">
+                    Privacy Policy </a>
+            </label>
+
+            <div id="register_tnc_error">
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="button" class="btn" ng-click="back()"><i class="fa fa-chevron-left"></i> Back</button>
+            <button type="submit" id="register-submit-btn" class="btn blue pull-right"
+                    ng-disabled="registerForm.$invalid">
+                Sign Up <i class="fa fa-check"></i>
+            </button>
+        </div>
+    </form>
+    <!-- END REGISTRATION FORM -->
+
+</div>
+
+<!--<div class="container">-->
+<!--<div class="jumbotron text-center">-->
+<!--<p>Login or Register with:</p>-->
+<!--<a href="/login" class="btn btn-default"><span class="fa fa-user"></span> Local Login</a>-->
+<!--<a href="/signup" class="btn btn-default"><span class="fa fa-user"></span> Local Signup</a>-->
+<!--<a href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>-->
+<!--<a href="/auth/twitter" class="btn btn-info"><span class="fa fa-twitter"></span> Twitter</a>-->
+<!--<a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google+</a>-->
+<!--</div>-->
+<!--</div>-->
+
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/angular/angular.js"></script>
+<script src="/bower_components/jquery-backstretch/jquery.backstretch.min.js"></script>
+
+<script>
+    angular.module('clientApp', [])
+            .controller('LoginCtrl', function ($scope) {
+
+                $scope.loginForm = true;
+                $scope.registerFormFlg = false;
+
+                $scope.registerFormInput = {
+                    email: '',
+                    password: '',
+                    rpassword: ''
+                };
+
+                $scope.createAnAccount = function () {
+                    $scope.loginForm = false;
+                    $scope.registerFormFlg = true;
+                };
+
+                $scope.back = function () {
+                    $scope.loginForm = true;
+                    $scope.registerFormFlg = false;
+                };
+            });
+</script>
+<script src="/app/scripts/directives/jbackstrech.js"></script>
+<script src="/app/scripts/directives/ngmatch.js"></script>
+
 </body>
 </html>
