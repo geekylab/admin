@@ -5,6 +5,10 @@ var LocalStrategy = require('passport-local').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var FacebookTokenStrategy = require('passport-facebook-token').Strategy;
+
+console.log(FacebookTokenStrategy);
+
 var configAuth = require('./auth'); // use this one for testing
 
 // load up the user model
@@ -43,7 +47,6 @@ module.exports = function (passport) {
         function (req, email, password, done) {
             // asynchronous
             process.nextTick(function () {
-                console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^^^^^^^^^^^^^^^^^^ johna");
                 User.findOne({'local.email': email}, function (err, user) {
                     // if there are any errors, return the error
                     if (err)
@@ -71,7 +74,6 @@ module.exports = function (passport) {
         },
         function (req, email, password, done) {
             // asynchronous
-            console.log("johna");
             process.nextTick(function () {
                 // Whether we're signing up or connecting an account, we'll need
                 // to know if the email address is in use.
@@ -294,5 +296,20 @@ module.exports = function (passport) {
                 }
             });
         }));
+
+    // =========================================================================
+    // Passport-Facebook-Token =================================================
+    // =========================================================================
+    passport.use(new FacebookTokenStrategy({
+            clientID: configAuth.facebookAuth.clientID,
+            clientSecret: configAuth.facebookAuth.clientSecret
+        },
+        function (accessToken, refreshToken, profile, done) {
+//            console.log(profile);
+            User.findOne({'facebook.id': profile.id}, function (err, user) {
+                return done(err, user);
+            });
+        }
+    ));
 };
 
