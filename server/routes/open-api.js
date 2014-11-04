@@ -5,10 +5,8 @@ var model = require('../models/mongo');
 var Stores = model.Stores;
 
 router.get('/store/near/:longitude/:latitude', function (req, res) {
-
     console.log(req.params.longitude);
     console.log(req.params.latitude);
-
     Stores.find({
         location: {
             $near: {

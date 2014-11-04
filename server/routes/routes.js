@@ -1,7 +1,7 @@
 module.exports = function (app, passport) {
     // show the home page (will also have our login links)
     app.get('/', function (req, res) {
-        res.render('index.ejs');
+        res.render('index.ejs', {message: req.flash('loginMessage')});
     });
 
     // PROFILE SECTION =========================
@@ -26,7 +26,7 @@ module.exports = function (app, passport) {
     // LOGIN ===============================
     // show the login form
     app.get('/login', function (req, res) {
-        res.render('login.ejs', {message: req.flash('loginMessage')});
+        res.render('index.ejs', {message: req.flash('loginMessage')});
     });
 
     // process the login form
@@ -78,7 +78,7 @@ module.exports = function (app, passport) {
         passport.authenticate('google', {
             successRedirect: '/app',
             failureRedirect: '/'
-        }))
+        }));
 
 
     // =============================================================================
