@@ -13,6 +13,7 @@ var configAuth = require('./auth'); // use this one for testing
 
 // load up the user model
 var User = require('../models/mongo').Users;
+var Customer = require('../models/mongo').Customer;
 
 // expose this function to our app using module.exports
 module.exports = function (passport) {
@@ -305,10 +306,40 @@ module.exports = function (passport) {
             clientSecret: configAuth.facebookAuth.clientSecret
         },
         function (accessToken, refreshToken, profile, done) {
-//            console.log(profile);
-            User.findOne({'facebook.id': profile.id}, function (err, user) {
-                return done(err, user);
+            Customer.findOne({fbid: profile.id}, function (err, user) {
+                if (err)
+                    return done(err);
+
+                if (user) {
+                    user.accessToken = null;
+                    return done(null, user);
+                } else {
+                    console.log(profile._raw);
+                    var newUser = new Customer();
+                    newUser.fbid = profile.id;
+                    newUser.email = profile.emails[0].value;
+                    newUser.profileUrl = profile.profileUrl;
+                    newUser.first_name = profile.name.givenName;
+                    newUser.gender = profile.gender;
+                    newUser.last_name = profile.name.familyName;
+//                    newUser.locale = profile._raw.locale;
+                    newUser.name = profile.displayName;
+                    newUser.accessToken = accessToken;
+//                    newUser.timezone = profile._raw.timezone;
+//                    newUser.updated_time = profile._raw.updated_time;
+                    newUser.save(function (err) {
+                        if (err)
+                            throw err;
+
+                        newUser.accessToken = null;
+                        return done(null, newUser);
+                    });
+                }
+
             });
+            //Customer.findOrCreate({id: profile.id}, function (err, user) {
+            //    return done(err, user);
+            //});
         }
     ));
 };

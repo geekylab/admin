@@ -31,8 +31,13 @@ router.post('/auth/facebook/token',
     function (req, res) {
         // do something with req.user
         console.log("/auth/facebook/token");
-        console.log("----------------------------------" + req.user.facebook.name);
-        res.send(req.user ? 200 : 401);
+        console.log("----------------------------------" + req.user.name);
+        if (req.user) {
+            res.json(req.user);
+        } else {
+            res.json({erro: 'no user'});
+        }
+
     }
 );
 

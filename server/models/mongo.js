@@ -252,8 +252,22 @@ var Users = mongoose.Schema({
         email: String,
         name: String
     }
-
 });
+
+var Customer = mongoose.Schema({
+    fbid: String,
+    email: String,
+    first_name: String,
+    gender: String,
+    last_name: String,
+    profileUrl: String,
+    locale: String,
+    name: String,
+    timezone: String,
+    updated_time: Date,
+    accessToken: String
+});
+
 
 // methods ======================
 // generating a hash
@@ -274,3 +288,4 @@ exports.Tables = db.model('Tables', Tables);
 exports.Users = db.model('Users', Users);
 exports.Stores = db.model('Stores', Store);
 exports.Ingredients = db.model('Ingredients', Ingredients);
+exports.Customer = db.model('Customer', Customer);
