@@ -45,6 +45,11 @@
 <!-- END SIDEBAR TOGGLER BUTTON -->
 
 <div class="content">
+
+    <% if (message.length > 0) { %>
+    <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+
     <!-- BEGIN LOGIN FORM -->
     <form class="login-form" action="/login" method="post" ng-show="loginForm">
         <h3 class="form-title">Login to your account</h3>
@@ -56,12 +61,12 @@
 
         <div class="form-group">
             <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
-            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            <label class="control-label visible-ie8 visible-ie9">Email</label>
 
             <div class="input-icon">
                 <i class="fa fa-user"></i>
-                <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Username"
-                       name="username"/>
+                <input class="form-control placeholder-no-fix" type="email" autocomplete="off" placeholder="Email"
+                       name="email" ng-model="loginFormInput.email"/>
             </div>
         </div>
 
@@ -71,7 +76,7 @@
             <div class="input-icon">
                 <i class="fa fa-lock"></i>
                 <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Password"
-                       name="password"/>
+                       name="password" ng-model="loginFormInput.password"/>
             </div>
         </div>
         <div class="form-actions">
@@ -195,10 +200,15 @@
 
 <script>
     angular.module('clientApp', [])
-            .controller('LoginCtrl', function ($scope) {
+            .controller('LoginCtrl', function ($scope, $http) {
 
                 $scope.loginForm = true;
                 $scope.registerFormFlg = false;
+
+                $scope.loginFormInput = {
+                    email: '',
+                    password: ''
+                };
 
                 $scope.registerFormInput = {
                     email: '',
@@ -214,6 +224,13 @@
                 $scope.back = function () {
                     $scope.loginForm = true;
                     $scope.registerFormFlg = false;
+                };
+
+                $scope.loginSubmit = function () {
+                    $http.post('/login', $scope.loginFormInput).
+                            success(function () {
+                                alert('johna');
+                            });
                 };
             });
 </script>
