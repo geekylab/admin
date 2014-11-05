@@ -25,21 +25,32 @@ router.get('/store/near/:longitude/:latitude', function (req, res) {
     });
 });
 
-
+/**
+ * Check facebook login
+ */
 router.post('/auth/facebook/token',
     passport.authenticate('facebook-token'),
     function (req, res) {
-        // do something with req.user
-        console.log("/auth/facebook/token");
-        console.log("----------------------------------" + req.user.name);
         if (req.user) {
             res.json(req.user);
         } else {
-            res.json({erro: 'no user'});
+            res.json({
+                status: false,
+                error: "no user"
+            });
         }
 
     }
 );
+
+/**
+ * logout
+ */
+router.get('/logout', function (req, res) {
+    console.log("logout");
+    req.logout();
+    res.json({status: true});
+});
 
 
 // route middleware to ensure user is logged in

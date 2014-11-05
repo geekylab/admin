@@ -16,6 +16,7 @@ angular.module('clientApp')
                                           FileUploader,
                                           $translate,
                                           Categories,
+                                          Store,
                                           $modal,
                                           $log) {
 
@@ -25,7 +26,7 @@ angular.module('clientApp')
 
         $scope.item = {};
         $scope.categories = Categories.query();
-        $scope.item.images = [];
+        $scope.stores = Store.query();
         $scope.myPromise = {};
 
         //ingredient table
@@ -41,6 +42,9 @@ angular.module('clientApp')
         };
 
         uploader.onCompleteItem = function (fileItem, response, status, headers) {
+            if ($scope.item.images == undefined)
+                $scope.item.images = [];
+
             var filename = {};
             filename[$scope.supportLang.selected.code] = response.filename;
             $scope.item.images.push({
@@ -74,6 +78,7 @@ angular.module('clientApp')
             $scope.item = new Items();
             $scope.item.images = [];
             $scope.item.ingredients = [];
+            $scope.item.stores = [];
             $scope.ingredientGridOptions.data = $scope.item.ingredients;
         }
 
@@ -124,16 +129,33 @@ angular.module('clientApp')
             }
         };
 
-        $scope.toggleCheck = function (itemId, categoryId) {
-            if ($scope.item.categories != undefined) {
-                var idx = $scope.item.categories.indexOf(categoryId);
-                if (angular.equals(idx, -1)) {
-                    $scope.item.categories.push(categoryId);
-                }
-                else {
-                    $scope.item.categories.splice(idx, 1);
-                }
+        $scope.categoryToggleCheck = function (itemId, categoryId) {
+            if ($scope.item.categories == undefined) {
+                $scope.item.categories = [];
             }
+
+            var idx = $scope.item.categories.indexOf(categoryId);
+            if (angular.equals(idx, -1)) {
+                $scope.item.categories.push(categoryId);
+            }
+            else {
+                $scope.item.categories.splice(idx, 1);
+            }
+        };
+
+        $scope.storeToggleCheck = function (itemId, storeId) {
+            if ($scope.item.stores == undefined) {
+                $scope.item.stores = [];
+            }
+
+            var idx = $scope.item.stores.indexOf(storeId);
+            if (angular.equals(idx, -1)) {
+                $scope.item.stores.push(storeId);
+            }
+            else {
+                $scope.item.stores.splice(idx, 1);
+            }
+
         };
 
         $scope.addIngredient = function () {

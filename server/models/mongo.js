@@ -17,12 +17,20 @@ var Orders = new mongoose.Schema({
         required: true,
         index: true
     },
+    store: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Stores'
+    },
     order_status: {
         type: Number
     },
     secret_number: {
         type: Number
     },
+    customers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Customer'
+    }],
     items: [{
         item: {
             item_id: {
@@ -119,14 +127,18 @@ var Items = new mongoose.Schema({
         default: 0
     },
     stores: [{
-        store_id: {
-            type: String,
-            required: true
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Stores'
     }],
-    'ingredients': [Ingredients],
+    'ingredients': [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Ingredients'
+    }],
     'images': [Image],
-    'categories': [String],
+    'categories': [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Categories'
+    }],
     created: {
         type: Date,
         default: Date.now
@@ -154,10 +166,9 @@ var Tables = new mongoose.Schema({
 });
 
 var Store = new mongoose.Schema({
-    user_id: [{
-        type: String,
-        required: true,
-        index: true
+    users: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
     }],
     'store_name': {
         type: mongoose.Schema.Types.Mixed,

@@ -7,8 +7,6 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var FacebookTokenStrategy = require('passport-facebook-token').Strategy;
 
-console.log(FacebookTokenStrategy);
-
 var configAuth = require('./auth'); // use this one for testing
 
 // load up the user model

@@ -5,6 +5,7 @@ var model = require('../models/mongo');
 var multiparty = require('multiparty');
 var format = require('util').format;
 var fs = require('fs');
+//var async = require('async');
 
 var Items = model.Items;
 var Orders = model.Orders;
@@ -35,11 +36,17 @@ router.get('/dashboard/index', function (req, res) {
 });
 
 router.get('/order', function (req, res) {
-    Orders.find({}, function (err, rows) {
-        if (err)
-            res.json(err);
-        res.json(rows);
-    });
+    Orders.find({})
+        .populate('store', 'store_name')
+        .populate('customers', 'name')
+        .exec(function (err, order) {
+            //if (err) return handleError(err);
+            //console.log('The creator is %s', story._creator.name);
+            //// prints "The creator is Aaron"
+            if (err)
+                return res.json(err);
+            res.json(order);
+        });
 });
 
 router.get('/order/:id', function (req, res) {
@@ -51,11 +58,82 @@ router.get('/order/:id', function (req, res) {
     });
 });
 
+router.post('/order', function (req, res) {
+
+    function getNewOrderNumber() {
+        return "1234679";
+    }
+
+    function findSecretNumber(tmpNumber, cb) {
+        Orders.find({secret_number: tmpNumber}, function (err, rows) {
+            cb(rows)
+        });
+    }
+
+    function generateNewSecretNumber(cb) {
+        var high = 9999;
+        var low = 1000;
+        var tmpNumber = Math.floor(Math.random() * (high - low + 1) + low);
+        findSecretNumber(tmpNumber, function (rows) {
+            if (rows.length > 0)
+                generateNewSecretNumber(cb);
+            else
+                cb(tmpNumber);
+        });
+
+
+    }
+
+    var order = new Orders();
+
+    //order_number
+    order.order_number = getNewOrderNumber();
+
+    //table_number
+    if (req.body.table_number != undefined)
+        order.table_number = req.body.table_number;
+
+    //store
+    order.store = req.body.store._id;
+
+
+    //order_status
+    order.order_status = 1;
+
+    //customers
+
+    //items
+
+    //created
+
+
+    //secret_number
+    generateNewSecretNumber(function (secret) {
+        order.secret_number = secret;
+        order.save(function (err) {
+            if (err) {
+                return res.json(err);
+            }
+            console.info("insert new order", order);
+            res.json(order);
+        });
+    });
+
+
+    //Orders.findOne({_id: req.params.id}, function (err, order) {
+    //    if (err)
+    //        res.json(err);
+    //    res.json(order);
+    //
+    //});
+});
+
+
 /**
  * Item
  */
 
-router.get('/item', function (req, res) {
+router.get('/item', isLoggedIn, function (req, res) {
     Items.find({}, function (err, rows) {
         if (err)
             res.json(err);
@@ -63,62 +141,95 @@ router.get('/item', function (req, res) {
     });
 });
 
-router.get('/item/:id', function (req, res) {
-    Items.findOne({_id: req.params.id}, function (err, item) {
-        if (err)
-            res.json(err);
-        res.json(item);
+router.get('/item/:id', isLoggedIn, function (req, res) {
+    Items.findOne({_id: req.params.id})
+        .populate("ingredients")
+        .exec(function (err, item) {
+            if (err) {
+                return res.json(err);
+            }
+            res.json(item);
 
-    });
+        });
 });
 
-router.put('/item/:id', function (req, res) {
+router.put('/item/:id', isLoggedIn, function (req, res) {
+
+    var updateItem = {};
+    updateItem.name = req.body.name;
+    updateItem.desc = req.body.desc;
+    updateItem.price = req.body.price;
+    updateItem.time = req.body.time;
+    updateItem.images = req.body.images;
+    updateItem.categories = req.body.categories;
+    updateItem.stores = req.body.stores;
+    updateItem.ingredients = [];
+
+    if (req.body.ingredients != null) {
+        req.body.ingredients.forEach(function (ingredient) {
+            updateItem.ingredients.push(ingredient._id);
+        });
+    }
+
+
     Items.findByIdAndUpdate(req.params.id, {
-            $set: {
-                name: req.body.name,
-                desc: req.body.desc,
-                price: req.body.price,
-                time: req.body.time,
-                images: req.body.images,
-                categories: req.body.categories,
-                ingredients: req.body.ingredients,
-            }
+            $set: updateItem
+            //{
+            //    name: req.body.name,
+            //    desc: req.body.desc,
+            //    price: req.body.price,
+            //    time: req.body.time,
+            //    images: req.body.images,
+            //    categories: req.body.categories,
+            //    ingredients: req.body.ingredients
+            //}
         },
         {upsert: true},
         function (err, obj) {
             if (err) {
                 console.log(err);
-                res.json(err);
+                return res.json(err);
             }
             res.json(obj);
         });
 });
 
 
-router.post('/item', function (req, res) {
+router.post('/item', isLoggedIn, function (req, res) {
 
     var item = new Items();
     if (req.body.name != undefined)
         item.name = req.body.name;
+
     if (req.body.desc != undefined)
         item.desc = req.body.desc;
+
     if (req.body.price != undefined)
         item.price = req.body.price;
+
     if (req.body.time != undefined)
         item.time = req.body.time;
+
     if (req.body.images != undefined)
-        item.iamges = req.body.images;
+        item.images = req.body.images;
+
     if (req.body.categories != undefined)
         item.categories = req.body.categories;
 
-    if (req.body.ingredients != undefined)
-        item.ingredients = req.body.ingredients;
+    if (req.body.stores != undefined)
+        item.stores = req.body.stores;
+
+    item.ingredients = [];
+    if (req.body.ingredients != undefined) {
+        req.body.ingredients.forEach(function (ingredient) {
+            item.ingredients.push(ingredient._id);
+        });
+    }
 
     item.save(function (err) {
         if (err) {
-            res.json(err);
+            return res.json(err);
         }
-        console.info("insert item", item);
         res.json(item);
     });
 });
@@ -274,16 +385,19 @@ router.delete('/table/:id', function (req, res) {
  * Store
  */
 
-router.get('/store', function (req, res) {
+router.get('/store', isLoggedIn, function (req, res) {
     var user = req.user;
-    Stores.find({user_id: user._id}, function (err, rows) {
-        if (err)
-            res.json(err);
-        res.json(rows);
-    });
+    Stores.find({users: user._id})
+        .populate('users')
+        .exec(function (err, rows) {
+            if (err)
+                return res.json(err);
+            res.json(rows);
+        });
 });
 
-router.get('/store/:id/:lang?', function (req, res) {
+
+router.get('/store/:id/:lang?', isLoggedIn, function (req, res) {
     var user = req.user;
     var lang = req.params.lang;
 
@@ -292,25 +406,33 @@ router.get('/store/:id/:lang?', function (req, res) {
     }
 
 
-    Stores.findOne({_id: req.params.id, user_id: user._id}, function (err, item) {
-        if (err)
-            res.json(err);
+    Stores.findOne({_id: req.params.id, users: user._id})
+        .populate('users')
+        .exec(function (err, store) {
+            //if (err) return handleError(err);
+            //console.log(person);
+            if (err)
+                return res.json(err);
 
-        res.json(item);
-    });
+            res.json(store);
+
+        });
 });
 
-//router.get('/store/:id/:lang', function (req, res) {
-//    var user = req.user;
-//    console.log("lang" + req.params.lang);
-//    Stores.findOne({_id: req.params.id, user_id: user._id}, function (err, item) {
-//        if (err)
-//            res.json(err);
-//
-//        res.json(item);
-//    });
-//});
-
+router.put('/store/:id', isLoggedIn, function (req, res) {
+    var user = req.user;
+    var updateData = {};
+    getStoreObjectFromReq(req, updateData);
+    Stores.findOneAndUpdate({'_id': req.params.id, users: user._id}, {
+            $set: updateData
+        },
+        function (err, obj) {
+            if (err) {
+                res.json(err);
+            }
+            res.json(obj);
+        });
+});
 
 function getStoreObjectFromReq(req, updateData) {
     if (req.body.store_name != undefined)
@@ -371,31 +493,11 @@ function getStoreObjectFromReq(req, updateData) {
     return updateData;
 }
 
-router.put('/store/:id', function (req, res) {
-    var user = req.user;
-
-    var updateData = {};
-    getStoreObjectFromReq(req, updateData);
-    Stores.findOneAndUpdate({'_id': req.params.id, user_id: user._id}, {
-            $set: updateData
-        },
-        function (err, obj) {
-            if (err) {
-                res.json(err);
-            }
-            res.json(obj);
-        });
-});
-
-
-router.post('/store', function (req, res) {
+router.post('/store', isLoggedIn, function (req, res) {
     var user = req.user;
     var store = new Stores();
-
-    store.user_id.push(user._id);
-
+    store.users.push(user);
     getStoreObjectFromReq(req, store);
-
     store.save(function (err) {
         if (err) {
             res.json(err);
@@ -404,9 +506,9 @@ router.post('/store', function (req, res) {
     });
 });
 
-router.delete('/store/:id', function (req, res) {
+router.delete('/store/:id', isLoggedIn, function (req, res) {
     var user = req.user;
-    Stores.findByIdAndRemove(req.params.id, {user_id: user._id}, function (err, response) {
+    Stores.findByIdAndRemove(req.params.id, {users: user._id}, function (err, response) {
         if (err) {
             res.json(err);
         }
@@ -536,5 +638,11 @@ router.put('/ingredients/:id', function (req, res) {
 
 });
 
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.status(401);
+    res.json({error: 'Authenticate error'});
+}
 
 module.exports = router;
