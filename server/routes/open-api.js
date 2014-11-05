@@ -53,6 +53,52 @@ router.get('/logout', function (req, res) {
 });
 
 
+/**
+ * search store
+ */
+router.post('/store/search', function (req, res) {
+
+    console.log(req.body);
+
+    if (req.body.features != undefined) {
+        req.body.features.forEach(function (feature) {
+            console.log(feature);
+        });
+    }
+
+
+    Stores.find({}, function (err, rows) {
+        if (err) {
+            res.status(500);
+            res.json(err);
+        } else {
+            res.json(rows);
+        }
+    });
+    //res.json([{
+    //    _id: '1',
+    //    name: 'Awesome Restaurant for server',
+    //    desc: 'Meat specialties',
+    //    open_days: 'everyday',
+    //    open_time: 'From 10am to 10pm',
+    //    public_rating: 3.7,
+    //    my_rating: 5,
+    //    address: 'Av. Pres. Wilson, 2131 - Santos/SP',
+    //    location: {
+    //        lat: '-23.9691553',
+    //        long: '-46.3750582'
+    //    },
+    //    features: {
+    //        'kids_space': true,
+    //        'parking': true,
+    //        'smoking': true,
+    //        'non_smoking': true
+    //    },
+    //    phone: '1'
+    //}]);
+});
+
+
 // route middleware to ensure user is logged in
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
