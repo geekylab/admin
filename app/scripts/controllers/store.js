@@ -17,6 +17,7 @@ angular.module('clientApp')
                     field: 'store_name',
                     cellTemplate: '<div class="ui-grid-cell-contents" grid-multi-lang-field="{{row.entity.store_name}}"></div>'
                 },
+
                 {
                     field: 'tel'
                 },
