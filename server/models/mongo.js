@@ -174,6 +174,9 @@ var Store = new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         index: true
     },
+    'desc': {
+        type: mongoose.Schema.Types.Mixed
+    },
     'logo': {
         type: String
     },

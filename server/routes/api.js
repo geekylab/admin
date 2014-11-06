@@ -438,6 +438,9 @@ function getStoreObjectFromReq(req, updateData) {
     if (req.body.store_name != undefined)
         updateData.store_name = req.body.store_name;
 
+    if (req.body.desc != undefined)
+        updateData.desc = req.body.desc;
+
     if (req.body.tel != undefined)
         updateData.tel = req.body.tel;
 
@@ -467,7 +470,6 @@ function getStoreObjectFromReq(req, updateData) {
 
     if (req.body.images != undefined)
         updateData.images = req.body.images;
-
 
     if (req.body.opening_hour != undefined) {
         updateData.opening_hour = {};
