@@ -54,8 +54,21 @@ router.get('/logout', function (req, res) {
 
 
 /**
- * search store
+ * store
  */
+
+router.get('/store/:id', function (req, res) {
+    console.log('store');
+    Stores.findOne({_id: req.params.id})
+        .exec(function (err, store) {
+            if (err)
+                return res.json(err);
+
+            res.json(store);
+
+        });
+});
+
 router.post('/store/search', function (req, res) {
 
     console.log(req.body);
