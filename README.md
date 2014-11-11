@@ -1,0 +1,1 @@
+#dividing the project to GeekyMenuCloudApp, GeekyOSEasyControl, GeekyOSServerApp
